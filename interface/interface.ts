@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 export interface Iuser {
   name: string;
@@ -6,8 +6,17 @@ export interface Iuser {
   password: string;
   verified: boolean;
   profile: Array<string>;
+  orders: Array<{}>;
 }
 
+export interface IShipmentHistory {
+  DATE: string;
+  TIME: string;
+  LOCATION: string;
+  STATUS: string;
+  UPDATEDBY: string;
+  REMARKS: string;
+}
 export interface IShipmentHistory {
   DATE: string;
   TIME: string;
@@ -48,7 +57,6 @@ export interface Iclient {
   ShipmentHistory: {}[];
 }
 
-
 export interface iProfile {
   avatar: string;
   avatarID: string;
@@ -56,6 +64,49 @@ export interface iProfile {
   phoneNumber: string;
   address: string;
   userID: string;
+  user: {};
+}
+
+export interface iOrder {
+  sender: {
+    type: {
+      country: string;
+      firstName: string;
+      lastName: string;
+      street: string;
+      unit_aptNo: string;
+      city: string;
+      state: string;
+      postalCode: number;
+      phoneNo: number;
+      email: string;
+    };
+  };
+  receiver: {
+    type: {
+      country: string;
+      firstName: string;
+      lastName: string;
+      street: string;
+      unit_aptNo: string;
+      city: string;
+      state: string;
+      postalCode: number;
+      phoneNo: number;
+      email: string;
+    };
+  };
+  shipmentDetails: {
+    type: {
+      typeOfItem: string;
+      Color: string;
+      brand: string;
+      useOfItem: string;
+      itemForm: string;
+      quantity: number;
+      itemValue: string;
+    };
+  };
   user: {};
 }
 
