@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model } from "mongoose";
+import mongoose, { Document, Schema, Types, model } from "mongoose";
 import { Iuser } from "../interface/interface";
 
 interface user extends Iuser, Document {}
@@ -24,12 +24,18 @@ const UserSchema = new Schema<AllUsers>(
       type: Boolean,
       default: false,
     },
-    profile : [
+    orders: [
+      {
+        type: Types.ObjectId,
+        ref: "orders",
+      },
+    ],
+    profile: [
       {
         type: mongoose.Types.ObjectId,
         ref: "profiles",
       },
-    ]
+    ],
   },
   { timestamps: true }
 );
