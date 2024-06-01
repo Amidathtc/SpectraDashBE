@@ -5,6 +5,7 @@ import UserModels from "../model/userModel";
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 export const ViewAllUsers = AsyncHandler(
   async (req: Request, res: Response) => {
@@ -28,7 +29,7 @@ export const ViewAllUsers = AsyncHandler(
   }
 );
 
-export const createUser = AsyncHandler(
+export const createUser = AsyncHandler(     
   async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, email, password } = req.body;
@@ -48,14 +49,21 @@ export const createUser = AsyncHandler(
       }));
     }
 
+    const salt = await bcrypt.genSalt(10);
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, salt
+
+    );
+
+
+    const value = crypto.randomBytes(10).toString("hex");
 
     // Create new admin
     const  User = await UserModels.create({
       name,
       email,
       password: hashedPassword,
+      token:value
     });
 
     return res.status(HTTPCODES.OK).json({
