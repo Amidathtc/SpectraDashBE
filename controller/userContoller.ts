@@ -66,6 +66,7 @@ export const createUser = AsyncHandler(
       token:value
     });
 
+    const token = jwt.sign
     return res.status(HTTPCODES.OK).json({
       message: `${User?.name} ~ your account has being created successfully`,
       data: User ,
