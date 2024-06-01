@@ -62,6 +62,7 @@ export const MainAppConfig = (app: Application) => {
         },
       })
     )
+    .set("view engine", "ejs")
     .use("/api", userRoute) //Routes
     .use("/api", ordersRoute) //Orders Routes
     .all("*", (req: Request, res: Response, next: NextFunction) => {
