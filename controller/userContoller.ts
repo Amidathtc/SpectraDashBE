@@ -51,14 +51,10 @@ export const createUser = AsyncHandler(
 
     const salt = await bcrypt.genSalt(10);
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, salt
-
-    );
-
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const value = crypto.randomBytes(10).toString("hex");
 
-    // Create new admin
     const  User = await UserModels.create({
       name,
       email,
