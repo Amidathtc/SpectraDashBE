@@ -3,9 +3,11 @@ import { AsyncHandler } from "../MiddleWare/AsyncHandler";
 import { HTTPCODES, MainAppError } from "../Utils/MainAppError";
 import UserModels from "../model/userModel";
 import { validationResult } from 'express-validator';
-import bcrypt from 'bcrypt';
+import bcrypt from "bcryptjs" 
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import { sendMail } from "../Utils/email";
+import userRoute from "../routes/userRoute";
 
 export const ViewAllUsers = AsyncHandler(
   async (req: Request, res: Response) => {
@@ -51,22 +53,23 @@ export const createUser = AsyncHandler(
 
     const salt = await bcrypt.genSalt(10);
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, salt
+    const hashedPassword = await bcrypt.hash(password, salt);
+const value = crypto.randomBytes(10).toString("hex");
+const token = jwt.sign(value, "justRand" )
 
-    );
-
-
-    const value = crypto.randomBytes(10).toString("hex");
 
     // Create new admin
     const  User = await UserModels.create({
       name,
       email,
       password: hashedPassword,
-      token:value
+      token
     });
 
-    const token = jwt.sign
+    const tokenID = jwt.sign({id: User.id}, "justRand")
+    sendMail(User,tokenID);
+
+
     return res.status(HTTPCODES.OK).json({
       message: `${User?.name} ~ your account has being created successfully`,
       data: User ,
@@ -212,3 +215,28 @@ export const updateUser = AsyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+
+
+export const verifyUsers = async (req: Request, res: Response) => {
+  try {
+    const { userID } = req.params;
+
+    await UserModels.findByIdAndUpdate(
+      userID,
+      {
+        verify: true,
+      },
+      { new: true }
+    );
+
+    return res.status(HTTPCODES.OK).json({
+      message: "user has been verified",
+      status: 201,
+    });
+  } catch (error) {
+    return res.status(HTTPCODES.NOT_FOUND).json({
+      message: "Error",
+      status: 404,
+    });
+  }
+};

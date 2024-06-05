@@ -19,9 +19,10 @@ const GOOGLE_URL: string = process.env.G_URL!;
 const oAuth = new google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_URL);
 oAuth.setCredentials({ access_token: GOOGLE_REFRESH_TOKEN });
 
-const URL: string = `http://localhost:1000/api/`;
 
-export const sendMail = async (user: any, token: any) => {
+const URL: string = `http://localhost:1200/api/`;
+
+export const sendMail = async (user: any, tokenID: any) => {
   try {
     const accessToken: any = (await oAuth.getAccessToken()).token;
     const transport = nodemailer.createTransport({
@@ -38,7 +39,7 @@ export const sendMail = async (user: any, token: any) => {
 
     const passedData = {
       email: user.email,
-      url: `${URL}/${token}/verify`,
+      url: `${URL}/${tokenID}/verify${user?._id}`,
     };
 
     const locateFile = path.join(__dirname, "../views/verifyMail.ejs");
@@ -87,7 +88,11 @@ export const resetMail = async (user: any, token: any) => {
       html: readData,
     };
 
-    transport.sendMail(mailer);
+    transport.sendMail(mailer!)
+    .then(()=> {
+      console.log("Mail sent successfully");
+      
+    });
   } catch (error: any) {
     console.log(error.message);
   }
