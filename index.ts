@@ -1,10 +1,9 @@
-import express, { Application} from "express";
+import express, { Application } from "express";
 import { MainAppConfig } from "./app";
 import { EnvironmentVariables } from "./config/envV";
 import { DBCONNECTION } from "./config/database";
-import env from "dotenv"
-env.config()
-
+import env from "dotenv";
+env.config();
 
 // Preventing the server from crashing
 process.on("uncaughtException", (error: Error) => {
@@ -23,12 +22,13 @@ MainAppConfig(app);
 
 // Server is connected and listening to port
 const server = app.listen(port || process.env.PORT, () => {
-  
+  console.clear();
+
   // Connecting DB to server:
-  DBCONNECTION()
+  DBCONNECTION();
 
   console.log(
-    "Server is up and running 🚀🚀 \n Listening to port on port ",
+    "Server is up and running 🚀🚀 \n Listening to Server on port:",
     port
   );
 });

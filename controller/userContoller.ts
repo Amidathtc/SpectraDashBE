@@ -67,7 +67,7 @@ const token = jwt.sign(value, "justRand" )
     });
 
     const tokenID = jwt.sign({id: User.id}, "justRand")
-    sendMail(User,tokenID);
+    sendMail(User,tokenID)
 
 
     return res.status(HTTPCODES.OK).json({
@@ -189,6 +189,27 @@ export const getUser = AsyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+export const deleteUser = AsyncHandler(async (req: Request, res: Response) => {
+  try {
+    const { userID } = req.params;
+    const user = await UserModels.findByIdAndDelete(userID);
+
+    return res.status(HTTPCODES.OK).json({
+      message: `${user?.name} account has being deleted`,
+    });
+  } catch (error: any) {
+    if (error.path === "_id") {
+      return res.status(HTTPCODES.NOT_FOUND).json({
+        message: "An Error Occured in getAdmin(id)",
+      });
+    }
+    return res.status(HTTPCODES.INTERNAL_SERVER_ERROR).json({
+      message: "An Error Occured in getAdmin",
+      error: error?.message,
+    });
+  }
+});
+
 export const updateUser = AsyncHandler(async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
@@ -224,7 +245,7 @@ export const verifyUsers = async (req: Request, res: Response) => {
     await UserModels.findByIdAndUpdate(
       userID,
       {
-        verify: true,
+        verified: true,
       },
       { new: true }
     );
