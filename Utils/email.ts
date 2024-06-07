@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import { google } from "googleapis";
 import path from "path";
 import ejs from "ejs";
+import { EnvironmentVariables } from "../config/envV"
 
 
 
@@ -11,10 +12,10 @@ import ejs from "ejs";
 // G_REFRESH
 // G_URL
 
-const GOOGLE_ID: string = process.env.G_ID!;
-const GOOGLE_SECRET: string = process.env.G_SECRET!;
-const GOOGLE_REFRESH_TOKEN: string = process.env.G_REFRESH!;
-const GOOGLE_URL: string = process.env.G_URL!;
+const GOOGLE_ID: string = EnvironmentVariables.G_ID!;
+const GOOGLE_SECRET: string = EnvironmentVariables.G_SECRET!;
+const GOOGLE_REFRESH_TOKEN: string = EnvironmentVariables.G_REFRESH!;
+const GOOGLE_URL: string = EnvironmentVariables.G_URL!;
 
 const oAuth = new google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_URL);
 oAuth.setCredentials({ access_token: GOOGLE_REFRESH_TOKEN });
@@ -29,7 +30,7 @@ export const sendMail = async (user: any, tokenID: any) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "udidagodswill7@gmail.com",
+        user: "uchennaaustine8@gmail.com",
         clientId: GOOGLE_ID,
         clientSecret: GOOGLE_SECRET,
         refreshToken: GOOGLE_REFRESH_TOKEN,
@@ -38,21 +39,25 @@ export const sendMail = async (user: any, tokenID: any) => {
     });
 
     const passedData = {
-      email: user.email,
-      url: `${URL}/${tokenID}/verify${user?._id}`,
+      email: user?.email,
+      url: `${URL}/${tokenID}/verify/${user?._id}`,
     };
 
     const locateFile = path.join(__dirname, "../views/verifyMail.ejs");
     const readData = await ejs.renderFile(locateFile, passedData);
 
-    const mailer = {
-      from: `verify email ${user.email}`,
-      to: user.email,
-      subject: "verify-mail",
+    const mailer:any= {
+      // from: `verify email ${user.email}`,
+      from: `sceptredash@gmail.com`,
+      to: user?.email,
+      subject: "Email Verification",
       html: readData,
     };  
 
-    transport.sendMail(mailer);
+    await transport.sendMail(mailer).then(() => {
+      console.log("A Mail Has Being Sent .....");
+    })
+    .catch((err) => console.log(err));;
   } catch (error: any) {
     console.log(error.message);
   }
