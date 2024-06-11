@@ -7,18 +7,12 @@ import { errorHandler } from "./MiddleWare/Error/ErrorHandler";
 import { HTTPCODES, MainAppError } from "./Utils/MainAppError";
 import userRoute from "./routes/userRoute";
 import ordersRoute from "./routes/ordersRouter";
+import profileRoute from "./routes/profileRouter";
 import { EnvironmentVariables } from "./config/envV";
 import rateLimit from "express-rate-limit";
 import MongoDB from "connect-mongodb-session";
 
 export const MainAppConfig = (app: Application) => {
-  // Set up session management
-  const MongoDBStore = MongoDB(session);
-  const sessionStore: any = new MongoDBStore({
-    uri: EnvironmentVariables.DB_LOCALURL!,
-    collection: "sessions",
-  });
-
   const limiter = rateLimit({
     windowMs: 5 * 60 * 1000,
     limit: 5,
@@ -26,20 +20,22 @@ export const MainAppConfig = (app: Application) => {
     legacyHeaders: false,
     message: "Please come back in 5mins time!!!",
   });
+  // Set up session management
+  const MongoDBStore = MongoDB(session);
+  const sessionStore: any = new MongoDBStore({
+    uri: EnvironmentVariables.DB_LOCALURL!,
+    collection: "sessions",
+  });
+
   app
-    .use(cors({ origin: "*", methods: ["GET, PATCH, PUT, POST, DELETE"] }))
-    .use(morgan("dev"))
-    .use(limiter)
     .use(express.json())
-    // landing route
-    .get("/", (req: Request, res: Response) => {
-      res.status(HTTPCODES.OK).json({
-        message: "AD Ready 🚀🚀",
-      });
-    })
+    .use(limiter)
+    .use(cors({ origin: "*", methods: ["GET, PATCH, POST, DELETE"] }))
+    .use(morgan("dev"))
     .use(cookieParser())
+
     .use((req: Request, res: Response, next: NextFunction) => {
-      res.header("Access-Control-Allow-Origin", "http://localhost:5174");
+      res.header("Access-Control-Allow-Origin", "http://localhost:5173");
       res.header("Access-Control-Allow-Credentials", "true");
       res.header(
         "Access-Control-Allow-Methods",
@@ -54,7 +50,6 @@ export const MainAppConfig = (app: Application) => {
         resave: false,
         saveUninitialized: true,
         store: sessionStore,
-        //cookie: { secure: true, httpOnly: true },
         cookie: {
           // maxAge: 1000 * 60 * 24 * 60,
           sameSite: "lax",
@@ -62,9 +57,20 @@ export const MainAppConfig = (app: Application) => {
         },
       })
     )
-    .set("view engine", "ejs")
+
+    // landing route
+    .get("/", (req: Request, res: Response) => {
+      res.status(HTTPCODES.OK).json({
+        message: "AD Ready 🚀🚀",
+      });
+    })
     .use("/api", userRoute) //Routes
+    .use("/api", profileRoute) //Routes
     .use("/api", ordersRoute) //Orders Routes
+    .set("view engine", "ejs")
+    .get("/ejs", (req: Request, res: Response) => {
+      res.render("verifyMail");
+    })
     .all("*", (req: Request, res: Response, next: NextFunction) => {
       //   Configuring Routes for the application:
       return next(
