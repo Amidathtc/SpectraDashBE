@@ -24,7 +24,7 @@ MainAppConfig(app);
 const server = app.listen(port || process.env.PORT, () => {
   console.clear();
 
-  // Connecting DB to server:
+  // Connecting DB to server
   DBCONNECTION();
 
   console.log(

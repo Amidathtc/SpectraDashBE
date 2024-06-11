@@ -8,7 +8,7 @@ import { HTTPCODES, MainAppError } from "../Utils/MainAppError";
 import { AsyncHandler } from "../MiddleWare/AsyncHandler";
 
 export const createProfile = AsyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: any, res: Response, next: NextFunction) => {
     try {
       const { userID } = req.params;
 
@@ -27,8 +27,8 @@ export const createProfile = AsyncHandler(
           avatar: secure_url,
           avatarID: public_id,
         });
-        user?.profile.push(new mongoose.Types.ObjectId(user._id!));
-        user.save();
+        user?.profile.push(new mongoose.Types.ObjectId(user?._id!));
+        user?.save();
         return res.status(HTTPCODES.OK).json({
           message: "profile created",
           data: profiled,
@@ -42,12 +42,16 @@ export const createProfile = AsyncHandler(
         );
       }
     } catch (error: any) {
-      return next(
-        new MainAppError({
-          message: "An error occurred in while creating Profile ",
-          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
-        })
-      );
+      return res.status(HTTPCODES.BAD_REQUEST).json({
+        message: `${error.message}`,
+        errorStack: error,
+      });
+      // return next(
+      //   new MainAppError({
+      //     message: "An error occurred in while creating Profile ",
+      //     httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+      //   })
+      // );
     }
   }
 );
@@ -86,7 +90,7 @@ export const ViewAll = AsyncHandler(
     try {
       const profiled = await ProfileModel.find();
       return res.status(HTTPCODES.OK).json({
-        message: "User found",
+        message: "All users profile",
         data: profiled,
       });
     } catch (error: any) {
