@@ -31,7 +31,7 @@ export const createProfile = AsyncHandler(
           avatarID: public_id,
         });
         user?.profile.push(new mongoose.Types.ObjectId(user._id!));
-        user.save();
+        user?.save();
         return res.status(HTTPCODES.OK).json({
           message: "profile created",
           data: profiled,
