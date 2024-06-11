@@ -54,8 +54,8 @@ export const createUser = AsyncHandler(
     const salt = await bcrypt.genSalt(10);
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, salt);
-const value = crypto.randomBytes(10).toString("hex");
-const token = jwt.sign(value, "justRand" )
+// const value = crypto.randomBytes(10).toString("hex");
+// const token = jwt.sign(value, "justRand" )
 
 
     // Create new admin
@@ -63,11 +63,11 @@ const token = jwt.sign(value, "justRand" )
       name,
       email,
       password: hashedPassword,
-      token
+      // token
     });
 
-    const tokenID = jwt.sign({id: User.id}, "justRand")
-    sendMail(User,tokenID)
+    // const tokenID = jwt.sign({id: User.id}, "justRand")
+    sendMail(User)
 
 
     return res.status(HTTPCODES.OK).json({

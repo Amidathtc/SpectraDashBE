@@ -28,7 +28,7 @@ const server = app.listen(port || process.env.PORT, () => {
   DBCONNECTION();
 
   console.log(
-    "Server is up and running 🚀🚀 \n Listening to Server on port:",
+    "Server is up and running 🚀🚀 \nListening to Server on port:",
     port
   );
 });

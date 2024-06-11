@@ -15,6 +15,6 @@ ProfileRouter.route("/view-all").get(ViewAll);
 ProfileRouter.route("/:userID/view-user-profile").get(viewUserProfile);
 ProfileRouter.route("/:profileID/delete-one-profile").delete(deleteOne);
 ProfileRouter.route("/:profileID/updateprofile").patch(updateProfile);
-ProfileRouter.route("/:profileID/userID/getuserprofile").get(getUserProfile);
+ProfileRouter.route("/:profileID/:userID/getuserprofile").get(getUserProfile);
 
 export default ProfileRouter;

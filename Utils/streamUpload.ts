@@ -1,38 +1,37 @@
 import cloudinary from "../config/cloudinary";
-import streamifier from "streamifier";
+// import {Multer} from "multer"
 
-export const streamUpload = async (req: any) => {
+export const streamUpload = async(req: any) => {
   // Check if a file is uploaded
-  console.log(req);
   if (!req.file) {
     throw new Error("No file uploaded");
   }
 
-  // ... other validations (if needed)
-
   try {
-    const stream = await cloudinary.uploader.upload_stream((error, result) => {
+    console.log(cloudinary)
+    const stream = cloudinary.uploader.upload_stream((error:any, result) => {
       if (error) {
-        throw error; // Re-throw the error
+        throw error.message; // Re-throw the error
       }
       return result;
     });
+console.log("stream",stream)
+// Pipe the uploaded file buffer directly to the stream
+req.file.buffer.pipe(stream);
+console.log("bufferStream",req.file.buffer.pipe(stream))
 
-    // Use streamifier to convert buffer to readable stream
-    streamifier.createReadStream(req.file.buffer).pipe(stream);
-
-    // Await the promise returned by cloudinary.uploader.upload_stream
+    // Await the promise returned by stream.on("end")
     const uploadedFile = await new Promise((resolve, reject) => {
-      stream.on("finish", (result: any) => resolve(result));
-      stream.on("error", reject);
+      stream.on("end", resolve).on("error", reject);
     });
-    console.log("uf", uploadedFile);
+    console.log("uploadedFile", uploadedFile);
     return uploadedFile; // Return the uploaded file information
   } catch (error) {
     console.error("Error uploading file:", error);
     // Handle upload error (optional: throw or return an error object)
   }
-};
+}
+
 
 // import cloudinary from "../config/cloudinary";
 // import streamifier from "streamifier";
@@ -51,4 +50,4 @@ export const streamUpload = async (req: any) => {
 //     console.log("su", req.buffer);
 //     streamifier.createReadStream(req.file.buffer).pipe(stream);
 //   });
-// };
+// };\
