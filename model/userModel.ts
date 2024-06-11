@@ -32,7 +32,7 @@ const UserSchema = new Schema<AllUsers>(
     ],
     profile: [
       {
-        type: mongoose.Types.ObjectId,
+        type: Types.ObjectId,
         ref: "profiles",
       },
     ],

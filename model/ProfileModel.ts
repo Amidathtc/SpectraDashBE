@@ -1,17 +1,8 @@
-import mongoose from "mongoose";
+import { Types, model, Schema } from "mongoose";
 import { iProfileData } from "../interface/interface";
 
-const profileModel = new mongoose.Schema<iProfileData>(
+const profileModel = new Schema<iProfileData>(
   {
-    avatar: {
-      type: String,
-    },
-    avatarID: {
-      type: String,
-    },
-    userID: {
-      type: String,
-    },
     name: {
       type: String,
     },
@@ -21,14 +12,21 @@ const profileModel = new mongoose.Schema<iProfileData>(
     address: {
       type: String,
     },
+    avatar: {
+      type: String,
+    },
+    avatarID: {
+      type: String,
+    },
+    userID: {
+      type: String,
+    },
     user: {
-      type: mongoose.Types.ObjectId,
+      type: Types.ObjectId,
       ref: "users",
     },
-    
-  
   },
   { timestamps: true }
 );
 
-export default mongoose.model<iProfileData>("profiles", profileModel);
+export default model<iProfileData>("profiles", profileModel);
