@@ -6,6 +6,7 @@ export const streamUpload = async(req: any) => {
   if (!req.file) {
     throw new Error("No file uploaded");
   }
+  
 
   try {
     console.log(cloudinary)
