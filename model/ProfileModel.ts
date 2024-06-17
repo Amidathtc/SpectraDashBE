@@ -12,10 +12,10 @@ const profileModel = new Schema<iProfileData>(
     address: {
       type: String,
     },
-    avatar: {
+    profileAvatar: {
       type: String,
     },
-    avatarID: {
+    profileAvatarID: {
       type: String,
     },
     userID: {

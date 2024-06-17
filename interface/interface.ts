@@ -58,8 +58,8 @@ export interface Iclient {
 }
 
 export interface iProfile {
-  avatar: string;
-  avatarID: string;
+  profileAvatar: string;
+  profileAvatarID: string;
   name: string;
   phoneNumber: string;
   address: string;
