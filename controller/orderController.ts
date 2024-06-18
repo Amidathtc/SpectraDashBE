@@ -11,7 +11,7 @@ export const makeOrder = AsyncHandler(
     try {
       const { userID } = req.params;
 
-      const { sender, receiver, shipmentDetails } = req.body;
+      const { sender, receiver, shipmentDetails,shipmentMetrics } = req.body;
 
       const user: any = await UserModel.findById(userID);
 
@@ -20,9 +20,10 @@ export const makeOrder = AsyncHandler(
           sender,
           receiver,
           shipmentDetails,
+          shipmentMetrics,
           user: user,
         });
-        user?.orders.push(new Types.ObjectId(order._id!));
+        user?.orders.push(new Types.ObjectId(order?._id!));
         user?.save();
         return res.status(HTTPCODES.OK).json({
           message: "Shipment Ordered",
