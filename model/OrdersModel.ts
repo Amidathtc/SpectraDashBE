@@ -41,6 +41,7 @@ const ordersSchema = new Schema<iOrderData>(
       quantity: { type: Number, required: true },
       itemValue: { type: String, required: true },
     },
+    
     shipmentMetrics: {
       weight_kg: { type: String, required: true },
       length_cm: { type: Number, required: true },

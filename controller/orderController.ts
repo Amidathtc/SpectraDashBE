@@ -15,7 +15,7 @@ export const makeOrder = AsyncHandler(
 
       const user: any = await UserModel.findById(userID);
 
-      if (user) {
+      if (user) {         
         const order = await orderModels.create({
           sender,
           receiver,

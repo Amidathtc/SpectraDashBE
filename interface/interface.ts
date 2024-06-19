@@ -9,6 +9,16 @@ export interface Iuser {
   orders: Array<{}>;
 }
 
+export interface Iagent {
+  AgentCompanyname: string;
+  AgentEmail: string;
+  password: string;
+  verified: boolean;
+  profile: Array<string>;
+ fullName:string ;
+ role:string;
+}
+
 export interface IShipmentHistory {
   DATE: string;
   TIME: string;
@@ -101,7 +111,6 @@ export interface iOrder {
       typeOfItem: string;
       Color: string;
       brand: string;
-      useOfItem: string;
       itemForm: string;
       quantity: number;
       itemValue: string;
