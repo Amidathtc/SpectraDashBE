@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { streamUpload } from "../Utils/streamUpload";
+// import { streamUpload } from "../Utils/streamUpload";
 import UserModel from "../model/userModel";
 import ProfileModel from "../model/ProfileModel";
 
 import { HTTPCODES, MainAppError } from "../Utils/MainAppError";
 import { AsyncHandler } from "../MiddleWare/AsyncHandler";
+import cloudinary from "../config/cloudinary";
+import { Types } from "mongoose";
 
 export const createProfile = AsyncHandler(
   async (req: any, res: Response, next: NextFunction) => {
@@ -20,6 +22,11 @@ export const createProfile = AsyncHandler(
       //   });
       // }
 
+      // Upload the profile image using streamUpload
+      const { secure_url, public_id } = await cloudinary.uploader.upload(
+        req.file.path
+      );
+
       // Find the user by ID
       const user = await UserModel.findById(userID);
 
@@ -30,10 +37,6 @@ export const createProfile = AsyncHandler(
           httpcode: HTTPCODES.BAD_REQUEST,
         });
       }
-
-      // Upload the profile image using streamUpload
-      const { secure_url, public_id }: any = await streamUpload(req);
-      console.log("controller", secure_url);
 
       // Create the profile
       const profiled = await ProfileModel.create({
@@ -54,20 +57,15 @@ export const createProfile = AsyncHandler(
         data: profiled,
       });
     } catch (error: any) {
-      return res.status(HTTPCODES.BAD_REQUEST).json({
-        errorMessage: `${error.message}`,
-        erroStack: error,
-        erroStacks: error.stack,
-      });
       // Handle errors more gracefully
-      // console.error("Error creating profile:", error);
-      // next(
-      //   new MainAppError({
-      //     message: "An error occurred while creating the profile",
-      //     httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
-      //     // errorDetails: error.message, // Consider including relevant error details for debugging
-      //   })
-      // );
+      console.error("Error creating profile:", error);
+      next(
+        new MainAppError({
+          message: "An error occurred while creating the profile",
+          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+          // errorDetails: error.message, // Consider including relevant error details for debugging
+        })
+      );
     }
   }
 );
@@ -129,7 +127,15 @@ export const viewUserProfile = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userID } = req.params;
-      const user = await UserModel.findById(userID);
+
+      // Define the populate path and optional options
+      const populateOptions = {
+        path: "profile", // Path to the related model (assuming 'profile')
+        select: "-password", // Exclude password field from the populated data (optional)
+      };
+
+      const user = await UserModel.findById(userID).populate(populateOptions);
+
       if (user) {
         return res.status(HTTPCODES.OK).json({
           message: "User found",
@@ -146,7 +152,7 @@ export const viewUserProfile = AsyncHandler(
     } catch (error: any) {
       return next(
         new MainAppError({
-          message: "An error occurred  while looking for user Profile ",
+          message: "An error occurred while looking for user Profile ",
           httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
         })
       );
@@ -176,12 +182,22 @@ export const ViewAll = AsyncHandler(
 export const deleteOne = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { profileID } = req.params;
-      const profiled = await ProfileModel.findByIdAndDelete(profileID);
-      return res.status(HTTPCODES.OK).json({
-        message: "Profile deleted",
-        data: profiled,
-      });
+      const { userID, profileID } = req.params;
+      const user: any = await UserModel.findById(userID);
+      if (user) {
+        const profiled = await ProfileModel.findByIdAndDelete(profileID);
+
+        await user?.profile.pull(new Types.ObjectId(profiled?._id));
+        await user?.save();
+
+        return res.status(HTTPCODES.OK).json({
+          message: "Profile deleted",
+        });
+      } else {
+        return res.status(HTTPCODES.OK).json({
+          message: "Profile deleted",
+        });
+      }
     } catch (error: any) {
       return next(
         new MainAppError({
