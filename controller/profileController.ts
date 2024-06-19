@@ -20,9 +20,6 @@ export const createProfile = AsyncHandler(
       //   });
       // }
 
-      // Upload the profile image using streamUpload
-      const { secure_url, public_id }: any = await streamUpload(req);
-
       // Find the user by ID
       const user = await UserModel.findById(userID);
 
@@ -33,6 +30,10 @@ export const createProfile = AsyncHandler(
           httpcode: HTTPCODES.BAD_REQUEST,
         });
       }
+
+      // Upload the profile image using streamUpload
+      const { secure_url, public_id }: any = await streamUpload(req);
+      console.log("controller", secure_url);
 
       // Create the profile
       const profiled = await ProfileModel.create({
@@ -53,15 +54,20 @@ export const createProfile = AsyncHandler(
         data: profiled,
       });
     } catch (error: any) {
+      return res.status(HTTPCODES.BAD_REQUEST).json({
+        errorMessage: `${error.message}`,
+        erroStack: error,
+        erroStacks: error.stack,
+      });
       // Handle errors more gracefully
-      console.error("Error creating profile:", error);
-      next(
-        new MainAppError({
-          message: "An error occurred while creating the profile",
-          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
-          // errorDetails: error.message, // Consider including relevant error details for debugging
-        })
-      );
+      // console.error("Error creating profile:", error);
+      // next(
+      //   new MainAppError({
+      //     message: "An error occurred while creating the profile",
+      //     httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+      //     // errorDetails: error.message, // Consider including relevant error details for debugging
+      //   })
+      // );
     }
   }
 );
@@ -69,8 +75,7 @@ export const createProfile = AsyncHandler(
 // export const createProfile = AsyncHandler(
 //   async (req: Request, res: Response, next: NextFunction) => {
 
-
-//     //order is going out soon 
+//     //order is going out soon
 //     try {
 //       const { userID } = req.params;
 
