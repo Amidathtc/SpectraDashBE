@@ -183,15 +183,15 @@ export const deleteOne = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userID, profileID } = req.params;
-      const user:any = await UserModel.findById(userID);
+      const user: any = await UserModel.findById(userID);
       if (user) {
         const profiled = await ProfileModel.findByIdAndDelete(profileID);
 
-        await user?.profile.pull(new Types.ObjectId(profiled?._id))
-        await user?.save()
+        await user?.profile.pull(new Types.ObjectId(profiled?._id));
+        await user?.save();
 
         return res.status(HTTPCODES.OK).json({
-          message: "Profile deleted"
+          message: "Profile deleted",
         });
       } else {
         return res.status(HTTPCODES.OK).json({
