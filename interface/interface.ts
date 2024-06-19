@@ -58,8 +58,8 @@ export interface Iclient {
 }
 
 export interface iProfile {
-  avatar: string;
-  avatarID: string;
+  profileAvatar: string;
+  profileAvatarID: string;
   name: string;
   phoneNumber: string;
   address: string;
@@ -107,7 +107,16 @@ export interface iOrder {
       itemValue: string;
     };
   };
+  shipmentMetrics: {
+    type: {
+      weight_kg: number;
+      length_cm: number;
+      width_cm: number;
+      height_cm: number;
+    };
+  };
   user: {};
+  status: string;
 }
 
 export interface iProfileData extends iProfile, mongoose.Document {}
