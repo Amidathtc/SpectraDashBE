@@ -18,10 +18,6 @@ const googleapis_1 = require("googleapis");
 const path_1 = __importDefault(require("path"));
 const ejs_1 = __importDefault(require("ejs"));
 const envV_1 = require("../config/envV");
-// GOOGLE_ID;
-// G_SECRET
-// G_REFRESH
-// G_URL
 const GOOGLE_ID = envV_1.EnvironmentVariables.G_ID;
 const GOOGLE_SECRET = envV_1.EnvironmentVariables.G_SECRET;
 const GOOGLE_REFRESH_TOKEN = envV_1.EnvironmentVariables.G_REFRESH;
@@ -57,11 +53,12 @@ const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
             subject: "Email Verification",
             html: readData,
         };
-        yield transport.sendMail(mailer).then(() => {
+        yield transport
+            .sendMail(mailer)
+            .then(() => {
             console.log("A Mail Has Being Sent .....");
         })
             .catch((err) => console.log(err));
-        ;
     }
     catch (error) {
         console.log(error.message);
@@ -94,8 +91,7 @@ const resetMail = (user, token) => __awaiter(void 0, void 0, void 0, function* (
             subject: "Reset Password Mail",
             html: readData,
         };
-        yield transport.sendMail(mailer)
-            .then(() => {
+        yield transport.sendMail(mailer).then(() => {
             console.log("Mail sent successfully");
         });
     }
