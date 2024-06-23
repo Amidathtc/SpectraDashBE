@@ -28,7 +28,7 @@ const MainAppConfig = (app) => {
     // Set up session management
     const MongoDBStore = (0, connect_mongodb_session_1.default)(express_session_1.default);
     const sessionStore = new MongoDBStore({
-        uri: envV_1.EnvironmentVariables.DB_LOCALURL,
+        uri: envV_1.EnvironmentVariables.DB_LIVEURl,
         collection: "sessions",
     });
     app

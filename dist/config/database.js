@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DBCONNECTION = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const envV_1 = require("./envV");
-const DB_Connection_String = envV_1.EnvironmentVariables.DB_LOCALURL;
+const MONGODB_URL = envV_1.EnvironmentVariables.DB_LIVEURl;
 const DBCONNECTION = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongoose_1.default.connect(DB_Connection_String);
+        yield mongoose_1.default.connect(MONGODB_URL);
         console.log("");
         if (mongoose_1.default.connection.host === "0.0.0.0") {
             console.log("You're Connected to Local Host Server"); // if connected to local database

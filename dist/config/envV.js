@@ -7,8 +7,8 @@ exports.EnvironmentVariables = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.EnvironmentVariables = {
-    DB_LIVEURI: process.env.Db_Connection_String,
-    DB_LOCALURL: process.env.MONGODB_URI,
+    DB_LIVEURl: process.env.MONGODB_URL,
+    DB_LOCALURL: process.env.MONGODB_URl,
     Session_Secret: process.env.SESSION_SECRET,
     PORT: parseInt(process.env.PORT),
     AdminName: process.env.AdminName,
