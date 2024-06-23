@@ -2,8 +2,8 @@ import { NextFunction, Response, Request } from "express";
 import { AsyncHandler } from "../MiddleWare/AsyncHandler";
 import { HTTPCODES, MainAppError } from "../Utils/MainAppError";
 import UserModels from "../model/userModel";
-import { validationResult } from 'express-validator';
-import bcrypt from "bcryptjs" 
+import { validationResult } from "express-validator";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { sendMail } from "../Utils/email";
@@ -31,56 +31,65 @@ export const ViewAllUsers = AsyncHandler(
   }
 );
 
-export const createUser = AsyncHandler(     
+export const createUser = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { name, email, password } = req.body;
+    try {
+      const { name, email, password } = req.body;
 
-    // Validate input
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(HTTPCODES.BAD_REQUEST).json({ errors: errors.array() });
+      // Validate input
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res
+          .status(HTTPCODES.BAD_REQUEST)
+          .json({ errors: errors.array() });
+      }
+
+      // Check if admin already exists
+      const existingUser = await UserModels.findOne({ email });
+      if (existingUser) {
+        return next(
+          new MainAppError({
+            message: "User already exists",
+            httpcode: HTTPCODES.BAD_REQUEST,
+          })
+        );
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, salt);
+      // const value = crypto.randomBytes(10).toString("hex");
+      // const token = jwt.sign(value, "justRand" )
+
+      // Create new user
+      const User = await UserModels.create({
+        name,
+        email,
+        password: hashedPassword,
+        // token
+      });
+
+      // const tokenID = jwt.sign({id: User.id}, "justRand")
+      await sendMail(User);
+
+      return res.status(HTTPCODES.OK).json({
+        message: `${User?.name} ~ your account has being created successfully`,
+        data: User,
+      });
+    } catch (error: any) {
+      return res.status(HTTPCODES.OK).json({
+        errorMessage: `${error.message}`,
+        errorStack: error,
+      });
+      return next(
+        new MainAppError({
+          message: "An error occurred in while creating user",
+          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+        })
+      );
     }
-
-    // Check if admin already exists
-    const existingUser = await UserModels.findOne({ email });
-    if (existingUser) {
-      return next(new MainAppError({
-        message: 'User already exists',
-        httpcode: HTTPCODES.BAD_REQUEST,
-      }));
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, salt);
-// const value = crypto.randomBytes(10).toString("hex");
-// const token = jwt.sign(value, "justRand" )
-
-
-    // Create new admin
-    const  User = await UserModels.create({
-      name,
-      email,
-      password: hashedPassword,
-      // token
-    });
-
-    // const tokenID = jwt.sign({id: User.id}, "justRand")
-    sendMail(User)
-
-
-    return res.status(HTTPCODES.OK).json({
-      message: `${User?.name} ~ your account has being created successfully`,
-      data: User ,
-    });
-  } catch (error:any) {
-    return next(new MainAppError({
-      message: 'An error occurred in while creating user',
-      httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
-    }));
   }
-});
+);
 
 export const loginUser = AsyncHandler(
   async (req: any, res: Response, next: NextFunction) => {
@@ -89,7 +98,7 @@ export const loginUser = AsyncHandler(
       if (!errors.isEmpty()) {
         return next(
           new MainAppError({
-            message: 'Invalid input data',
+            message: "Invalid input data",
             httpcode: HTTPCODES.BAD_REQUEST,
           })
         );
@@ -98,12 +107,12 @@ export const loginUser = AsyncHandler(
       const { email, password } = req.body;
       const getUser = await UserModels.findOne({
         email,
-      }).select('+password');
+      }).select("+password");
 
       if (!getUser) {
         return next(
           new MainAppError({
-            message: 'User not found for the provided email address.',
+            message: "User not found for the provided email address.",
             httpcode: HTTPCODES.BAD_REQUEST,
           })
         );
@@ -116,7 +125,7 @@ export const loginUser = AsyncHandler(
             { id: getUser._id },
             process.env.JWT_SECRET!,
             {
-              expiresIn: '1d',
+              expiresIn: "1d",
             }
           );
 
@@ -124,13 +133,13 @@ export const loginUser = AsyncHandler(
           req.session.userID = getUser._id;
 
           return res.status(HTTPCODES.OK).json({
-            message: 'welcome back',
+            message: "welcome back",
             data: encrypt,
           });
         } else {
           return next(
             new MainAppError({
-              message: 'Account has not been verified yet.',
+              message: "Account has not been verified yet.",
               httpcode: HTTPCODES.BAD_REQUEST,
             })
           );
@@ -141,32 +150,34 @@ export const loginUser = AsyncHandler(
       req.session.user = getUser._id;
 
       return res.status(HTTPCODES.OK).json({
-        message: 'Login Successful',
+        message: "Login Successful",
         data: getUser._id,
       });
     } catch (error) {
       return res.status(HTTPCODES.BAD_REQUEST).json({
-        message: 'An Error Occured in loginUser',
+        message: "An Error Occured in loginUser",
         error: error,
       });
     }
-  },
+  }
 );
 
-export const logoutUser = AsyncHandler((req: any, res: Response, next: NextFunction) => {
-  try {
-    req.session.destroy();
+export const logoutUser = AsyncHandler(
+  (req: any, res: Response, next: NextFunction) => {
+    try {
+      req.session.destroy();
 
-    res.status(HTTPCODES.OK).json({
-      message: 'Logout Successful',
-    });
-  } catch (error:any) {
-    return res.status(HTTPCODES.BAD_REQUEST).json({
-      message: 'An Error Occured in logoutUser',
-      error: error,
-    });
+      res.status(HTTPCODES.OK).json({
+        message: "Logout Successful",
+      });
+    } catch (error: any) {
+      return res.status(HTTPCODES.BAD_REQUEST).json({
+        message: "An Error Occured in logoutUser",
+        error: error,
+      });
+    }
   }
-});
+);
 
 export const getUser = AsyncHandler(async (req: Request, res: Response) => {
   try {
@@ -235,8 +246,6 @@ export const updateUser = AsyncHandler(async (req: Request, res: Response) => {
     });
   }
 });
-
-
 
 export const verifyUsers = async (req: Request, res: Response) => {
   try {

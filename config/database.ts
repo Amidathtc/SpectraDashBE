@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { EnvironmentVariables } from "./envV";
 
 const DB_Connection_String: string | undefined =
-  EnvironmentVariables.DB_LOCALURL!;
+  EnvironmentVariables.DB_LIVEURL!;
 
 export const DBCONNECTION = async () => {
   try {
@@ -13,8 +13,10 @@ export const DBCONNECTION = async () => {
     } else {
       console.log("You're Connected To Live Server"); // if connected to cloud database
     }
-  } catch (error:any) {
+  } catch (error: any) {
     console.log(error);
-    console.log(`Database connection error. Couldn't connect because , ${error.message}`);
+    console.log(
+      `Database connection error. Couldn't connect because , ${error.message}`
+    );
   }
 };
