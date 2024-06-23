@@ -236,8 +236,6 @@ export const updateUser = AsyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-
-
 export const verifyUsers = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
@@ -261,3 +259,4 @@ export const verifyUsers = async (req: Request, res: Response) => {
     });
   }
 };
+
