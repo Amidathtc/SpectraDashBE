@@ -9,10 +9,8 @@ export const EnvironmentVariables = {
   AdminName: process.env.AdminName as string,
   AdminEmail: process.env.AdminEmail as string,
   AdminPassword: process.env.AdminPassword as string,
-   G_ID:  process.env.G_ID as string,
-   G_SECRET:  process.env.G_SECRET as string,
-   G_REFRESH: process.env.G_REFRESH as string,
-   G_URL:  process.env.G_URL as string
+  G_ID: process.env.G_ID as string,
+  G_SECRET: process.env.G_SECRET as string,
+  G_REFRESH: process.env.G_REFRESH as string,
+  G_URL: process.env.G_URL as string,
 };
-
-

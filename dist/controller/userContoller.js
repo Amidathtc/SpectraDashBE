@@ -45,13 +45,15 @@ exports.createUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awai
         // Validate input
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
-            return res.status(MainAppError_1.HTTPCODES.BAD_REQUEST).json({ errors: errors.array() });
+            return res
+                .status(MainAppError_1.HTTPCODES.BAD_REQUEST)
+                .json({ errors: errors.array() });
         }
         // Check if admin already exists
         const existingUser = yield userModel_1.default.findOne({ email });
         if (existingUser) {
             return next(new MainAppError_1.MainAppError({
-                message: 'User already exists',
+                message: "User already exists",
                 httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
             }));
         }
@@ -60,7 +62,7 @@ exports.createUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awai
         const hashedPassword = yield bcryptjs_1.default.hash(password, salt);
         // const value = crypto.randomBytes(10).toString("hex");
         // const token = jwt.sign(value, "justRand" )
-        // Create new admin
+        // Create new user
         const User = yield userModel_1.default.create({
             name,
             email,
@@ -68,15 +70,19 @@ exports.createUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awai
             // token
         });
         // const tokenID = jwt.sign({id: User.id}, "justRand")
-        (0, email_1.sendMail)(User);
+        yield (0, email_1.sendMail)(User);
         return res.status(MainAppError_1.HTTPCODES.OK).json({
             message: `${User === null || User === void 0 ? void 0 : User.name} ~ your account has being created successfully`,
             data: User,
         });
     }
     catch (error) {
+        return res.status(MainAppError_1.HTTPCODES.OK).json({
+            errorMessage: `${error.message}`,
+            errorStack: error,
+        });
         return next(new MainAppError_1.MainAppError({
-            message: 'An error occurred in while creating user',
+            message: "An error occurred in while creating user",
             httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,
         }));
     }
@@ -86,17 +92,17 @@ exports.loginUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
             return next(new MainAppError_1.MainAppError({
-                message: 'Invalid input data',
+                message: "Invalid input data",
                 httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
             }));
         }
         const { email, password } = req.body;
         const getUser = yield userModel_1.default.findOne({
             email,
-        }).select('+password');
+        }).select("+password");
         if (!getUser) {
             return next(new MainAppError_1.MainAppError({
-                message: 'User not found for the provided email address.',
+                message: "User not found for the provided email address.",
                 httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
             }));
         }
@@ -104,18 +110,18 @@ exports.loginUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
         if (!isPasswordValid) {
             if (getUser.verified) {
                 const encrypt = jsonwebtoken_1.default.sign({ id: getUser._id }, process.env.JWT_SECRET, {
-                    expiresIn: '1d',
+                    expiresIn: "1d",
                 });
                 req.session.isAuth = true;
                 req.session.userID = getUser._id;
                 return res.status(MainAppError_1.HTTPCODES.OK).json({
-                    message: 'welcome back',
+                    message: "welcome back",
                     data: encrypt,
                 });
             }
             else {
                 return next(new MainAppError_1.MainAppError({
-                    message: 'Account has not been verified yet.',
+                    message: "Account has not been verified yet.",
                     httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
                 }));
             }
@@ -123,13 +129,13 @@ exports.loginUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
         // Set session data here
         req.session.user = getUser._id;
         return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: 'Login Successful',
+            message: "Login Successful",
             data: getUser._id,
         });
     }
     catch (error) {
         return res.status(MainAppError_1.HTTPCODES.BAD_REQUEST).json({
-            message: 'An Error Occured in loginUser',
+            message: "An Error Occured in loginUser",
             error: error,
         });
     }
@@ -138,12 +144,12 @@ exports.logoutUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => {
     try {
         req.session.destroy();
         res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: 'Logout Successful',
+            message: "Logout Successful",
         });
     }
     catch (error) {
         return res.status(MainAppError_1.HTTPCODES.BAD_REQUEST).json({
-            message: 'An Error Occured in logoutUser',
+            message: "An Error Occured in logoutUser",
             error: error,
         });
     }
