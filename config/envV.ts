@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const EnvironmentVariables = {
-  DB_LIVEURL: process.env.MONGODB_ONLINE_SERVER_URL! as string,
-  DB_LOCALURL: process.env.MONGODB_LOCAL_SERVER_URL! as string,
+  DB_LIVEURl: process.env.MONGODB_URL,
+  DB_LOCALURL: process.env.MONGODB_URl! as string,
   Session_Secret: process.env.SESSION_SECRET as string,
   PORT: parseInt(process.env.PORT as string),
   AdminName: process.env.AdminName as string,

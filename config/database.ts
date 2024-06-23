@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 import { EnvironmentVariables } from "./envV";
 
-const DB_Connection_String: string | undefined =
-  EnvironmentVariables.DB_LIVEURL!;
+const MONGODB_URL: string | undefined = EnvironmentVariables.DB_LIVEURl!;
 
 export const DBCONNECTION = async () => {
   try {
-    await mongoose.connect(DB_Connection_String);
+    await mongoose.connect(MONGODB_URL);
     console.log("");
     if (mongoose.connection.host === "0.0.0.0") {
       console.log("You're Connected to Local Host Server"); // if connected to local database
