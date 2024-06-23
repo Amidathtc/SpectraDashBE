@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+// import upload from "../Utils/multer";
+const express_1 = require("express");
+const profileController_1 = require("../controller/profileController");
+const multer_1 = require("../Utils/multer");
+// const myUpload = multer().single("avatar");
+const ProfileRouter = (0, express_1.Router)();
+ProfileRouter.route("/:userID/create-profile").post(multer_1.upload, profileController_1.createProfile);
+ProfileRouter.route("/view-all-profiles").get(profileController_1.ViewAll);
+ProfileRouter.route("/:userID/view-user-profile").get(profileController_1.viewUserProfile);
+ProfileRouter.route("/:userID/:profileID/delete-one-profile").delete(profileController_1.deleteOne);
+ProfileRouter.route("/:profileID/updateprofile").patch(profileController_1.updateProfile);
+ProfileRouter.route("/:profileID/:userID/getuserprofile").get(profileController_1.getUserProfile);
+exports.default = ProfileRouter;
