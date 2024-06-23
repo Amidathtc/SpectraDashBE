@@ -23,7 +23,7 @@ export const MainAppConfig = (app: Application) => {
   // Set up session management
   const MongoDBStore = MongoDB(session);
   const sessionStore: any = new MongoDBStore({
-    uri: EnvironmentVariables.DB_LOCALURL!,
+    uri: EnvironmentVariables.DB_LIVEURl!,
     collection: "sessions",
   });
 
