@@ -23,6 +23,8 @@ const email_1 = require("../Utils/email");
 const envV_1 = require("../config/envV");
 const interface_1 = require("../interface/interface");
 const express_session_1 = __importDefault(require("express-session"));
+const dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
 exports.ViewAllUsers = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const users = await clientModels.find().populate("ShipmentHistory");
@@ -146,6 +148,7 @@ exports.loginUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
     }
     catch (error) {
         console.error(error); // Log the actual error
+        console.error(error.message); // Log the actual error
         return res
             .status(MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR)
             .json({ message: "An error occurred" });
