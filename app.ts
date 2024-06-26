@@ -32,7 +32,7 @@ export const MainAppConfig = (app: Application) => {
     .use((req: Request, res: Response, next: NextFunction) => {
       res.header(
         "Access-Control-Allow-Origin",
-        "https://sceptredash.vercel.app"
+        "*"
       );
       res.header("Access-Control-Allow-Credentials", "true");
       res.header(
