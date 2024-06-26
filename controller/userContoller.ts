@@ -12,7 +12,8 @@ import { EnvironmentVariables } from "../config/envV";
 import MongoDB from "connect-mongodb-session";
 import { sessionStore } from "../interface/interface";
 import session from "express-session";
-
+import { config } from "dotenv";
+config();
 export const ViewAllUsers = AsyncHandler(
   async (req: Request, res: Response) => {
     try {
@@ -165,8 +166,9 @@ export const loginUser = AsyncHandler(
         message: "Login successful",
         data: { token }, // Return only the JWT token
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error(error); // Log the actual error
+      console.error(error.message); // Log the actual error
       return res
         .status(HTTPCODES.INTERNAL_SERVER_ERROR)
         .json({ message: "An error occurred" });
