@@ -5,13 +5,13 @@ import cors from "cors";
 import morgan from "morgan";
 import { errorHandler } from "./MiddleWare/Error/ErrorHandler";
 import { HTTPCODES, MainAppError } from "./Utils/MainAppError";
-import userRoute from "./routes/userRoute";
-import ordersRoute from "./routes/ordersRouter";
-import profileRoute from "./routes/profileRouter";
 import { EnvironmentVariables } from "./config/envV";
 import rateLimit from "express-rate-limit";
 import MongoDB from "connect-mongodb-session";
 import { sessionStore } from "./interface/interface";
+import userRouter from "./routes/userRouter";
+import ProfileRouter from "./routes/profileRouter";
+import ordersRouter from "./routes/ordersRouter";
 
 export const MainAppConfig = (app: Application) => {
   const limiter = rateLimit({
@@ -62,9 +62,9 @@ export const MainAppConfig = (app: Application) => {
         message: "AD Ready 🚀🚀",
       });
     })
-    .use("/api", userRoute) //Routes
-    .use("/api", profileRoute) //Routes
-    .use("/api", ordersRoute) //Orders Routes
+    .use("/api", userRouter) //Routes
+    .use("/api", ProfileRouter) //Routes
+    .use("/api", ordersRouter) //Orders Routes
     .set("view engine", "ejs")
     .get("/ejs", (req: Request, res: Response) => {
       res.render("verifyMail");
