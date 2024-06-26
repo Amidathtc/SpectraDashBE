@@ -16,7 +16,7 @@ const ordersRouter_1 = __importDefault(require("./routes/ordersRouter"));
 const profileRouter_1 = __importDefault(require("./routes/profileRouter"));
 const envV_1 = require("./config/envV");
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
-const connect_mongodb_session_1 = __importDefault(require("connect-mongodb-session"));
+const interface_1 = require("./interface/interface");
 const MainAppConfig = (app) => {
     const limiter = (0, express_rate_limit_1.default)({
         windowMs: 5 * 60 * 1000,
@@ -25,15 +25,9 @@ const MainAppConfig = (app) => {
         legacyHeaders: false,
         message: "Please come back in 5mins time!!!",
     });
-    // Set up session management
-    const MongoDBStore = (0, connect_mongodb_session_1.default)(express_session_1.default);
-    const sessionStore = new MongoDBStore({
-        uri: envV_1.EnvironmentVariables.DB_LIVEURl,
-        collection: "sessions",
-    });
     app
         .use(express_1.default.json())
-        .use(limiter)
+        // .use(limiter)
         .use((0, cors_1.default)({ origin: "*", methods: ["GET, PATCH, POST, DELETE"] }))
         .use((0, morgan_1.default)("dev"))
         .use((0, cookie_parser_1.default)())
@@ -48,7 +42,7 @@ const MainAppConfig = (app) => {
         secret: envV_1.EnvironmentVariables.Session_Secret,
         resave: false,
         saveUninitialized: true,
-        store: sessionStore,
+        store: interface_1.sessionStore,
         cookie: {
             // maxAge: 1000 * 60 * 24 * 60,
             sameSite: "lax",

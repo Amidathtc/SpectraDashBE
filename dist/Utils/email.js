@@ -24,7 +24,7 @@ const GOOGLE_REFRESH_TOKEN = envV_1.EnvironmentVariables.G_REFRESH;
 const GOOGLE_URL = envV_1.EnvironmentVariables.G_URL;
 const oAuth = new googleapis_1.google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_URL);
 oAuth.setCredentials({ access_token: GOOGLE_REFRESH_TOKEN });
-const URL = `http://localhost:1200/api`;
+const URL = `https://spectradashbe-1.onrender.com/api/`;
 const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
     // , tokenID: any
     try {
