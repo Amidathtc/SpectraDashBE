@@ -8,7 +8,12 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { sendMail } from "../Utils/email";
 import userRoute from "../routes/userRoute";
-
+import { EnvironmentVariables } from "../config/envV";
+import MongoDB from "connect-mongodb-session";
+import { sessionStore } from "../interface/interface";
+import session from "express-session";
+import { config } from "dotenv";
+config();
 export const ViewAllUsers = AsyncHandler(
   async (req: Request, res: Response) => {
     try {
@@ -105,62 +110,142 @@ export const loginUser = AsyncHandler(
       }
 
       const { email, password } = req.body;
-      const getUser = await UserModels.findOne({
-        email,
-      }).select("+password");
+      const user = await UserModels.findOne({ email }).select("+password");
 
-      if (!getUser) {
+      if (!user) {
         return next(
           new MainAppError({
-            message: "User not found for the provided email address.",
+            message: "User not found",
             httpcode: HTTPCODES.BAD_REQUEST,
           })
         );
       }
 
-      const isPasswordValid = await bcrypt.compare(password, getUser.password);
+      const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
-        if (getUser.verified) {
-          const encrypt = jwt.sign(
-            { id: getUser._id },
-            process.env.JWT_SECRET!,
-            {
-              expiresIn: "1d",
-            }
+        if (!user.verified) {
+          return next(
+            new MainAppError({
+              message: "Account not verified",
+              httpcode: HTTPCODES.UNAUTHORIZED,
+            })
           );
-
-          req.session.isAuth = true;
-          req.session.userID = getUser._id;
-
-          return res.status(HTTPCODES.OK).json({
-            message: "welcome back",
-            data: encrypt,
-          });
         } else {
           return next(
             new MainAppError({
-              message: "Account has not been verified yet.",
-              httpcode: HTTPCODES.BAD_REQUEST,
+              message: "Invalid credentials",
+              httpcode: HTTPCODES.UNAUTHORIZED,
             })
           );
         }
       }
 
-      // Set session data here
-      req.session.user = getUser._id;
+      // Configure express-session middleware
+      req.app.use(
+        session({
+          /* Configure session options here */
+          secret: EnvironmentVariables.Session_Secret,
+          resave: false,
+          saveUninitialized: true,
+          store: sessionStore,
+          cookie: {
+            // maxAge: 1000 * 60 * 24 * 60,
+            sameSite: "lax",
+            secure: false,
+          },
+        })
+      );
+
+      req.session.userId = user._id; // Store only user ID in session
+
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
+        expiresIn: "1d",
+      });
 
       return res.status(HTTPCODES.OK).json({
-        message: "Login Successful",
-        data: getUser._id,
+        message: "Login successful",
+        data: { token }, // Return only the JWT token
       });
-    } catch (error) {
-      return res.status(HTTPCODES.BAD_REQUEST).json({
-        message: "An Error Occured in loginUser",
-        error: error,
-      });
+    } catch (error: any) {
+      console.error(error); // Log the actual error
+      console.error(error.message); // Log the actual error
+      return res
+        .status(HTTPCODES.INTERNAL_SERVER_ERROR)
+        .json({ message: "An error occurred" });
     }
   }
 );
+
+// export const loginUser = AsyncHandler(
+//   async (req: any, res: Response, next: NextFunction) => {
+//     try {
+//       const errors = validationResult(req);
+//       if (!errors.isEmpty()) {
+//         return next(
+//           new MainAppError({
+//             message: "Invalid input data",
+//             httpcode: HTTPCODES.BAD_REQUEST,
+//           })
+//         );
+//       }
+
+//       const { email, password } = req.body;
+//       const getUser = await UserModels.findOne({
+//         email,
+//       }).select("+password");
+
+//       if (!getUser) {
+//         return next(
+//           new MainAppError({
+//             message: "User not found for the provided email address.",
+//             httpcode: HTTPCODES.BAD_REQUEST,
+//           })
+//         );
+//       }
+
+//       const isPasswordValid = await bcrypt.compare(password, getUser.password);
+//       if (!isPasswordValid) {
+//         if (getUser.verified) {
+//           const encrypt = jwt.sign(
+//             { id: getUser._id },
+//             process.env.JWT_SECRET!,
+//             {
+//               expiresIn: "1d",
+//             }
+//           );
+
+//           req.session.isAuth = true;
+//           req.session.userID = getUser._id;
+
+//           return res.status(HTTPCODES.OK).json({
+//             message: "welcome back",
+//             data: encrypt,
+//           });
+//         } else {
+//           return next(
+//             new MainAppError({
+//               message: "Account has not been verified yet.",
+//               httpcode: HTTPCODES.BAD_REQUEST,
+//             })
+//           );
+//         }
+//       }
+
+//       // Set session data here
+//       req.session.user = getUser._id;
+
+//       return res.status(HTTPCODES.OK).json({
+//         message: "Login Successful",
+//         data: getUser._id,
+//       });
+//     } catch (error) {
+//       return res.status(HTTPCODES.BAD_REQUEST).json({
+//         message: "An Error Occured in loginUser",
+//         error: error,
+//       });
+//     }
+//   }
+// );
 
 export const logoutUser = AsyncHandler(
   (req: any, res: Response, next: NextFunction) => {
