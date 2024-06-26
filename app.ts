@@ -11,6 +11,7 @@ import profileRoute from "./routes/profileRouter";
 import { EnvironmentVariables } from "./config/envV";
 import rateLimit from "express-rate-limit";
 import MongoDB from "connect-mongodb-session";
+import { sessionStore } from "./interface/interface";
 
 export const MainAppConfig = (app: Application) => {
   const limiter = rateLimit({
@@ -20,16 +21,10 @@ export const MainAppConfig = (app: Application) => {
     legacyHeaders: false,
     message: "Please come back in 5mins time!!!",
   });
-  // Set up session management
-  const MongoDBStore = MongoDB(session);
-  const sessionStore: any = new MongoDBStore({
-    uri: EnvironmentVariables.DB_LIVEURl!,
-    collection: "sessions",
-  });
 
   app
     .use(express.json())
-    .use(limiter)
+    // .use(limiter)
     .use(cors({ origin: "*", methods: ["GET, PATCH, POST, DELETE"] }))
     .use(morgan("dev"))
     .use(cookieParser())
@@ -37,7 +32,7 @@ export const MainAppConfig = (app: Application) => {
     .use((req: Request, res: Response, next: NextFunction) => {
       res.header(
         "Access-Control-Allow-Origin",
-        "https://sceptredash.vercel.app"
+        "*"
       );
       res.header("Access-Control-Allow-Credentials", "true");
       res.header(

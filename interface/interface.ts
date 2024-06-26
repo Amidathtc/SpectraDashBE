@@ -1,4 +1,7 @@
+import MongoDB from "connect-mongodb-session";
 import mongoose, { Types } from "mongoose";
+import { EnvironmentVariables } from "../config/envV";
+import session from "express-session";
 
 export interface Iuser {
   name: string;
@@ -15,8 +18,8 @@ export interface Iagent {
   password: string;
   verified: boolean;
   profile: Array<string>;
- fullName:string ;
- role:string;
+  fullName: string;
+  role: string;
 }
 
 export interface IShipmentHistory {
@@ -129,3 +132,9 @@ export interface iOrder {
 }
 
 export interface iProfileData extends iProfile, mongoose.Document {}
+
+const MongoDBStore = MongoDB(session);
+export const sessionStore: any = new MongoDBStore({
+  uri: EnvironmentVariables.DB_LIVEURl!,
+  collection: "sessions",
+});
