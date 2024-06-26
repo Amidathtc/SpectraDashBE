@@ -12,7 +12,7 @@ const GOOGLE_URL: string = EnvironmentVariables.G_URL!;
 const oAuth = new google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_URL);
 oAuth.setCredentials({ access_token: GOOGLE_REFRESH_TOKEN });
 
-const URL: string = `http://localhost:1200/api`;
+const URL: string = `https://spectradashbe-1.onrender.com/api`;
 
 export const sendMail = async (user: any) => {
   // , tokenID: any
