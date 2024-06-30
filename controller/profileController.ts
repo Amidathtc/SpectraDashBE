@@ -8,68 +8,6 @@ import { AsyncHandler } from "../MiddleWare/AsyncHandler";
 import cloudinary from "../config/cloudinary";
 import { Types } from "mongoose";
 
-export const createProfile = AsyncHandler(
-  async (req: any, res: Response, next: NextFunction) => {
-    try {
-      const { userID } = req.params;
-
-      // Validate required body fields (assuming validation is not already handled elsewhere)
-      const { name, address, phoneNumber } = req.body;
-      // if (!name || !address || !phoneNumber) {
-      //   throw new MainAppError({
-      //     message: "Missing required fields in request body",
-      //     httpcode: HTTPCODES.BAD_REQUEST,
-      //   });
-      // }
-
-      // Upload the profile image using streamUpload
-      const { secure_url, public_id } = await cloudinary.uploader.upload(
-        req.file.path
-      );
-
-      // Find the user by ID
-      const user = await UserModel.findById(userID);
-
-      // Check if user exists and is verified
-      if (!user || !user.verified) {
-        throw new MainAppError({
-          message: "User not found or account not verified",
-          httpcode: HTTPCODES.BAD_REQUEST,
-        });
-      }
-
-      // Create the profile
-      const profiled = await ProfileModel.create({
-        name,
-        address,
-        phoneNumber,
-        userID,
-        profileAvatar: secure_url,
-        profileAvatarID: public_id,
-      });
-
-      // Update user's profile reference (assuming a single profile per user)
-      user.profile = profiled._id;
-      await user?.save();
-
-      res.status(HTTPCODES.OK).json({
-        message: "Profile created successfully",
-        data: profiled,
-      });
-    } catch (error: any) {
-      // Handle errors more gracefully
-      console.error("Error creating profile:", error);
-      next(
-        new MainAppError({
-          message: "An error occurred while creating the profile",
-          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
-          // errorDetails: error.message, // Consider including relevant error details for debugging
-        })
-      );
-    }
-  }
-);
-
 // export const createProfile = AsyncHandler(
 //   async (req: Request, res: Response, next: NextFunction) => {
 
@@ -139,7 +77,7 @@ export const viewUserProfile = AsyncHandler(
       if (user) {
         return res.status(HTTPCODES.OK).json({
           message: "User found",
-          data: user?.profile,
+          data: user,
         });
       } else {
         return next(
@@ -160,7 +98,7 @@ export const viewUserProfile = AsyncHandler(
   }
 );
 
-export const ViewAll = AsyncHandler(
+export const ViewAllProfiles = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const profiled = await ProfileModel.find();
@@ -179,15 +117,98 @@ export const ViewAll = AsyncHandler(
   }
 );
 
+export const updateProfile = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { profileID } = req.params;
+
+      const { password } = req.body;
+      const profiled = await ProfileModel.findByIdAndUpdate(
+        profileID,
+        { password },
+        { new: true }
+      );
+      return res.status(HTTPCODES.OK).json({
+        message: "Profile Updated",
+        data: profiled,
+      });
+    } catch (error) {
+      return next(
+        new MainAppError({
+          message: "Profile not upated.",
+          httpcode: HTTPCODES.BAD_REQUEST,
+        })
+      );
+    }
+  }
+);
+
+export const updateProfileAvatar = AsyncHandler(
+  async (req: any, res: Response, next: NextFunction) => {
+    try {
+      const { userID, profileID } = req.params;
+
+      // if (!name || !address || !phoneNumber) {
+      //   throw new MainAppError({
+      //     message: "Missing required fields in request body",
+      //     httpcode: HTTPCODES.BAD_REQUEST,
+      //   });
+      // }
+
+      // Upload the profile image using streamUpload
+      const { secure_url } = await cloudinary.uploader.upload(req.file.path);
+
+      // Find the user by ID
+      const user = await UserModel.findById(userID);
+
+      // Check if user exists and is verified
+      if (!user || !user.verified) {
+        throw new MainAppError({
+          message: "User not found or account not verified",
+          httpcode: HTTPCODES.BAD_REQUEST,
+        });
+      }
+
+      // Create the profile
+      const profiled: any = await ProfileModel.findByIdAndUpdate(
+        profileID,
+        {
+          avatar: secure_url,
+        },
+        { new: true }
+      );
+
+      // Update user's profile reference (assuming a single profile per user)
+      user.profile = profiled._id;
+      await user?.save();
+
+      res.status(HTTPCODES.OK).json({
+        message: "Profile Updated successfully",
+        data: profiled,
+      });
+    } catch (error: any) {
+      // Handle errors more gracefully
+      console.error("Error updating profile:", error);
+      next(
+        new MainAppError({
+          message: "An error occurred while creating the profile",
+          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+          // errorDetails: error.message, // Consider including relevant error details for debugging
+        })
+      );
+    }
+  }
+);
+
 export const deleteOne = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userID, profileID } = req.params;
       const user: any = await UserModel.findById(userID);
       if (user) {
-        const profiled = await ProfileModel.findByIdAndDelete(profileID);
+        const profiled: any = await ProfileModel.findByIdAndDelete(profileID);
 
-        await user?.profile.pull(new Types.ObjectId(profiled?._id));
+        await user?.profile.pull(new Types.ObjectId(profiled));
         await user?.save();
 
         return res.status(HTTPCODES.OK).json({
@@ -202,32 +223,6 @@ export const deleteOne = AsyncHandler(
       return next(
         new MainAppError({
           message: "Profile not deleted.",
-          httpcode: HTTPCODES.BAD_REQUEST,
-        })
-      );
-    }
-  }
-);
-
-export const updateProfile = AsyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { profileID } = req.params;
-
-      const { phoneNumber, address } = req.body;
-      const profiled = await ProfileModel.findByIdAndUpdate(
-        profileID,
-        { phoneNumber, address },
-        { new: true }
-      );
-      return res.status(HTTPCODES.OK).json({
-        message: "Profile Updated",
-        data: profiled,
-      });
-    } catch (error) {
-      return next(
-        new MainAppError({
-          message: "Profile not upated.",
           httpcode: HTTPCODES.BAD_REQUEST,
         })
       );

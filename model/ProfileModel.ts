@@ -3,19 +3,13 @@ import { iProfileData } from "../interface/interface";
 
 const profileModel = new Schema<iProfileData>(
   {
-    name: {
+    avatar: {
       type: String,
     },
-    phoneNumber: {
-      type: String,
-    },
-    address: {
-      type: String,
-    },
-    profileAvatar: {
-      type: String,
-    },
-    profileAvatarID: {
+    // profileAvatarID: {
+    //   type: String,
+    // },
+    password: {
       type: String,
     },
     userID: {
