@@ -4,11 +4,13 @@ import { EnvironmentVariables } from "../config/envV";
 import session from "express-session";
 
 export interface Iuser {
-  name: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
   email: string;
   password: string;
   verified: boolean;
-  profile: Array<string>;
+  profile: Array<{}>;
   orders: Array<{}>;
 }
 
@@ -71,11 +73,9 @@ export interface Iclient {
 }
 
 export interface iProfile {
-  profileAvatar: string;
-  profileAvatarID: string;
-  name: string;
-  phoneNumber: string;
-  address: string;
+  avatar: string;
+  // profileAvatarID: string;
+  password: string;
   userID: string;
   user: {};
 }

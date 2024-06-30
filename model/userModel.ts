@@ -1,11 +1,11 @@
 import mongoose, { Document, Schema, Types, model } from "mongoose";
 import { Iuser } from "../interface/interface";
 
-interface user extends Iuser, Document {}
+interface IUserData extends Iuser, Document {}
 
-interface AllUsers extends Iuser, Document {}
+// interface AllUsers extends Iuser, Document {}
 
-const UserSchema = new Schema<AllUsers>(
+const UserSchema = new Schema<IUserData>(
   {
     email: {
       type: String,
@@ -16,9 +16,16 @@ const UserSchema = new Schema<AllUsers>(
       type: String,
       required: [true, "Your password is required"],
     },
-    name: {
+    firstName: {
       type: String,
-      required: [true, "Your Name is required"],
+      required: [true, "Your First Name is required"],
+    },
+    lastName: {
+      type: String,
+      required: [true, "Your Last Name is required"],
+    },
+    avatar: {
+      type: String,
     },
     verified: {
       type: Boolean,
@@ -40,6 +47,6 @@ const UserSchema = new Schema<AllUsers>(
   { timestamps: true }
 );
 
-const UserModel = model<user>("users", UserSchema);
+const UserModel = model<IUserData>("users", UserSchema);
 
 export default UserModel;

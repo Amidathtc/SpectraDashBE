@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+// interface AllUsers extends Iuser, Document {}
 const UserSchema = new mongoose_1.Schema({
     email: {
         type: String,
@@ -11,9 +12,16 @@ const UserSchema = new mongoose_1.Schema({
         type: String,
         required: [true, "Your password is required"],
     },
-    name: {
+    firstName: {
         type: String,
-        required: [true, "Your Name is required"],
+        required: [true, "Your First Name is required"],
+    },
+    lastName: {
+        type: String,
+        required: [true, "Your Last Name is required"],
+    },
+    avatar: {
+        type: String,
     },
     verified: {
         type: Boolean,

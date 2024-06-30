@@ -24,6 +24,8 @@ const envV_1 = require("../config/envV");
 const interface_1 = require("../interface/interface");
 const express_session_1 = __importDefault(require("express-session"));
 const dotenv_1 = require("dotenv");
+const mongoose_1 = require("mongoose");
+const ProfileModel_1 = __importDefault(require("../model/ProfileModel"));
 (0, dotenv_1.config)();
 exports.ViewAllUsers = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -46,7 +48,7 @@ exports.ViewAllUsers = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(
 }));
 exports.createUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, email, password } = req.body;
+        const { firstName, lastName, email, password } = req.body;
         // Validate input
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
@@ -67,17 +69,24 @@ exports.createUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awai
         const hashedPassword = yield bcryptjs_1.default.hash(password, salt);
         // const value = crypto.randomBytes(10).toString("hex");
         // const token = jwt.sign(value, "justRand" )
+        const initialAvatar = firstName.charAt() + lastName.charAt();
         // Create new user
         const User = yield userModel_1.default.create({
-            name,
+            firstName,
+            lastName,
             email,
             password: hashedPassword,
-            // token
+            avatar: initialAvatar,
         });
+        const userProfile = yield ProfileModel_1.default.create({
+            User,
+        });
+        yield User.profile.push(new mongoose_1.Types.ObjectId(userProfile));
+        yield User.save();
         // const tokenID = jwt.sign({id: User.id}, "justRand")
         yield (0, email_1.sendMail)(User);
         return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: `${User === null || User === void 0 ? void 0 : User.name} ~ your account has being created successfully`,
+            message: `${User === null || User === void 0 ? void 0 : User.firstName} ~ your account has being created successfully`,
             data: User,
         });
     }
@@ -256,7 +265,7 @@ exports.deleteUser = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(vo
         const { userID } = req.params;
         const user = yield userModel_1.default.findByIdAndDelete(userID);
         return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: `${user === null || user === void 0 ? void 0 : user.name} account has being deleted`,
+            message: `${user === null || user === void 0 ? void 0 : user.firstName} account has being deleted`,
         });
     }
     catch (error) {

@@ -12,6 +12,8 @@ import MongoDB from "connect-mongodb-session";
 import { sessionStore } from "../interface/interface";
 import session from "express-session";
 import { config } from "dotenv";
+import { Types } from "mongoose";
+import ProfileModel from "../model/ProfileModel";
 config();
 export const ViewAllUsers = AsyncHandler(
   async (req: Request, res: Response) => {
@@ -38,7 +40,7 @@ export const ViewAllUsers = AsyncHandler(
 export const createUser = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, email, password } = req.body;
+      const { firstName, lastName, email, password } = req.body;
 
       // Validate input
       const errors = validationResult(req);
@@ -64,20 +66,27 @@ export const createUser = AsyncHandler(
       const hashedPassword = await bcrypt.hash(password, salt);
       // const value = crypto.randomBytes(10).toString("hex");
       // const token = jwt.sign(value, "justRand" )
+      const initialAvatar = firstName.charAt() + lastName.charAt();
 
       // Create new user
-      const User = await UserModels.create({
-        name,
+      const User: any = await UserModels.create({
+        firstName,
+        lastName,
         email,
         password: hashedPassword,
-        // token
+        avatar: initialAvatar,
+      });
+      const userProfile: any = await ProfileModel.create({
+        User,
       });
 
+      await User.profile.push(new Types.ObjectId(userProfile));
+      await User.save();
       // const tokenID = jwt.sign({id: User.id}, "justRand")
       await sendMail(User);
 
       return res.status(HTTPCODES.OK).json({
-        message: `${User?.name} ~ your account has being created successfully`,
+        message: `${User?.firstName} ~ your account has being created successfully`,
         data: User,
       });
     } catch (error: any) {
@@ -290,7 +299,7 @@ export const deleteUser = AsyncHandler(async (req: Request, res: Response) => {
     const user = await UserModels.findByIdAndDelete(userID);
 
     return res.status(HTTPCODES.OK).json({
-      message: `${user?.name} account has being deleted`,
+      message: `${user?.firstName} account has being deleted`,
     });
   } catch (error: any) {
     if (error.path === "_id") {
