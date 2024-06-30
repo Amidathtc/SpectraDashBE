@@ -15,7 +15,7 @@ process.on("uncaughtException", (error) => {
     process.exit(1);
 });
 // The port of our backend server
-const port = envV_1.EnvironmentVariables.PORT;
+const port = envV_1.EnvironmentVariables.PORT || 1200;
 // Extantiating our server from express
 const app = (0, express_1.default)();
 // Connecting main app configuration

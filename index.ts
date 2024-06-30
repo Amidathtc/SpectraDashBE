@@ -12,7 +12,7 @@ process.on("uncaughtException", (error: Error) => {
 });
 
 // The port of our backend server
-const port: number = EnvironmentVariables.PORT;
+const port: number = EnvironmentVariables.PORT || 1200 ;
 
 // Extantiating our server from express
 const app: Application = express();
