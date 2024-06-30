@@ -2,19 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const profileModel = new mongoose_1.Schema({
-    name: {
+    avatar: {
         type: String,
     },
-    phoneNumber: {
-        type: String,
-    },
-    address: {
-        type: String,
-    },
-    profileAvatar: {
-        type: String,
-    },
-    profileAvatarID: {
+    // profileAvatarID: {
+    //   type: String,
+    // },
+    password: {
         type: String,
     },
     userID: {

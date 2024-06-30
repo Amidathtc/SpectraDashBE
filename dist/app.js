@@ -11,12 +11,12 @@ const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const ErrorHandler_1 = require("./MiddleWare/Error/ErrorHandler");
 const MainAppError_1 = require("./Utils/MainAppError");
-const userRoute_1 = __importDefault(require("./routes/userRoute"));
-const ordersRouter_1 = __importDefault(require("./routes/ordersRouter"));
-const profileRouter_1 = __importDefault(require("./routes/profileRouter"));
 const envV_1 = require("./config/envV");
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const interface_1 = require("./interface/interface");
+const userRouter_1 = __importDefault(require("./routes/userRouter"));
+const profileRouter_1 = __importDefault(require("./routes/profileRouter"));
+const ordersRouter_1 = __importDefault(require("./routes/ordersRouter"));
 const MainAppConfig = (app) => {
     const limiter = (0, express_rate_limit_1.default)({
         windowMs: 5 * 60 * 1000,
@@ -55,7 +55,7 @@ const MainAppConfig = (app) => {
             message: "AD Ready 🚀🚀",
         });
     })
-        .use("/api", userRoute_1.default) //Routes
+        .use("/api", userRouter_1.default) //Routes
         .use("/api", profileRouter_1.default) //Routes
         .use("/api", ordersRouter_1.default) //Orders Routes
         .set("view engine", "ejs")
