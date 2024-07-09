@@ -12,6 +12,7 @@ import { sessionStore } from "./interface/interface";
 import userRouter from "./routes/userRouter";
 import ProfileRouter from "./routes/profileRouter";
 import ordersRouter from "./routes/ordersRouter";
+import agentsRouter from "./routes/agentRouter";
 
 export const MainAppConfig = (app: Application) => {
   const limiter = rateLimit({
@@ -30,10 +31,7 @@ export const MainAppConfig = (app: Application) => {
     .use(cookieParser())
 
     .use((req: Request, res: Response, next: NextFunction) => {
-      res.header(
-        "Access-Control-Allow-Origin",
-        "*"
-      );
+      res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Credentials", "true");
       res.header(
         "Access-Control-Allow-Methods",
@@ -65,6 +63,7 @@ export const MainAppConfig = (app: Application) => {
     .use("/api", userRouter) //Routes
     .use("/api", ProfileRouter) //Routes
     .use("/api", ordersRouter) //Orders Routes
+    .use("/api", agentsRouter) //agents Routes
     .set("view engine", "ejs")
     .get("/ejs", (req: Request, res: Response) => {
       res.render("verifyMail");

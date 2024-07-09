@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyUsers = exports.updateUser = exports.deleteUser = exports.getUser = exports.logoutUser = exports.loginUser = exports.createUser = exports.ViewAllUsers = void 0;
+exports.verifyUsers = exports.updateUser = exports.deleteUser = exports.getUser = exports.logoutUser = exports.loginUser = exports.createUser = exports.viewAllUsers = void 0;
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
 const MainAppError_1 = require("../Utils/MainAppError");
 const userModel_1 = __importDefault(require("../model/userModel"));
@@ -27,7 +27,7 @@ const dotenv_1 = require("dotenv");
 const mongoose_1 = require("mongoose");
 const ProfileModel_1 = __importDefault(require("../model/ProfileModel"));
 (0, dotenv_1.config)();
-exports.ViewAllUsers = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.viewAllUsers = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const users = await clientModels.find().populate("ShipmentHistory");
         const users = yield userModel_1.default.find();
@@ -79,15 +79,21 @@ exports.createUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awai
             avatar: initialAvatar,
         });
         const userProfile = yield ProfileModel_1.default.create({
-            User,
+            firstName: User === null || User === void 0 ? void 0 : User.firstName,
+            lastName: User === null || User === void 0 ? void 0 : User.lastName,
+            password: User === null || User === void 0 ? void 0 : User.password,
+            profileAvatar: User === null || User === void 0 ? void 0 : User.avatar,
+            userID: User === null || User === void 0 ? void 0 : User._id,
         });
-        yield User.profile.push(new mongoose_1.Types.ObjectId(userProfile));
+        yield User.profile.push(new mongoose_1.Types.ObjectId(User === null || User === void 0 ? void 0 : User._id));
         yield User.save();
+        yield userProfile.save();
         // const tokenID = jwt.sign({id: User.id}, "justRand")
         yield (0, email_1.sendMail)(User);
         return res.status(MainAppError_1.HTTPCODES.OK).json({
             message: `${User === null || User === void 0 ? void 0 : User.firstName} ~ your account has being created successfully`,
             data: User,
+            profileData: userProfile,
         });
     }
     catch (error) {
@@ -163,69 +169,6 @@ exports.loginUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
             .json({ message: "An error occurred" });
     }
 }));
-// export const loginUser = AsyncHandler(
-//   async (req: any, res: Response, next: NextFunction) => {
-//     try {
-//       const errors = validationResult(req);
-//       if (!errors.isEmpty()) {
-//         return next(
-//           new MainAppError({
-//             message: "Invalid input data",
-//             httpcode: HTTPCODES.BAD_REQUEST,
-//           })
-//         );
-//       }
-//       const { email, password } = req.body;
-//       const getUser = await UserModels.findOne({
-//         email,
-//       }).select("+password");
-//       if (!getUser) {
-//         return next(
-//           new MainAppError({
-//             message: "User not found for the provided email address.",
-//             httpcode: HTTPCODES.BAD_REQUEST,
-//           })
-//         );
-//       }
-//       const isPasswordValid = await bcrypt.compare(password, getUser.password);
-//       if (!isPasswordValid) {
-//         if (getUser.verified) {
-//           const encrypt = jwt.sign(
-//             { id: getUser._id },
-//             process.env.JWT_SECRET!,
-//             {
-//               expiresIn: "1d",
-//             }
-//           );
-//           req.session.isAuth = true;
-//           req.session.userID = getUser._id;
-//           return res.status(HTTPCODES.OK).json({
-//             message: "welcome back",
-//             data: encrypt,
-//           });
-//         } else {
-//           return next(
-//             new MainAppError({
-//               message: "Account has not been verified yet.",
-//               httpcode: HTTPCODES.BAD_REQUEST,
-//             })
-//           );
-//         }
-//       }
-//       // Set session data here
-//       req.session.user = getUser._id;
-//       return res.status(HTTPCODES.OK).json({
-//         message: "Login Successful",
-//         data: getUser._id,
-//       });
-//     } catch (error) {
-//       return res.status(HTTPCODES.BAD_REQUEST).json({
-//         message: "An Error Occured in loginUser",
-//         error: error,
-//       });
-//     }
-//   }
-// );
 exports.logoutUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => {
     try {
         req.session.destroy();
@@ -283,15 +226,17 @@ exports.deleteUser = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(vo
 exports.updateUser = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
-        const { name, password, email } = req.body;
+        const { firstName, lastName, password, email } = req.body;
         const getUser = yield userModel_1.default.findById(userID);
-        yield userModel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
-            name,
+        const updates = yield userModel_1.default.findByIdAndUpdate(getUser === null || getUser === void 0 ? void 0 : getUser._id, {
+            firstName,
+            lastName,
             email,
             password,
-        });
+        }, { new: true });
         return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: "Udated",
+            message: "Updated",
+            data: updates,
         });
     }
     catch (error) {

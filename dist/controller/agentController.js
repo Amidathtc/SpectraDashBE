@@ -12,15 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyAgent = exports.updateAgent = exports.deleteAgent = exports.getAgent = exports.logoutAgent = exports.createAgent = exports.loginAgent = exports.ViewAllAgent = void 0;
+exports.deleteAgent = exports.getAgent = exports.addMoreKgAndPrices = exports.addMoreZones = exports.createAgent = exports.viewAllAgent = void 0;
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
 const MainAppError_1 = require("../Utils/MainAppError");
 const AgentModel_1 = __importDefault(require("../model/AgentModel"));
-const express_validator_1 = require("express-validator");
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const email_1 = require("../Utils/email");
-exports.ViewAllAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.viewAllAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const users = await clientModels.find().populate("ShipmentHistory");
         const agents = yield AgentModel_1.default.find();
@@ -39,119 +35,77 @@ exports.ViewAllAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(
         });
     }
 }));
-exports.loginAgent = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const errors = (0, express_validator_1.validationResult)(req);
-        if (!errors.isEmpty()) {
-            return next(new MainAppError_1.MainAppError({
-                message: 'Invalid input data',
-                httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
-            }));
-        }
-        const { AgentEmail, password } = req.body;
-        const getAgent = yield AgentModel_1.default.findOne({
-            AgentEmail,
-        }).select('+password');
-        if (!getAgent) {
-            return next(new MainAppError_1.MainAppError({
-                message: 'Agent not found for the provided email address.',
-                httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
-            }));
-        }
-        const isPasswordValid = yield bcryptjs_1.default.compare(password, getAgent.password);
-        if (!isPasswordValid) {
-            if (getAgent.verified) {
-                const encrypt = jsonwebtoken_1.default.sign({ id: getAgent._id }, process.env.JWT_SECRET, {
-                    expiresIn: '1d',
-                });
-                req.session.isAuth = true;
-                req.session.userID = getAgent._id;
-                return res.status(MainAppError_1.HTTPCODES.OK).json({
-                    message: 'welcome back',
-                    data: encrypt,
-                });
-            }
-            else {
-                return next(new MainAppError_1.MainAppError({
-                    message: 'Account has not been verified yet.',
-                    httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
-                }));
-            }
-        }
-        // Set session data here
-        req.session.user = getAgent._id;
-        return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: 'Login Successful',
-            data: getAgent._id,
-        });
-    }
-    catch (error) {
-        return res.status(MainAppError_1.HTTPCODES.BAD_REQUEST).json({
-            message: 'An Error Occured in loginAgent/',
-            error: error,
-        });
-    }
-}));
 exports.createAgent = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { agentName, agentCompanyName, agentZones } = req.body;
+    // Validate agentZones data structure (optional)
+    if (!Array.isArray(agentZones) ||
+        !agentZones.every((zone) => zone.zone_name && zone.countries && Array.isArray(zone.kg_prices))) {
+        return res
+            .status(400)
+            .json({ message: "Invalid agentZones data structure" });
+    }
     try {
-        const { AgentEmail, password, AgentCompanyname } = req.body;
-        // Validate input
-        const errors = (0, express_validator_1.validationResult)(req);
-        if (!errors.isEmpty()) {
-            return res.status(MainAppError_1.HTTPCODES.BAD_REQUEST).json({ errors: errors.array() });
-        }
-        // Check if admin already exists
-        const existingAgent = yield AgentModel_1.default.findOne({ AgentEmail });
-        if (existingAgent) {
-            return next(new MainAppError_1.MainAppError({
-                message: 'Agent already exists',
-                httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
-            }));
-        }
-        const salt = yield bcryptjs_1.default.genSalt(10);
-        // Hash the password
-        const hashedPassword = yield bcryptjs_1.default.hash(password, salt);
-        // const value = crypto.randomBytes(10).toString("hex");
-        // const token = jwt.sign(value, "justRand" )
-        // Create new admin
-        const Agent = yield AgentModel_1.default.create({
-            AgentCompanyname,
-            AgentEmail,
-            password: hashedPassword,
-            // token
+        const newAgent = yield AgentModel_1.default.create({
+            agentName,
+            agentCompanyName,
+            agentZones,
         });
-        // const tokenID = jwt.sign({id: User.id}, "justRand")
-        (0, email_1.sendMail)(Agent);
-        return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: `${Agent === null || Agent === void 0 ? void 0 : Agent.AgentCompanyname} ~ your account has being created successfully`,
-            data: Agent,
-        });
+        res.status(201).json(newAgent);
     }
     catch (error) {
+        res.status(400).json({ message: error.message, error });
         return next(new MainAppError_1.MainAppError({
-            message: 'An error occurred in while creating Agent',
+            message: "An error occurred in while creating Agent",
             httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,
         }));
     }
 }));
-exports.logoutAgent = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => {
+exports.addMoreZones = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { agentID } = req.params;
+    const { newZone } = req.body; // Specify newZone object with zone structure
+    // Validate agentId and newZone structure (optional)
     try {
-        req.session.destroy();
-        res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: 'Logout Successful',
-        });
+        const agent = yield AgentModel_1.default.findById(agentID);
+        if (!agent) {
+            return res.status(404).json({ message: "Agent not found" });
+        }
+        // Push the new zone object to the agent's agentZones array
+        agent.agentZones.push(newZone);
+        yield (agent === null || agent === void 0 ? void 0 : agent.save()); // Save the updated agent document
+        res
+            .status(200)
+            .json({ message: "new zone has being added", data: agent.agentZones });
     }
     catch (error) {
-        return res.status(MainAppError_1.HTTPCODES.BAD_REQUEST).json({
-            message: 'An Error Occured in logoutAgent',
-            error: error,
-        });
+        res.status(400).json({ message: error.message, error });
     }
-});
+}));
+exports.addMoreKgAndPrices = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { agentID } = req.params;
+    const { zoneName, newKgPrices } = req.body; // Specify zoneName and newKgPrices array
+    // Validate agentId, zoneName, and newKgPrices structure (optional)
+    try {
+        const agent = yield AgentModel_1.default.findById(agentID);
+        if (!agent) {
+            return res.status(404).json({ message: "Agent not found" });
+        }
+        const targetZone = agent === null || agent === void 0 ? void 0 : agent.agentZones.find((zone) => zone.zone_name === zoneName); // Find the zone by name
+        if (!targetZone) {
+            return res.status(400).json({ message: "Zone not found in agent" });
+        }
+        // Push new kg_prices to the target zone's kg_prices array
+        targetZone.kg_prices.push(...newKgPrices);
+        yield (agent === null || agent === void 0 ? void 0 : agent.save()); // Save the updated agent document
+        res.status(200).json(agent);
+    }
+    catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}));
 exports.getAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { AgentID } = req.params;
-        const Agent = yield AgentModel_1.default.findById(AgentID);
+        const { agentID } = req.params;
+        const Agent = yield AgentModel_1.default.findById(agentID);
         return res.status(MainAppError_1.HTTPCODES.OK).json({
             data: Agent,
         });
@@ -170,10 +124,10 @@ exports.getAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void
 }));
 exports.deleteAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { AgentID } = req.params;
-        const agent = yield AgentModel_1.default.findByIdAndDelete(AgentID);
+        const { agentID } = req.params;
+        const agent = yield AgentModel_1.default.findByIdAndDelete(agentID);
         return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: `${agent === null || agent === void 0 ? void 0 : agent.AgentCompanyname} account has being deleted`,
+            message: `${agent === null || agent === void 0 ? void 0 : agent.agentCompanyName} account has being deleted`,
         });
     }
     catch (error) {
@@ -188,48 +142,3 @@ exports.deleteAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(v
         });
     }
 }));
-exports.updateAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { AgentID } = req.params;
-        const { AgentCompanyname, password, AgentEmail } = req.body;
-        const getAgent = yield AgentModel_1.default.findById(AgentID);
-        yield AgentModel_1.default.findByIdAndUpdate(getAgent === null || getAgent === void 0 ? void 0 : getAgent._id, {
-            AgentCompanyname,
-            AgentEmail,
-            password,
-        });
-        return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: "Udated",
-        });
-    }
-    catch (error) {
-        if (error.path === "_id") {
-            return res.status(MainAppError_1.HTTPCODES.NOT_FOUND).json({
-                message: "An Error Occured in getAgent(id)",
-            });
-        }
-        return res.status(MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR).json({
-            message: "An Error Occured in upateAgent",
-            error: error === null || error === void 0 ? void 0 : error.message,
-        });
-    }
-}));
-const verifyAgent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { AgentID } = req.params;
-        yield AgentModel_1.default.findByIdAndUpdate(AgentID, {
-            verified: true,
-        }, { new: true });
-        return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: "user has been verified",
-            status: 201,
-        });
-    }
-    catch (error) {
-        return res.status(MainAppError_1.HTTPCODES.NOT_FOUND).json({
-            message: "Error",
-            status: 404,
-        });
-    }
-});
-exports.verifyAgent = verifyAgent;

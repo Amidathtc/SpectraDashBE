@@ -1,40 +1,67 @@
 import { Schema, Types, model } from "mongoose";
-import { Iagent } from "../interface/interface";
+import { IAgent } from "../interface/interface";
+import { ROLE } from "../Utils/enum";
 
+interface iAgentData extends IAgent, Document {}
 
-interface iAgentData extends Iagent, Document {}
+const kgPriceSchema = new Schema({
+  from_kg: {
+    type: Number,
+    required: true,
+  },
+  to_kg: {
+    type: Number,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+});
 
-const agentModel = new Schema<iAgentData>(
+const deliveryZoneSchema = new Schema({
+  zone_name: {
+    type: String,
+    required: true,
+  },
+  countries: {
+    type: [String],
+    required: true,
+  },
+  kg_prices: {
+    type: [kgPriceSchema],
+    required: true,
+  },
+});
+
+const agentSchema = new Schema<iAgentData>(
   {
-    fullName: {
+    agentName: {
+      type: String,
+      required: true,
+    },
+    agentCompanyName: {
       type: String,
     },
-    AgentCompanyname: {
-        type: String,
-      },
-    AgentEmail: {
-      type: String,
-      unique: true,
-    },
-    password: {
-      type: String,
-    },
-    verified: {
-      type: Boolean,
-      default: true,
+    agentZones: {
+      // Use the deliveryZoneSchema for nested zones
+      type: [deliveryZoneSchema],
+      required: true,
     },
     role: {
       type: String,
+      default: ROLE.AGENT,
     },
-    profile: [
-        {
-          type: Types.ObjectId,
-          ref: "profiles",
-        },
-      ],
-    
+    orders: [
+      {
+        type: Types.ObjectId,
+        ref: "orders",
+      },
+    ],
   },
   { timestamps: true }
 );
 
-export default model("agents", agentModel);
+const agentModel = model<iAgentData>("agents", agentSchema);
+
+export default agentModel;

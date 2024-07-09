@@ -6,16 +6,15 @@ import { validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { sendMail } from "../Utils/email";
-import userRouter from "../routes/userRouter";
 import { EnvironmentVariables } from "../config/envV";
-import MongoDB from "connect-mongodb-session";
 import { sessionStore } from "../interface/interface";
 import session from "express-session";
 import { config } from "dotenv";
 import { Types } from "mongoose";
 import ProfileModel from "../model/ProfileModel";
 config();
-export const ViewAllUsers = AsyncHandler(
+
+export const viewAllUsers = AsyncHandler(
   async (req: Request, res: Response) => {
     try {
       // const users = await clientModels.find().populate("ShipmentHistory");
@@ -77,17 +76,23 @@ export const createUser = AsyncHandler(
         avatar: initialAvatar,
       });
       const userProfile: any = await ProfileModel.create({
-        User,
+        firstName: User?.firstName,
+        lastName: User?.lastName,
+        password: User?.password,
+        profileAvatar: User?.avatar,
+        userID: User?._id,
       });
 
-      await User.profile.push(new Types.ObjectId(userProfile));
+      await User.profile.push(new Types.ObjectId(User?._id));
       await User.save();
+      await userProfile.save();
       // const tokenID = jwt.sign({id: User.id}, "justRand")
       await sendMail(User);
 
       return res.status(HTTPCODES.OK).json({
         message: `${User?.firstName} ~ your account has being created successfully`,
         data: User,
+        profileData: userProfile,
       });
     } catch (error: any) {
       return res.status(HTTPCODES.OK).json({
@@ -184,77 +189,6 @@ export const loginUser = AsyncHandler(
   }
 );
 
-// export const loginUser = AsyncHandler(
-//   async (req: any, res: Response, next: NextFunction) => {
-//     try {
-//       const errors = validationResult(req);
-//       if (!errors.isEmpty()) {
-//         return next(
-//           new MainAppError({
-//             message: "Invalid input data",
-//             httpcode: HTTPCODES.BAD_REQUEST,
-//           })
-//         );
-//       }
-
-//       const { email, password } = req.body;
-//       const getUser = await UserModels.findOne({
-//         email,
-//       }).select("+password");
-
-//       if (!getUser) {
-//         return next(
-//           new MainAppError({
-//             message: "User not found for the provided email address.",
-//             httpcode: HTTPCODES.BAD_REQUEST,
-//           })
-//         );
-//       }
-
-//       const isPasswordValid = await bcrypt.compare(password, getUser.password);
-//       if (!isPasswordValid) {
-//         if (getUser.verified) {
-//           const encrypt = jwt.sign(
-//             { id: getUser._id },
-//             process.env.JWT_SECRET!,
-//             {
-//               expiresIn: "1d",
-//             }
-//           );
-
-//           req.session.isAuth = true;
-//           req.session.userID = getUser._id;
-
-//           return res.status(HTTPCODES.OK).json({
-//             message: "welcome back",
-//             data: encrypt,
-//           });
-//         } else {
-//           return next(
-//             new MainAppError({
-//               message: "Account has not been verified yet.",
-//               httpcode: HTTPCODES.BAD_REQUEST,
-//             })
-//           );
-//         }
-//       }
-
-//       // Set session data here
-//       req.session.user = getUser._id;
-
-//       return res.status(HTTPCODES.OK).json({
-//         message: "Login Successful",
-//         data: getUser._id,
-//       });
-//     } catch (error) {
-//       return res.status(HTTPCODES.BAD_REQUEST).json({
-//         message: "An Error Occured in loginUser",
-//         error: error,
-//       });
-//     }
-//   }
-// );
-
 export const logoutUser = AsyncHandler(
   (req: any, res: Response, next: NextFunction) => {
     try {
@@ -317,15 +251,22 @@ export const deleteUser = AsyncHandler(async (req: Request, res: Response) => {
 export const updateUser = AsyncHandler(async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
-    const { name, password, email } = req.body;
+    const { firstName, lastName, password, email } = req.body;
     const getUser = await UserModels.findById(userID);
-    await UserModels.findByIdAndUpdate(getUser?._id, {
-      name,
-      email,
-      password,
-    });
+    const updates = await UserModels.findByIdAndUpdate(
+      getUser?._id,
+      {
+        firstName,
+        lastName,
+        email,
+        password,
+      },
+      { new: true }
+    );
+
     return res.status(HTTPCODES.OK).json({
-      message: "Udated",
+      message: "Updated",
+      data: updates,
     });
   } catch (error: any) {
     if (error.path === "_id") {
