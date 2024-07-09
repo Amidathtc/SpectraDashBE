@@ -1,0 +1,1793 @@
+{
+    "data": [
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "1",
+                    "countries": [
+                        "United Kingdom",
+                        "Ireland",
+                        "Guernsey"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": "0.1",
+                            "to_kg": "2",
+                            "price": "59,840.48"
+                        },
+                        {
+                            "from_kg": "2.1",
+                            "to_kg": "2.5",
+                            "price": "80,767.68"
+                        },
+                        {
+                            "from_kg": "2.6",
+                            "to_kg": "3",
+                            "price": "96,491.36"
+                        },
+                        {
+                            "from_kg": "3.1",
+                            "to_kg": "3.5",
+                            "price": "99,545.60"
+                        },
+                        {
+                            "from_kg": "3.6",
+                            "to_kg": "4",
+                            "price": "103,052.32"
+                        },
+                        {
+                            "from_kg": "4.1",
+                            "to_kg": "4.5",
+                            "price": "108,821.44"
+                        },
+                        {
+                            "from_kg": "4.6",
+                            "to_kg": "5",
+                            "price": "114,138.08"
+                        },
+                        {
+                            "from_kg": "5.1",
+                            "to_kg": "5.5",
+                            "price": "137,440.80"
+                        },
+                        {
+                            "from_kg": "5.6",
+                            "to_kg": "6",
+                            "price": "137,440.80"
+                        },
+                        {
+                            "from_kg": "6.1",
+                            "to_kg": "6.5",
+                            "price": "160,743.52"
+                        },
+                        {
+                            "from_kg": "6.6",
+                            "to_kg": "7",
+                            "price": "160,743.52"
+                        },
+                        {
+                            "from_kg": "7.1",
+                            "to_kg": "7.5",
+                            "price": "184,159.36"
+                        },
+                        {
+                            "from_kg": "7.6",
+                            "to_kg": "8",
+                            "price": "184,159.36"
+                        },
+                        {
+                            "from_kg": "8.1",
+                            "to_kg": "8.5",
+                            "price": "202,937.28"
+                        },
+                        {
+                            "from_kg": "8.6",
+                            "to_kg": "9",
+                            "price": "202,937.28"
+                        },
+                        {
+                            "from_kg": "9.1",
+                            "to_kg": "9.5",
+                            "price": "225,674.40"
+                        },
+                        {
+                            "from_kg": "9.6",
+                            "to_kg": "10",
+                            "price": "225,674.40"
+                        },
+                        {
+                            "from_kg": "10.1",
+                            "to_kg": "10.5",
+                            "price": "247,167.20"
+                        },
+                        {
+                            "from_kg": "10.6",
+                            "to_kg": "11",
+                            "price": "247,167.20"
+                        },
+                        {
+                            "from_kg": "11.1",
+                            "to_kg": "11.5",
+                            "price": "268,660.00"
+                        },
+                        {
+                            "from_kg": "11.6",
+                            "to_kg": "12",
+                            "price": "268,660.00"
+                        },
+                        {
+                            "from_kg": "12.1",
+                            "to_kg": "12.5",
+                            "price": "290,152.80"
+                        },
+                        {
+                            "from_kg": "12.6",
+                            "to_kg": "13",
+                            "price": "290,152.80"
+                        },
+                        {
+                            "from_kg": "13.1",
+                            "to_kg": "13.5",
+                            "price": "311,645.60"
+                        },
+                        {
+                            "from_kg": "13.6",
+                            "to_kg": "14",
+                            "price": "311,645.60"
+                        },
+                        {
+                            "from_kg": "14.1",
+                            "to_kg": "14.5",
+                            "price": "333,025.28"
+                        },
+                        {
+                            "from_kg": "14.6",
+                            "to_kg": "15",
+                            "price": "333,025.28"
+                        },
+                        {
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": "354,518.08"
+                        },
+                        {
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": "354,518.08"
+                        },
+                        {
+                            "from_kg": "16.1",
+                            "to_kg": "16.5",
+                            "price": "376,010.88"
+                        },
+                        {
+                            "from_kg": "16.6",
+                            "to_kg": "17",
+                            "price": "376,010.88"
+                        },
+                        {
+                            "from_kg": "17.1",
+                            "to_kg": "17.5",
+                            "price": "397,503.68"
+                        },
+                        {
+                            "from_kg": "17.6",
+                            "to_kg": "18",
+                            "price": "397,503.68"
+                        },
+                        {
+                            "from_kg": "18.1",
+                            "to_kg": "18.5",
+                            "price": "418,996.48"
+                        },
+                        {
+                            "from_kg": "18.6",
+                            "to_kg": "19",
+                            "price": "418,996.48"
+                        },
+                        {
+                            "from_kg": "19.1",
+                            "to_kg": "19.5",
+                            "price": "440,376.16"
+                        },
+                        {
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": "440,376.16"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "2",
+                    "countries": [
+                        "Benin",
+                        "Burundi",
+                        "Cameroon",
+                        "Cape Verde",
+                        "Central Africa Republic",
+                        "Chad",
+                        "Congo",
+                        "Cote d'Ivoire",
+                        "Gabon",
+                        "Gambia",
+                        "Ghana",
+                        "Guinea Republic",
+                        "Guinea Bissau",
+                        "Equatorial Guinea",
+                        "Liberia",
+                        "Mali",
+                        "Niger",
+                        "Sao Tome & Principe",
+                        "Senegal",
+                        "Sierra Leone",
+                        "Togo"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": "0.1",
+                            "to_kg": "2",
+                            "price": "66,627.68"
+                        },
+                        {
+                            "from_kg": "2.1",
+                            "to_kg": "2.5",
+                            "price": "86,763.04"
+                        },
+                        {
+                            "from_kg": "2.6",
+                            "to_kg": "3",
+                            "price": "102,486.72"
+                        },
+                        {
+                            "from_kg": "3.1",
+                            "to_kg": "3.5",
+                            "price": "106,785.28"
+                        },
+                        {
+                            "from_kg": "3.6",
+                            "to_kg": "4",
+                            "price": "110,292.00"
+                        },
+                        {
+                            "from_kg": "4.1",
+                            "to_kg": "4.5",
+                            "price": "116,174.24"
+                        },
+                        {
+                            "from_kg": "4.6",
+                            "to_kg": "5",
+                            "price": "146,264.16"
+                        },
+                        {
+                            "from_kg": "5.1",
+                            "to_kg": "5.5",
+                            "price": "153,843.20"
+                        },
+                        {
+                            "from_kg": "5.6",
+                            "to_kg": "6",
+                            "price": "153,843.20"
+                        },
+                        {
+                            "from_kg": "6.1",
+                            "to_kg": "6.5",
+                            "price": "169,340.64"
+                        },
+                        {
+                            "from_kg": "6.6",
+                            "to_kg": "7",
+                            "price": "169,340.64"
+                        },
+                        {
+                            "from_kg": "7.1",
+                            "to_kg": "7.5",
+                            "price": "193,322.08"
+                        },
+                        {
+                            "from_kg": "7.6",
+                            "to_kg": "8",
+                            "price": "193,322.08"
+                        },
+                        {
+                            "from_kg": "8.1",
+                            "to_kg": "8.5",
+                            "price": "212,891.84"
+                        },
+                        {
+                            "from_kg": "8.6",
+                            "to_kg": "9",
+                            "price": "212,891.84"
+                        },
+                        {
+                            "from_kg": "9.1",
+                            "to_kg": "9.5",
+                            "price": "236,307.68"
+                        },
+                        {
+                            "from_kg": "9.6",
+                            "to_kg": "10",
+                            "price": "236,307.68"
+                        },
+                        {
+                            "from_kg": "10.1",
+                            "to_kg": "10.5",
+                            "price": "258,366.08"
+                        },
+                        {
+                            "from_kg": "10.6",
+                            "to_kg": "11",
+                            "price": "258,366.08"
+                        },
+                        {
+                            "from_kg": "11.1",
+                            "to_kg": "11.5",
+                            "price": "280,424.48"
+                        },
+                        {
+                            "from_kg": "11.6",
+                            "to_kg": "12",
+                            "price": "280,424.48"
+                        },
+                        {
+                            "from_kg": "12.1",
+                            "to_kg": "12.5",
+                            "price": "302,596.00"
+                        },
+                        {
+                            "from_kg": "12.6",
+                            "to_kg": "13",
+                            "price": "302,596.00"
+                        },
+                        {
+                            "from_kg": "13.1",
+                            "to_kg": "13.5",
+                            "price": "324,654.40"
+                        },
+                        {
+                            "from_kg": "13.6",
+                            "to_kg": "14",
+                            "price": "324,654.40"
+                        },
+                        {
+                            "from_kg": "14.1",
+                            "to_kg": "14.5",
+                            "price": "346,712.80"
+                        },
+                        {
+                            "from_kg": "14.6",
+                            "to_kg": "15",
+                            "price": "346,712.80"
+                        },
+                        {
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": "368,771.20"
+                        },
+                        {
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": "368,771.20"
+                        },
+                        {
+                            "from_kg": "16.1",
+                            "to_kg": "16.5",
+                            "price": "390,942.72"
+                        },
+                        {
+                            "from_kg": "16.6",
+                            "to_kg": "17",
+                            "price": "390,942.72"
+                        },
+                        {
+                            "from_kg": "17.1",
+                            "to_kg": "17.5",
+                            "price": "413,001.12"
+                        },
+                        {
+                            "from_kg": "17.6",
+                            "to_kg": "18",
+                            "price": "413,001.12"
+                        },
+                        {
+                            "from_kg": "18.1",
+                            "to_kg": "18.5",
+                            "price": "435,059.52"
+                        },
+                        {
+                            "from_kg": "18.6",
+                            "to_kg": "19",
+                            "price": "435,059.52"
+                        },
+                        {
+                            "from_kg": "19.1",
+                            "to_kg": "19.5",
+                            "price": "457,231.04"
+                        },
+                        {
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": "457,231.04"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "3",
+                    "countries": [
+                        "Canada",
+                        "United States of America",
+                        "Mexico"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": "0.1",
+                            "to_kg": "2",
+                            "price": "72,057.44"
+                        },
+                        {
+                            "from_kg": "2.1",
+                            "to_kg": "2.5",
+                            "price": "99,319.36"
+                        },
+                        {
+                            "from_kg": "2.6",
+                            "to_kg": "3",
+                            "price": "121,490.88"
+                        },
+                        {
+                            "from_kg": "3.1",
+                            "to_kg": "3.5",
+                            "price": "134,499.68"
+                        },
+                        {
+                            "from_kg": "3.6",
+                            "to_kg": "4",
+                            "price": "145,585.44"
+                        },
+                        {
+                            "from_kg": "4.1",
+                            "to_kg": "4.5",
+                            "price": "158,820.48"
+                        },
+                        {
+                            "from_kg": "4.6",
+                            "to_kg": "5",
+                            "price": "171,603.04"
+                        },
+                        {
+                            "from_kg": "5.1",
+                            "to_kg": "5.5",
+                            "price": "200,335.52"
+                        },
+                        {
+                            "from_kg": "5.6",
+                            "to_kg": "6",
+                            "price": "200,335.52"
+                        },
+                        {
+                            "from_kg": "6.1",
+                            "to_kg": "6.5",
+                            "price": "228,276.16"
+                        },
+                        {
+                            "from_kg": "6.6",
+                            "to_kg": "7",
+                            "price": "228,276.16"
+                        },
+                        {
+                            "from_kg": "7.1",
+                            "to_kg": "7.5",
+                            "price": "255,651.20"
+                        },
+                        {
+                            "from_kg": "7.6",
+                            "to_kg": "8",
+                            "price": "255,651.20"
+                        },
+                        {
+                            "from_kg": "8.1",
+                            "to_kg": "8.5",
+                            "price": "278,162.08"
+                        },
+                        {
+                            "from_kg": "8.6",
+                            "to_kg": "9",
+                            "price": "278,162.08"
+                        },
+                        {
+                            "from_kg": "9.1",
+                            "to_kg": "9.5",
+                            "price": "304,405.92"
+                        },
+                        {
+                            "from_kg": "9.6",
+                            "to_kg": "10",
+                            "price": "304,405.92"
+                        },
+                        {
+                            "from_kg": "10.1",
+                            "to_kg": "10.5",
+                            "price": "328,500.48"
+                        },
+                        {
+                            "from_kg": "10.6",
+                            "to_kg": "11",
+                            "price": "328,500.48"
+                        },
+                        {
+                            "from_kg": "11.1",
+                            "to_kg": "11.5",
+                            "price": "352,595.04"
+                        },
+                        {
+                            "from_kg": "11.6",
+                            "to_kg": "12",
+                            "price": "352,595.04"
+                        },
+                        {
+                            "from_kg": "12.1",
+                            "to_kg": "12.5",
+                            "price": "376,689.60"
+                        },
+                        {
+                            "from_kg": "12.6",
+                            "to_kg": "13",
+                            "price": "376,689.60"
+                        },
+                        {
+                            "from_kg": "13.1",
+                            "to_kg": "13.5",
+                            "price": "400,784.16"
+                        },
+                        {
+                            "from_kg": "13.6",
+                            "to_kg": "14",
+                            "price": "400,784.16"
+                        },
+                        {
+                            "from_kg": "14.1",
+                            "to_kg": "14.5",
+                            "price": "424,878.72"
+                        },
+                        {
+                            "from_kg": "14.6",
+                            "to_kg": "15",
+                            "price": "424,878.72"
+                        },
+                        {
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": "448,973.28"
+                        },
+                        {
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": "448,973.28"
+                        },
+                        {
+                            "from_kg": "16.1",
+                            "to_kg": "16.5",
+                            "price": "473,067.84"
+                        },
+                        {
+                            "from_kg": "16.6",
+                            "to_kg": "17",
+                            "price": "473,067.84"
+                        },
+                        {
+                            "from_kg": "17.1",
+                            "to_kg": "17.5",
+                            "price": "497,162.40"
+                        },
+                        {
+                            "from_kg": "17.6",
+                            "to_kg": "18",
+                            "price": "497,162.40"
+                        },
+                        {
+                            "from_kg": "18.1",
+                            "to_kg": "18.5",
+                            "price": "521,256.96"
+                        },
+                        {
+                            "from_kg": "18.6",
+                            "to_kg": "19",
+                            "price": "521,256.96"
+                        },
+                        {
+                            "from_kg": "19.1",
+                            "to_kg": "19.5",
+                            "price": "545,464.64"
+                        },
+                        {
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": "545,464.64"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "4",
+                    "countries": [
+                        "Albania",
+                        "Andorra",
+                        "Austria",
+                        "Belarus",
+                        "Belgium",
+                        "Bosnia & Herzegovina",
+                        "Bulgaria",
+                        "Canary Island",
+                        "Croatia",
+                        "Cyprus",
+                        "Czech Republic",
+                        "Denmark",
+                        "Estonia",
+                        "Faroe Islands",
+                        "Finland",
+                        "France",
+                        "Germany",
+                        "Gibraltar",
+                        "Hungary",
+                        "Iceland",
+                        "Italy",
+                        "Kosovo",
+                        "Latvia",
+                        "Liechtenstein",
+                        "Lithuania",
+                        "Luxembourg",
+                        "Malta",
+                        "Moldova Republic",
+                        "Netherlands",
+                        "North Macedonia",
+                        "Norway",
+                        "Poland",
+                        "Portugal",
+                        "Romania",
+                        "Russian Federation",
+                        "San Marino",
+                        "Serbia Republic",
+                        "Slovakia",
+                        "Slovenia",
+                        "Spain",
+                        "Sweden",
+                        "Switzerland",
+                        "Turkey",
+                        "Ukraine",
+                        "Vatican City"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": "0.1",
+                            "to_kg": "2",
+                            "price": "83,708.80"
+                        },
+                        {
+                            "from_kg": "2.1",
+                            "to_kg": "2.5",
+                            "price": "110,178.88"
+                        },
+                        {
+                            "from_kg": "2.6",
+                            "to_kg": "3",
+                            "price": "132,350.40"
+                        },
+                        {
+                            "from_kg": "3.1",
+                            "to_kg": "3.5",
+                            "price": "135,404.64"
+                        },
+                        {
+                            "from_kg": "3.6",
+                            "to_kg": "4",
+                            "price": "146,490.40"
+                        },
+                        {
+                            "from_kg": "4.1",
+                            "to_kg": "4.5",
+                            "price": "157,576.16"
+                        },
+                        {
+                            "from_kg": "4.6",
+                            "to_kg": "5",
+                            "price": "168,661.92"
+                        },
+                        {
+                            "from_kg": "5.1",
+                            "to_kg": "5.5",
+                            "price": "172,055.52"
+                        },
+                        {
+                            "from_kg": "5.6",
+                            "to_kg": "6",
+                            "price": "172,055.52"
+                        },
+                        {
+                            "from_kg": "6.1",
+                            "to_kg": "6.5",
+                            "price": "200,222.40"
+                        },
+                        {
+                            "from_kg": "6.6",
+                            "to_kg": "7",
+                            "price": "200,222.40"
+                        },
+                        {
+                            "from_kg": "7.1",
+                            "to_kg": "7.5",
+                            "price": "228,389.28"
+                        },
+                        {
+                            "from_kg": "7.6",
+                            "to_kg": "8",
+                            "price": "228,389.28"
+                        },
+                        {
+                            "from_kg": "8.1",
+                            "to_kg": "8.5",
+                            "price": "252,144.48"
+                        },
+                        {
+                            "from_kg": "8.6",
+                            "to_kg": "9",
+                            "price": "252,144.48"
+                        },
+                        {
+                            "from_kg": "9.1",
+                            "to_kg": "9.5",
+                            "price": "279,745.76"
+                        },
+                        {
+                            "from_kg": "9.6",
+                            "to_kg": "10",
+                            "price": "279,745.76"
+                        },
+                        {
+                            "from_kg": "10.1",
+                            "to_kg": "10.5",
+                            "price": "305,650.24"
+                        },
+                        {
+                            "from_kg": "10.6",
+                            "to_kg": "11",
+                            "price": "305,650.24"
+                        },
+                        {
+                            "from_kg": "11.1",
+                            "to_kg": "11.5",
+                            "price": "331,554.72"
+                        },
+                        {
+                            "from_kg": "11.6",
+                            "to_kg": "12",
+                            "price": "331,554.72"
+                        },
+                        {
+                            "from_kg": "12.1",
+                            "to_kg": "12.5",
+                            "price": "357,459.20"
+                        },
+                        {
+                            "from_kg": "12.6",
+                            "to_kg": "13",
+                            "price": "357,459.20"
+                        },
+                        {
+                            "from_kg": "13.1",
+                            "to_kg": "13.5",
+                            "price": "383,363.68"
+                        },
+                        {
+                            "from_kg": "13.6",
+                            "to_kg": "14",
+                            "price": "383,363.68"
+                        },
+                        {
+                            "from_kg": "14.1",
+                            "to_kg": "14.5",
+                            "price": "409,268.16"
+                        },
+                        {
+                            "from_kg": "14.6",
+                            "to_kg": "15",
+                            "price": "409,268.16"
+                        },
+                        {
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": "435,059.52"
+                        },
+                        {
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": "435,059.52"
+                        },
+                        {
+                            "from_kg": "16.1",
+                            "to_kg": "16.5",
+                            "price": "460,964.00"
+                        },
+                        {
+                            "from_kg": "16.6",
+                            "to_kg": "17",
+                            "price": "460,964.00"
+                        },
+                        {
+                            "from_kg": "17.1",
+                            "to_kg": "17.5",
+                            "price": "486,868.48"
+                        },
+                        {
+                            "from_kg": "17.6",
+                            "to_kg": "18",
+                            "price": "486,868.48"
+                        },
+                        {
+                            "from_kg": "18.1",
+                            "to_kg": "18.5",
+                            "price": "512,772.96"
+                        },
+                        {
+                            "from_kg": "18.6",
+                            "to_kg": "19",
+                            "price": "512,772.96"
+                        },
+                        {
+                            "from_kg": "19.1",
+                            "to_kg": "19.5",
+                            "price": "538,677.44"
+                        },
+                        {
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": "538,677.44"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "5",
+                    "countries": [
+                        "Algeria",
+                        "Angola",
+                        "Botswana",
+                        "Burundi",
+                        "Comoros",
+                        "Djibouti",
+                        "Egypt",
+                        "Eritrea",
+                        "Eswatini",
+                        "Ethiopia",
+                        "Kenya",
+                        "Lesotho",
+                        "Libya",
+                        "Madagascar",
+                        "Malawi",
+                        "Mauritania",
+                        "Mauritius",
+                        "Mayotte",
+                        "Morocco",
+                        "Mozambique",
+                        "Namibia",
+                        "Reunion",
+                        "Island of Ré",
+                        "Rwanda",
+                        "Seychelles",
+                        "Somaliland (Rep of XS)",
+                        "South Africa",
+                        "Sudan",
+                        "Tanzania",
+                        "Tunisia",
+                        "Uganda",
+                        "Zambia",
+                        "Zimbabwe"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": "0.1",
+                            "to_kg": "2",
+                            "price": "85,971.20"
+                        },
+                        {
+                            "from_kg": "2.1",
+                            "to_kg": "2.5",
+                            "price": "112,441.28"
+                        },
+                        {
+                            "from_kg": "2.6",
+                            "to_kg": "3",
+                            "price": "134,612.80"
+                        },
+                        {
+                            "from_kg": "3.1",
+                            "to_kg": "3.5",
+                            "price": "139,929.44"
+                        },
+                        {
+                            "from_kg": "3.6",
+                            "to_kg": "4",
+                            "price": "147,847.84"
+                        },
+                        {
+                            "from_kg": "4.1",
+                            "to_kg": "4.5",
+                            "price": "158,594.24"
+                        },
+                        {
+                            "from_kg": "4.6",
+                            "to_kg": "5",
+                            "price": "169,340.64"
+                        },
+                        {
+                            "from_kg": "5.1",
+                            "to_kg": "5.5",
+                            "price": "183,367.52"
+                        },
+                        {
+                            "from_kg": "5.6",
+                            "to_kg": "6",
+                            "price": "183,367.52"
+                        },
+                        {
+                            "from_kg": "6.1",
+                            "to_kg": "6.5",
+                            "price": "213,231.20"
+                        },
+                        {
+                            "from_kg": "6.6",
+                            "to_kg": "7",
+                            "price": "213,231.20"
+                        },
+                        {
+                            "from_kg": "7.1",
+                            "to_kg": "7.5",
+                            "price": "243,094.88"
+                        },
+                        {
+                            "from_kg": "7.6",
+                            "to_kg": "8",
+                            "price": "243,094.88"
+                        },
+                        {
+                            "from_kg": "8.1",
+                            "to_kg": "8.5",
+                            "price": "268,433.76"
+                        },
+                        {
+                            "from_kg": "8.6",
+                            "to_kg": "9",
+                            "price": "268,433.76"
+                        },
+                        {
+                            "from_kg": "9.1",
+                            "to_kg": "9.5",
+                            "price": "297,731.84"
+                        },
+                        {
+                            "from_kg": "9.6",
+                            "to_kg": "10",
+                            "price": "297,731.84"
+                        },
+                        {
+                            "from_kg": "10.1",
+                            "to_kg": "10.5",
+                            "price": "325,106.88"
+                        },
+                        {
+                            "from_kg": "10.6",
+                            "to_kg": "11",
+                            "price": "325,106.88"
+                        },
+                        {
+                            "from_kg": "11.1",
+                            "to_kg": "11.5",
+                            "price": "352,481.92"
+                        },
+                        {
+                            "from_kg": "11.6",
+                            "to_kg": "12",
+                            "price": "352,481.92"
+                        },
+                        {
+                            "from_kg": "12.1",
+                            "to_kg": "12.5",
+                            "price": "379,856.96"
+                        },
+                        {
+                            "from_kg": "12.6",
+                            "to_kg": "13",
+                            "price": "379,856.96"
+                        },
+                        {
+                            "from_kg": "13.1",
+                            "to_kg": "13.5",
+                            "price": "407,232.00"
+                        },
+                        {
+                            "from_kg": "13.6",
+                            "to_kg": "14",
+                            "price": "407,232.00"
+                        },
+                        {
+                            "from_kg": "14.1",
+                            "to_kg": "14.5",
+                            "price": "434,607.04"
+                        },
+                        {
+                            "from_kg": "14.6",
+                            "to_kg": "15",
+                            "price": "434,607.04"
+                        },
+                        {
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": "462,095.20"
+                        },
+                        {
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": "462,095.20"
+                        },
+                        {
+                            "from_kg": "16.1",
+                            "to_kg": "16.5",
+                            "price": "489,470.24"
+                        },
+                        {
+                            "from_kg": "16.6",
+                            "to_kg": "17",
+                            "price": "489,470.24"
+                        },
+                        {
+                            "from_kg": "17.1",
+                            "to_kg": "17.5",
+                            "price": "516,845.28"
+                        },
+                        {
+                            "from_kg": "17.6",
+                            "to_kg": "18",
+                            "price": "516,845.28"
+                        },
+                        {
+                            "from_kg": "18.1",
+                            "to_kg": "18.5",
+                            "price": "544,220.32"
+                        },
+                        {
+                            "from_kg": "18.6",
+                            "to_kg": "19",
+                            "price": "544,220.32"
+                        },
+                        {
+                            "from_kg": "19.1",
+                            "to_kg": "19.5",
+                            "price": "571,595.36"
+                        },
+                        {
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": "571,595.36"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "6",
+                    "countries": [
+                        "Afghanistan",
+                        "Bahrain",
+                        "Iran",
+                        "Iraq",
+                        "Israel",
+                        "Jordan",
+                        "Kuwait",
+                        "Lebanon",
+                        "Oman",
+                        "Qatar",
+                        "Saudi Arabia",
+                        "Syria",
+                        "United Arab Emirates",
+                        "Yemen"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": "0.1",
+                            "to_kg": "2",
+                            "price": "92,192.80"
+                        },
+                        {
+                            "from_kg": "2.1",
+                            "to_kg": "2.5",
+                            "price": "120,133.44"
+                        },
+                        {
+                            "from_kg": "2.6",
+                            "to_kg": "3",
+                            "price": "145,811.68"
+                        },
+                        {
+                            "from_kg": "3.1",
+                            "to_kg": "3.5",
+                            "price": "154,182.56"
+                        },
+                        {
+                            "from_kg": "3.6",
+                            "to_kg": "4",
+                            "price": "161,648.48"
+                        },
+                        {
+                            "from_kg": "4.1",
+                            "to_kg": "4.5",
+                            "price": "165,381.44"
+                        },
+                        {
+                            "from_kg": "4.6",
+                            "to_kg": "5",
+                            "price": "175,901.60"
+                        },
+                        {
+                            "from_kg": "5.1",
+                            "to_kg": "5.5",
+                            "price": "210,516.32"
+                        },
+                        {
+                            "from_kg": "5.6",
+                            "to_kg": "6",
+                            "price": "210,516.32"
+                        },
+                        {
+                            "from_kg": "6.1",
+                            "to_kg": "6.5",
+                            "price": "238,456.96"
+                        },
+                        {
+                            "from_kg": "6.6",
+                            "to_kg": "7",
+                            "price": "238,456.96"
+                        },
+                        {
+                            "from_kg": "7.1",
+                            "to_kg": "7.5",
+                            "price": "272,053.60"
+                        },
+                        {
+                            "from_kg": "7.6",
+                            "to_kg": "8",
+                            "price": "272,053.60"
+                        },
+                        {
+                            "from_kg": "8.1",
+                            "to_kg": "8.5",
+                            "price": "301,012.32"
+                        },
+                        {
+                            "from_kg": "8.6",
+                            "to_kg": "9",
+                            "price": "301,012.32"
+                        },
+                        {
+                            "from_kg": "9.1",
+                            "to_kg": "9.5",
+                            "price": "334,043.36"
+                        },
+                        {
+                            "from_kg": "9.6",
+                            "to_kg": "10",
+                            "price": "334,043.36"
+                        },
+                        {
+                            "from_kg": "10.1",
+                            "to_kg": "10.5",
+                            "price": "365,038.24"
+                        },
+                        {
+                            "from_kg": "10.6",
+                            "to_kg": "11",
+                            "price": "365,038.24"
+                        },
+                        {
+                            "from_kg": "11.1",
+                            "to_kg": "11.5",
+                            "price": "396,033.12"
+                        },
+                        {
+                            "from_kg": "11.6",
+                            "to_kg": "12",
+                            "price": "396,033.12"
+                        },
+                        {
+                            "from_kg": "12.1",
+                            "to_kg": "12.5",
+                            "price": "427,141.12"
+                        },
+                        {
+                            "from_kg": "12.6",
+                            "to_kg": "13",
+                            "price": "427,141.12"
+                        },
+                        {
+                            "from_kg": "13.1",
+                            "to_kg": "13.5",
+                            "price": "458,136.00"
+                        },
+                        {
+                            "from_kg": "13.6",
+                            "to_kg": "14",
+                            "price": "458,136.00"
+                        },
+                        {
+                            "from_kg": "14.1",
+                            "to_kg": "14.5",
+                            "price": "489,130.88"
+                        },
+                        {
+                            "from_kg": "14.6",
+                            "to_kg": "15",
+                            "price": "489,130.88"
+                        },
+                        {
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": "520,125.76"
+                        },
+                        {
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": "520,125.76"
+                        },
+                        {
+                            "from_kg": "16.1",
+                            "to_kg": "16.5",
+                            "price": "551,120.64"
+                        },
+                        {
+                            "from_kg": "16.6",
+                            "to_kg": "17",
+                            "price": "551,120.64"
+                        },
+                        {
+                            "from_kg": "17.1",
+                            "to_kg": "17.5",
+                            "price": "582,115.52"
+                        },
+                        {
+                            "from_kg": "17.6",
+                            "to_kg": "18",
+                            "price": "582,115.52"
+                        },
+                        {
+                            "from_kg": "18.1",
+                            "to_kg": "18.5",
+                            "price": "613,110.40"
+                        },
+                        {
+                            "from_kg": "18.6",
+                            "to_kg": "19",
+                            "price": "613,110.40"
+                        },
+                        {
+                            "from_kg": "19.1",
+                            "to_kg": "19.5",
+                            "price": "644,105.28"
+                        },
+                        {
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": "644,105.28"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "7",
+                    "countries": [
+                        "Armenia",
+                        "Australia",
+                        "Azerbaijan",
+                        "Bangladesh",
+                        "Bhutan",
+                        "Cambodia",
+                        "China",
+                        "Georgia",
+                        "Hong Kong SAR China",
+                        "Indonesia",
+                        "Japan",
+                        "Kazakhstan",
+                        "Korea Rep.",
+                        "Korea D.P.R.",
+                        "Kyrgyzstan",
+                        "Laos",
+                        "Macau SAR China",
+                        "Malaysia",
+                        "Maldives",
+                        "Mongolia",
+                        "Myanmar",
+                        "Nepal",
+                        "Pakistan",
+                        "Palau",
+                        "Philippines",
+                        "Singapore",
+                        "Sri Lanka",
+                        "Taiwan",
+                        "Tajikistan",
+                        "Thailand",
+                        "Timor-Leste",
+                        "Turkmenistan",
+                        "Uzbekistan",
+                        "Vietnam"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": "0.1",
+                            "to_kg": "2",
+                            "price": "103,504.80"
+                        },
+                        {
+                            "from_kg": "2.1",
+                            "to_kg": "2.5",
+                            "price": "132,011.04"
+                        },
+                        {
+                            "from_kg": "2.6",
+                            "to_kg": "3",
+                            "price": "158,254.88"
+                        },
+                        {
+                            "from_kg": "3.1",
+                            "to_kg": "3.5",
+                            "price": "163,458.40"
+                        },
+                        {
+                            "from_kg": "3.6",
+                            "to_kg": "4",
+                            "price": "173,299.84"
+                        },
+                        {
+                            "from_kg": "4.1",
+                            "to_kg": "4.5",
+                            "price": "186,082.40"
+                        },
+                        {
+                            "from_kg": "4.6",
+                            "to_kg": "5",
+                            "price": "198,751.84"
+                        },
+                        {
+                            "from_kg": "5.1",
+                            "to_kg": "5.5",
+                            "price": "238,230.72"
+                        },
+                        {
+                            "from_kg": "5.6",
+                            "to_kg": "6",
+                            "price": "238,230.72"
+                        },
+                        {
+                            "from_kg": "6.1",
+                            "to_kg": "6.5",
+                            "price": "254,067.52"
+                        },
+                        {
+                            "from_kg": "6.6",
+                            "to_kg": "7",
+                            "price": "254,067.52"
+                        },
+                        {
+                            "from_kg": "7.1",
+                            "to_kg": "7.5",
+                            "price": "289,587.20"
+                        },
+                        {
+                            "from_kg": "7.6",
+                            "to_kg": "8",
+                            "price": "289,587.20"
+                        },
+                        {
+                            "from_kg": "8.1",
+                            "to_kg": "8.5",
+                            "price": "320,582.08"
+                        },
+                        {
+                            "from_kg": "8.6",
+                            "to_kg": "9",
+                            "price": "320,582.08"
+                        },
+                        {
+                            "from_kg": "9.1",
+                            "to_kg": "9.5",
+                            "price": "355,649.28"
+                        },
+                        {
+                            "from_kg": "9.6",
+                            "to_kg": "10",
+                            "price": "355,649.28"
+                        },
+                        {
+                            "from_kg": "10.1",
+                            "to_kg": "10.5",
+                            "price": "388,454.08"
+                        },
+                        {
+                            "from_kg": "10.6",
+                            "to_kg": "11",
+                            "price": "388,454.08"
+                        },
+                        {
+                            "from_kg": "11.1",
+                            "to_kg": "11.5",
+                            "price": "421,372.00"
+                        },
+                        {
+                            "from_kg": "11.6",
+                            "to_kg": "12",
+                            "price": "421,372.00"
+                        },
+                        {
+                            "from_kg": "12.1",
+                            "to_kg": "12.5",
+                            "price": "454,176.80"
+                        },
+                        {
+                            "from_kg": "12.6",
+                            "to_kg": "13",
+                            "price": "454,176.80"
+                        },
+                        {
+                            "from_kg": "13.1",
+                            "to_kg": "13.5",
+                            "price": "487,094.72"
+                        },
+                        {
+                            "from_kg": "13.6",
+                            "to_kg": "14",
+                            "price": "487,094.72"
+                        },
+                        {
+                            "from_kg": "14.1",
+                            "to_kg": "14.5",
+                            "price": "519,899.52"
+                        },
+                        {
+                            "from_kg": "14.6",
+                            "to_kg": "15",
+                            "price": "519,899.52"
+                        },
+                        {
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": "552,817.44"
+                        },
+                        {
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": "552,817.44"
+                        },
+                        {
+                            "from_kg": "16.1",
+                            "to_kg": "16.5",
+                            "price": "585,622.24"
+                        },
+                        {
+                            "from_kg": "16.6",
+                            "to_kg": "17",
+                            "price": "585,622.24"
+                        },
+                        {
+                            "from_kg": "17.1",
+                            "to_kg": "17.5",
+                            "price": "618,540.16"
+                        },
+                        {
+                            "from_kg": "17.6",
+                            "to_kg": "18",
+                            "price": "618,540.16"
+                        },
+                        {
+                            "from_kg": "18.1",
+                            "to_kg": "18.5",
+                            "price": "651,344.96"
+                        },
+                        {
+                            "from_kg": "18.6",
+                            "to_kg": "19",
+                            "price": "651,344.96"
+                        },
+                        {
+                            "from_kg": "19.1",
+                            "to_kg": "19.5",
+                            "price": "684,262.88"
+                        },
+                        {
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": "684,262.88"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "8",
+                    "countries": [
+                        "American Samoa",
+                        "Anguilla",
+                        "Antigua",
+                        "Aruba",
+                        "Bahamas",
+                        "Barbados",
+                        "Belize",
+                        "Bermuda",
+                        "Bolivia",
+                        "Bonaire",
+                        "Brazil",
+                        "Cayman Islands",
+                        "Chile",
+                        "Colombia",
+                        "Cook Islands",
+                        "Costa Rica",
+                        "Cuba",
+                        "Curacao",
+                        "Dominica",
+                        "Dominican Republic",
+                        "Ecuador",
+                        "El Salvador",
+                        "Falkland Islands",
+                        "Fiji",
+                        "French Guiana",
+                        "Grenada",
+                        "Guadeloupe",
+                        "Guam",
+                        "Guatemala",
+                        "Guyana (British)",
+                        "Haiti",
+                        "Honduras",
+                        "Jamaica",
+                        "Mariana Islands",
+                        "Martinique",
+                        "Micronesia",
+                        "Montserrat",
+                        "Nauru",
+                        "Nevis",
+                        "New Caledonia",
+                        "New Zealand",
+                        "Nicaragua",
+                        "Niue",
+                        "Panama",
+                        "Papua New Guinea",
+                        "Paraguay",
+                        "Peru",
+                        "Puerto Rico",
+                        "Saint Helena",
+                        "Samoa",
+                        "Solomon Islands",
+                        "St. Barthelemy",
+                        "St. Eustatius",
+                        "St. Kitts",
+                        "St. Lucia",
+                        "St. Maarten",
+                        "St. Vincent",
+                        "Suriname",
+                        "Tahiti",
+                        "Tonga",
+                        "Trinidad & Tobago",
+                        "Turks & Caicos",
+                        "Tuvalu",
+                        "Uruguay",
+                        "Vanuatu",
+                        "Venezuela",
+                        "Virgin Islands (British)",
+                        "Virgin Islands (US)"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": "0.1",
+                            "to_kg": "2",
+                            "price": "107,464.00"
+                        },
+                        {
+                            "from_kg": "2.1",
+                            "to_kg": "2.5",
+                            "price": "143,436.16"
+                        },
+                        {
+                            "from_kg": "2.6",
+                            "to_kg": "3",
+                            "price": "176,014.72"
+                        },
+                        {
+                            "from_kg": "3.1",
+                            "to_kg": "3.5",
+                            "price": "197,281.28"
+                        },
+                        {
+                            "from_kg": "3.6",
+                            "to_kg": "4",
+                            "price": "211,421.28"
+                        },
+                        {
+                            "from_kg": "4.1",
+                            "to_kg": "4.5",
+                            "price": "225,448.16"
+                        },
+                        {
+                            "from_kg": "4.6",
+                            "to_kg": "5",
+                            "price": "239,475.04"
+                        },
+                        {
+                            "from_kg": "5.1",
+                            "to_kg": "5.5",
+                            "price": "281,103.20"
+                        },
+                        {
+                            "from_kg": "5.6",
+                            "to_kg": "6",
+                            "price": "281,103.20"
+                        },
+                        {
+                            "from_kg": "6.1",
+                            "to_kg": "6.5",
+                            "price": "327,256.16"
+                        },
+                        {
+                            "from_kg": "6.6",
+                            "to_kg": "7",
+                            "price": "327,256.16"
+                        },
+                        {
+                            "from_kg": "7.1",
+                            "to_kg": "7.5",
+                            "price": "345,694.72"
+                        },
+                        {
+                            "from_kg": "7.6",
+                            "to_kg": "8",
+                            "price": "345,694.72"
+                        },
+                        {
+                            "from_kg": "8.1",
+                            "to_kg": "8.5",
+                            "price": "383,363.68"
+                        },
+                        {
+                            "from_kg": "8.6",
+                            "to_kg": "9",
+                            "price": "383,363.68"
+                        },
+                        {
+                            "from_kg": "9.1",
+                            "to_kg": "9.5",
+                            "price": "424,991.84"
+                        },
+                        {
+                            "from_kg": "9.6",
+                            "to_kg": "10",
+                            "price": "424,991.84"
+                        },
+                        {
+                            "from_kg": "10.1",
+                            "to_kg": "10.5",
+                            "price": "463,905.12"
+                        },
+                        {
+                            "from_kg": "10.6",
+                            "to_kg": "11",
+                            "price": "463,905.12"
+                        },
+                        {
+                            "from_kg": "11.1",
+                            "to_kg": "11.5",
+                            "price": "502,818.40"
+                        },
+                        {
+                            "from_kg": "11.6",
+                            "to_kg": "12",
+                            "price": "502,818.40"
+                        },
+                        {
+                            "from_kg": "12.1",
+                            "to_kg": "12.5",
+                            "price": "541,844.80"
+                        },
+                        {
+                            "from_kg": "12.6",
+                            "to_kg": "13",
+                            "price": "541,844.80"
+                        },
+                        {
+                            "from_kg": "13.1",
+                            "to_kg": "13.5",
+                            "price": "580,758.08"
+                        },
+                        {
+                            "from_kg": "13.6",
+                            "to_kg": "14",
+                            "price": "580,758.08"
+                        },
+                        {
+                            "from_kg": "14.1",
+                            "to_kg": "14.5",
+                            "price": "619,784.48"
+                        },
+                        {
+                            "from_kg": "14.6",
+                            "to_kg": "15",
+                            "price": "619,784.48"
+                        },
+                        {
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": "658,697.76"
+                        },
+                        {
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": "658,697.76"
+                        },
+                        {
+                            "from_kg": "16.1",
+                            "to_kg": "16.5",
+                            "price": "697,724.16"
+                        },
+                        {
+                            "from_kg": "16.6",
+                            "to_kg": "17",
+                            "price": "697,724.16"
+                        },
+                        {
+                            "from_kg": "17.1",
+                            "to_kg": "17.5",
+                            "price": "736,637.44"
+                        },
+                        {
+                            "from_kg": "17.6",
+                            "to_kg": "18",
+                            "price": "736,637.44"
+                        },
+                        {
+                            "from_kg": "18.1",
+                            "to_kg": "18.5",
+                            "price": "775,663.84"
+                        },
+                        {
+                            "from_kg": "18.6",
+                            "to_kg": "19",
+                            "price": "775,663.84"
+                        },
+                        {
+                            "from_kg": "19.1",
+                            "to_kg": "19.5",
+                            "price": "814,577.12"
+                        },
+                        {
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": "814,577.12"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

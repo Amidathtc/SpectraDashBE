@@ -1,5 +1,5 @@
 import MongoDB from "connect-mongodb-session";
-import mongoose, { Types } from "mongoose";
+import { Types, Document } from "mongoose";
 import { EnvironmentVariables } from "../config/envV";
 import session from "express-session";
 
@@ -14,70 +14,21 @@ export interface Iuser {
   orders: Array<{}>;
 }
 
-export interface Iagent {
-  AgentCompanyname: string;
-  AgentEmail: string;
-  password: string;
-  verified: boolean;
-  profile: Array<string>;
-  fullName: string;
+interface IDeliveryZone {
+  zone_name: string;
+  countries: Array<string>;
+  kg_prices: Array<{
+    from_kg: number;
+    to_kg: number;
+    price: number;
+  }>;
+}
+export interface IAgent {
+  agentName: string;
+  agentCompanyName?: string; // Optional property
+  agentZones: Array<IDeliveryZone>; // Use the new interface for zones
+  orders: Array<{}>; // Placeholder for orders (structure not provided)
   role: string;
-}
-
-export interface IShipmentHistory {
-  DATE: string;
-  TIME: string;
-  LOCATION: string;
-  STATUS: string;
-  UPDATEDBY: string;
-  REMARKS: string;
-}
-export interface IShipmentHistory {
-  DATE: string;
-  TIME: string;
-  LOCATION: string;
-  STATUS: string;
-  UPDATEDBY: string;
-  REMARKS: string;
-}
-
-export interface Iclient {
-  NAME: string;
-  ADDRESS: string;
-  PHONE: string;
-  EMAIL: string;
-  ORIGIN: string;
-  PACKAGE: string;
-  DESTINATION: string;
-  CARRIER: string;
-  TYPEOFSHIPMENT: string;
-  WEIGHT: string;
-  SHIPMENTMODE: string;
-  CARRIERREFERENCENO: string;
-  PRODUCT: string;
-  QTY: string;
-  PAYMENTMODE: string;
-  TOTALFREIGHT: string;
-  EXPECTEDDELIVERYDATE: string;
-  DEPARTURETIME: string;
-  PICKUPDATE: string;
-  PICKUPTIME: string;
-  COMMENTS: string;
-  PIECETYPE: string;
-  DESCRIPTION: string;
-  LENGTH: string;
-  WIDTH: string;
-  HEIGHT_KG: string;
-  WEIGHT_KG: string;
-  ShipmentHistory: {}[];
-}
-
-export interface iProfile {
-  avatar: string;
-  // profileAvatarID: string;
-  password: string;
-  userID: string;
-  user: {};
 }
 
 export interface iOrder {
@@ -128,10 +79,66 @@ export interface iOrder {
     };
   };
   user: {};
+  agent: {};
   status: string;
 }
+export interface IShipmentHistory {
+  DATE: string;
+  TIME: string;
+  LOCATION: string;
+  STATUS: string;
+  UPDATEDBY: string;
+  REMARKS: string;
+}
+export interface IShipmentHistory {
+  DATE: string;
+  TIME: string;
+  LOCATION: string;
+  STATUS: string;
+  UPDATEDBY: string;
+  REMARKS: string;
+}
 
-export interface iProfileData extends iProfile, mongoose.Document {}
+export interface Iclient {
+  NAME: string;
+  ADDRESS: string;
+  PHONE: string;
+  EMAIL: string;
+  ORIGIN: string;
+  PACKAGE: string;
+  DESTINATION: string;
+  CARRIER: string;
+  TYPEOFSHIPMENT: string;
+  WEIGHT: string;
+  SHIPMENTMODE: string;
+  CARRIERREFERENCENO: string;
+  PRODUCT: string;
+  QTY: string;
+  PAYMENTMODE: string;
+  TOTALFREIGHT: string;
+  EXPECTEDDELIVERYDATE: string;
+  DEPARTURETIME: string;
+  PICKUPDATE: string;
+  PICKUPTIME: string;
+  COMMENTS: string;
+  PIECETYPE: string;
+  DESCRIPTION: string;
+  LENGTH: string;
+  WIDTH: string;
+  HEIGHT_KG: string;
+  WEIGHT_KG: string;
+  ShipmentHistory: {}[];
+}
+
+export interface IProfile {
+  profileAvatar: string;
+  password: string;
+  userID: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface IUserProfileData extends IProfile, Document {}
 
 const MongoDBStore = MongoDB(session);
 export const sessionStore: any = new MongoDBStore({
