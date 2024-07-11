@@ -27,7 +27,11 @@ export const viewAllAgent = AsyncHandler(
 
 export const createAgent = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { agentName, agentCompanyName, agentZones } = req.body;
+    const { agentName, agentCompanyName, agentZones, deliveryDays } = req.body;
+
+    // lbb 3-5 days
+    // trill 1-4 days
+    // tv deluxe 2-7 days
 
     // Validate agentZones data structure (optional)
     if (
@@ -43,12 +47,17 @@ export const createAgent = AsyncHandler(
     }
 
     try {
-      const newAgent = await agentModel.create({
+      const newAgent: any = await agentModel.create({
         agentName,
         agentCompanyName,
         agentZones,
+        deliveryDays,
       });
-      res.status(201).json(newAgent);
+      res.status(201).json({
+        No_Agents: `Number of Agents:${newAgent?.length}`,
+        message: "An Agent has being created",
+        data: newAgent,
+      });
     } catch (error: any) {
       res.status(400).json({ message: error.message, error });
       return next(
@@ -69,18 +78,20 @@ export const addMoreZones = AsyncHandler(
     // Validate agentId and newZone structure (optional)
 
     try {
-      const agent = await agentModel.findById(agentID);
+      const agent: any = await agentModel.findById(agentID);
       if (!agent) {
         return res.status(404).json({ message: "Agent not found" });
       }
 
       // Push the new zone object to the agent's agentZones array
-      agent.agentZones.push(newZone);
+      agent?.agentZones.push(newZone);
       await agent?.save(); // Save the updated agent document
 
-      res
-        .status(200)
-        .json({ message: "new zone has being added", data: agent.agentZones });
+      res.status(200).json({
+        lengthOfData: `${agent.agentZones.length}`,
+        message: "new zone has being added",
+        data: agent.agentZones,
+      });
     } catch (error: any) {
       res.status(400).json({ message: error.message, error });
     }
@@ -159,3 +170,57 @@ export const deleteAgent = AsyncHandler(async (req: Request, res: Response) => {
     });
   }
 });
+
+export const updateAgentInfo = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { agentID } = req.params;
+
+      const { agentName } = req.body;
+      const agent = await agentModel.findByIdAndUpdate(
+        agentID,
+        { agentName },
+        { new: true }
+      );
+      return res.status(HTTPCODES.OK).json({
+        message: "Agent details has being Updated",
+        data: agent,
+      });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message, error });
+      return next(
+        new MainAppError({
+          message: "Agent details hasn't being Updated",
+          httpcode: HTTPCODES.BAD_REQUEST,
+        })
+      );
+    }
+  }
+);
+
+export const updateAgentDeliveryDays = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { agentID } = req.params;
+
+      const { deliveryDays } = req.body;
+      const agent = await agentModel.findByIdAndUpdate(
+        agentID,
+        { deliveryDays },
+        { new: true }
+      );
+      return res.status(HTTPCODES.OK).json({
+        message: "Agent's delivery days has being Updated",
+        data: agent,
+      });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message, error });
+      return next(
+        new MainAppError({
+          message: "Agent's delivery days hasn't being Updated",
+          httpcode: HTTPCODES.BAD_REQUEST,
+        })
+      );
+    }
+  }
+);

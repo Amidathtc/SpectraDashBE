@@ -29,6 +29,7 @@ export interface IAgent {
   agentZones: Array<IDeliveryZone>; // Use the new interface for zones
   orders: Array<{}>; // Placeholder for orders (structure not provided)
   role: string;
+  deliveryDays: string;
 }
 
 export interface iOrder {
@@ -81,6 +82,7 @@ export interface iOrder {
   user: {};
   agent: {};
   status: string;
+  orderPricing: number;
 }
 export interface IShipmentHistory {
   DATE: string;
