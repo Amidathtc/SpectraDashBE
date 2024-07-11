@@ -7,6 +7,8 @@ AgentRoute.route("/get-all-agents").get(agentController_1.viewAllAgent);
 AgentRoute.route("/create-agent").post(agentController_1.createAgent);
 AgentRoute.route("/add-more-kgprices/:agentID").patch(agentController_1.addMoreKgAndPrices);
 AgentRoute.route("/add-zones/:agentID").patch(agentController_1.addMoreZones);
+AgentRoute.route("/update-agent-info/:agentID").patch(agentController_1.updateAgentInfo);
+AgentRoute.route("/update-agent-ddays/:agentID").patch(agentController_1.updateAgentDeliveryDays);
 AgentRoute.route("/get-agent/:agentID").get(agentController_1.getAgent);
 AgentRoute.route("/delete-agent/:agentID").delete(agentController_1.deleteAgent);
 exports.default = AgentRoute;

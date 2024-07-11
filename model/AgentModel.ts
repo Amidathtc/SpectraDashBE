@@ -52,6 +52,10 @@ const agentSchema = new Schema<iAgentData>(
       type: String,
       default: ROLE.AGENT,
     },
+    deliveryDays: {
+      type: String,
+      required: true,
+    },
     orders: [
       {
         type: Types.ObjectId,

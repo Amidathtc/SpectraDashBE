@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAgent = exports.getAgent = exports.addMoreKgAndPrices = exports.addMoreZones = exports.createAgent = exports.viewAllAgent = void 0;
+exports.updateAgentDeliveryDays = exports.updateAgentInfo = exports.deleteAgent = exports.getAgent = exports.addMoreKgAndPrices = exports.addMoreZones = exports.createAgent = exports.viewAllAgent = void 0;
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
 const MainAppError_1 = require("../Utils/MainAppError");
 const AgentModel_1 = __importDefault(require("../model/AgentModel"));
@@ -36,7 +36,10 @@ exports.viewAllAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(
     }
 }));
 exports.createAgent = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { agentName, agentCompanyName, agentZones } = req.body;
+    const { agentName, agentCompanyName, agentZones, deliveryDays } = req.body;
+    // lbb 3-5 days
+    // trill 1-4 days
+    // tv deluxe 2-7 days
     // Validate agentZones data structure (optional)
     if (!Array.isArray(agentZones) ||
         !agentZones.every((zone) => zone.zone_name && zone.countries && Array.isArray(zone.kg_prices))) {
@@ -49,8 +52,13 @@ exports.createAgent = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awa
             agentName,
             agentCompanyName,
             agentZones,
+            deliveryDays,
         });
-        res.status(201).json(newAgent);
+        res.status(201).json({
+            No_Agents: `Number of Agents:${newAgent === null || newAgent === void 0 ? void 0 : newAgent.length}`,
+            message: "An Agent has being created",
+            data: newAgent,
+        });
     }
     catch (error) {
         res.status(400).json({ message: error.message, error });
@@ -70,11 +78,13 @@ exports.addMoreZones = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __aw
             return res.status(404).json({ message: "Agent not found" });
         }
         // Push the new zone object to the agent's agentZones array
-        agent.agentZones.push(newZone);
+        agent === null || agent === void 0 ? void 0 : agent.agentZones.push(newZone);
         yield (agent === null || agent === void 0 ? void 0 : agent.save()); // Save the updated agent document
-        res
-            .status(200)
-            .json({ message: "new zone has being added", data: agent.agentZones });
+        res.status(200).json({
+            lengthOfData: `${agent.agentZones.length}`,
+            message: "new zone has being added",
+            data: agent.agentZones,
+        });
     }
     catch (error) {
         res.status(400).json({ message: error.message, error });
@@ -140,5 +150,41 @@ exports.deleteAgent = (0, AsyncHandler_1.AsyncHandler)((req, res) => __awaiter(v
             message: "An Error Occured in getAgent",
             error: error === null || error === void 0 ? void 0 : error.message,
         });
+    }
+}));
+exports.updateAgentInfo = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { agentID } = req.params;
+        const { agentName } = req.body;
+        const agent = yield AgentModel_1.default.findByIdAndUpdate(agentID, { agentName }, { new: true });
+        return res.status(MainAppError_1.HTTPCODES.OK).json({
+            message: "Agent details has being Updated",
+            data: agent,
+        });
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message, error });
+        return next(new MainAppError_1.MainAppError({
+            message: "Agent details hasn't being Updated",
+            httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
+        }));
+    }
+}));
+exports.updateAgentDeliveryDays = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { agentID } = req.params;
+        const { deliveryDays } = req.body;
+        const agent = yield AgentModel_1.default.findByIdAndUpdate(agentID, { deliveryDays }, { new: true });
+        return res.status(MainAppError_1.HTTPCODES.OK).json({
+            message: "Agent's delivery days has being Updated",
+            data: agent,
+        });
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message, error });
+        return next(new MainAppError_1.MainAppError({
+            message: "Agent's delivery days hasn't being Updated",
+            httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
+        }));
     }
 }));

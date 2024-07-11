@@ -4,11 +4,17 @@ import { iOrder } from "../interface/interface";
 interface iOrderData extends iOrder, Document {}
 
 const orderStatus = ["pending", "processing", "shipped", "delivered"]; // Order status options
+const senderCountry = "Nigeria"; // Order status options
 
 const ordersSchema = new Schema<iOrderData>(
   {
     sender: {
-      country: { type: String, required: true },
+      country: {
+        type: String,
+        required: true,
+        enum: senderCountry, // Limit status to available options
+        default: "Nigeria",
+      },
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
       street: { type: String, required: true },
@@ -41,12 +47,12 @@ const ordersSchema = new Schema<iOrderData>(
       quantity: { type: Number, required: true },
       itemValue: { type: String, required: true },
     },
-    
+
     shipmentMetrics: {
-      weight_kg: { type: String, required: true },
+      weight_kg: { type: Number, required: true },
       length_cm: { type: Number, required: true },
-      width_cm: { type: String, required: true },
-      height_cm: { type: String, required: true },
+      width_cm: { type: Number, required: true },
+      height_cm: { type: Number, required: true },
     },
 
     user: { type: Types.ObjectId, required: true, ref: "users" }, // User reference
@@ -55,6 +61,10 @@ const ordersSchema = new Schema<iOrderData>(
       type: String,
       enum: orderStatus, // Limit status to available options
       default: "pending",
+    },
+    orderPricing: {
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }

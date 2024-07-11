@@ -47,6 +47,10 @@ const agentSchema = new mongoose_1.Schema({
         type: String,
         default: enum_1.ROLE.AGENT,
     },
+    deliveryDays: {
+        type: String,
+        required: true,
+    },
     orders: [
         {
             type: mongoose_1.Types.ObjectId,
