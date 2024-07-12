@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.makeOrder = void 0;
+exports.deleteOrderE = exports.deleteOrder = exports.viewOrder = exports.makeOrder = void 0;
 const mongoose_1 = require("mongoose");
 const MainAppError_1 = require("../Utils/MainAppError");
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
@@ -51,7 +51,7 @@ exports.makeOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
                     yield (user === null || user === void 0 ? void 0 : user.save());
                     yield (agent === null || agent === void 0 ? void 0 : agent.orders.push(new mongoose_1.Types.ObjectId(order === null || order === void 0 ? void 0 : order._id)));
                     yield (agent === null || agent === void 0 ? void 0 : agent.save());
-                    return res.status(MainAppError_1.HTTPCODES.OK).json({
+                    return res.status(MainAppError_1.HTTPCODES.CREATED).json({
                         message: "Shipment Ordered",
                         data: order,
                     });
@@ -83,5 +83,80 @@ exports.makeOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
             message: "An error occurred while booking shipment ",
             httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,
         }));
+    }
+}));
+exports.viewOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const shipments = yield OrdersModel_1.default.find();
+        return res.status(MainAppError_1.HTTPCODES.OK).json({
+            No_Shipments: `${shipments.length}`,
+            message: "All Shipments",
+            data: shipments,
+        });
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message, error });
+        return next(new MainAppError_1.MainAppError({
+            message: "An error occurred while viewing shipments",
+            httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,
+        }));
+    }
+}));
+exports.deleteOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userID, shipmentID } = req.params;
+        const user = yield userModel_1.default.findById(userID);
+        const deletedOrder = yield OrdersModel_1.default.findByIdAndDelete(shipmentID);
+        if (!deletedOrder) {
+            return res
+                .status(MainAppError_1.HTTPCODES.BAD_REQUEST)
+                .json({ message: "Order not found" });
+        }
+        user === null || user === void 0 ? void 0 : user.orders.pull(new mongoose_1.Types.ObjectId(deletedOrder._id));
+        yield user.save();
+        return res.status(MainAppError_1.HTTPCODES.OK).json({
+            message: "Order deleted successfully",
+        });
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message, error });
+        return next(new MainAppError_1.MainAppError({
+            message: "An error occurred while viewing shipments",
+            httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,
+        }));
+    }
+}));
+exports.deleteOrderE = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const { userID, agentID, shipmentID } = req.params; // Assuming orderID is correct
+        const user = yield userModel_1.default.findById(userID);
+        const agent = yield AgentModel_1.default.findById(agentID);
+        const deletedOrder = yield OrdersModel_1.default
+            .findById(shipmentID)
+            .populate("user", "_id"); // Populate user for authorization
+        if (!deletedOrder) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+        // Check if requesting user is the order owner or the assigned agent
+        if ((deletedOrder === null || deletedOrder === void 0 ? void 0 : deletedOrder.user._id.toString()) !== userID &&
+            (deletedOrder === null || deletedOrder === void 0 ? void 0 : deletedOrder.agent._id.toString()) !== agentID) {
+            return res
+                .status(401)
+                .json({ message: "Unauthorized to delete this order" });
+        }
+        user === null || user === void 0 ? void 0 : user.orders.pull(new mongoose_1.Types.ObjectId(deletedOrder._id));
+        yield user.save();
+        (_a = agent === null || agent === void 0 ? void 0 : agent.orders) === null || _a === void 0 ? void 0 : _a.pull(new mongoose_1.Types.ObjectId(deletedOrder._id));
+        yield (agent === null || agent === void 0 ? void 0 : agent.save());
+        return res.status(MainAppError_1.HTTPCODES.OK).json({
+            message: "Order deleted successfully",
+        });
+    }
+    catch (error) {
+        console.error(error); // Log the error for debugging
+        res
+            .status(MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR)
+            .json({ message: "An error occurred while deleting the order" });
     }
 }));

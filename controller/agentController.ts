@@ -53,13 +53,12 @@ export const createAgent = AsyncHandler(
         agentZones,
         deliveryDays,
       });
-      res.status(201).json({
-        No_Agents: `Number of Agents:${newAgent?.length}`,
+      res.status(HTTPCODES.CREATED).json({
         message: "An Agent has being created",
         data: newAgent,
       });
     } catch (error: any) {
-      res.status(400).json({ message: error.message, error });
+      res.status(HTTPCODES.INTERNAL_SERVER_ERROR).json({ message: error.message, error });
       return next(
         new MainAppError({
           message: "An error occurred in while creating Agent",

@@ -54,14 +54,13 @@ exports.createAgent = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awa
             agentZones,
             deliveryDays,
         });
-        res.status(201).json({
-            No_Agents: `Number of Agents:${newAgent === null || newAgent === void 0 ? void 0 : newAgent.length}`,
+        res.status(MainAppError_1.HTTPCODES.CREATED).json({
             message: "An Agent has being created",
             data: newAgent,
         });
     }
     catch (error) {
-        res.status(400).json({ message: error.message, error });
+        res.status(MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR).json({ message: error.message, error });
         return next(new MainAppError_1.MainAppError({
             message: "An error occurred in while creating Agent",
             httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,

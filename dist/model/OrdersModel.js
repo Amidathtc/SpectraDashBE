@@ -48,6 +48,7 @@ const ordersSchema = new mongoose_1.Schema({
         height_cm: { type: Number, required: true },
     },
     user: { type: mongoose_1.Types.ObjectId, required: true, ref: "users" }, // User reference
+    agent: { type: mongoose_1.Types.ObjectId, required: true, ref: "agents" }, // Agents reference
     status: {
         type: String,
         enum: orderStatus, // Limit status to available options
