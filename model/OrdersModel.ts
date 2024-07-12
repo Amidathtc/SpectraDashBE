@@ -57,6 +57,8 @@ const ordersSchema = new Schema<iOrderData>(
 
     user: { type: Types.ObjectId, required: true, ref: "users" }, // User reference
 
+    agent: { type: Types.ObjectId, required: true, ref: "agents" }, // Agents reference
+
     status: {
       type: String,
       enum: orderStatus, // Limit status to available options

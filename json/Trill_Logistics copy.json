@@ -13,187 +13,187 @@
                         {
                             "from_kg": 0.1,
                             "to_kg": 2,
-                            "price": 65521.40
+                            "price": 59840.48
                         },
                         {
                             "from_kg": 2.1,
                             "to_kg": 2.5,
-                            "price": 82590.00
+                            "price": 80767.68
                         },
                         {
                             "from_kg": 2.6,
                             "to_kg": 3,
-                            "price": 98006.80
+                            "price": 96491.36
                         },
                         {
                             "from_kg": 3.1,
                             "to_kg": 3.5,
-                            "price": 113423.60
+                            "price": 99545.60
                         },
                         {
                             "from_kg": 3.6,
                             "to_kg": 4,
-                            "price": 128840.40
+                            "price": 103052.32
                         },
                         {
                             "from_kg": 4.1,
                             "to_kg": 4.5,
-                            "price": 144257.20
+                            "price": 108821.44
                         },
                         {
                             "from_kg": 4.6,
                             "to_kg": 5,
-                            "price": 159674.00
+                            "price": 114138.08
                         },
                         {
                             "from_kg": 5.1,
                             "to_kg": 5.5,
-                            "price": 172888.40
+                            "price": 137440.80
                         },
                         {
                             "from_kg": 5.6,
                             "to_kg": 6,
-                            "price": 186102.80
+                            "price": 137440.80
                         },
                         {
                             "from_kg": 6.1,
                             "to_kg": 6.5,
-                            "price": 199317.20
+                            "price": 160743.52
                         },
                         {
                             "from_kg": 6.6,
                             "to_kg": 7,
-                            "price": 212531.60
+                            "price": 160743.52
                         },
                         {
                             "from_kg": 7.1,
                             "to_kg": 7.5,
-                            "price": 225746.00
+                            "price": 184159.36
                         },
                         {
                             "from_kg": 7.6,
                             "to_kg": 8,
-                            "price": 238960.40
+                            "price": 184159.36
                         },
                         {
                             "from_kg": 8.1,
                             "to_kg": 8.5,
-                            "price": 252174.80
+                            "price": 202937.28
                         },
                         {
                             "from_kg": 8.6,
                             "to_kg": 9,
-                            "price": 265389.20
+                            "price": 202937.28
                         },
                         {
                             "from_kg": 9.1,
                             "to_kg": 9.5,
-                            "price": 278603.60
+                            "price": 225674.40
                         },
                         {
                             "from_kg": 9.6,
                             "to_kg": 10,
-                            "price": 291818.00
+                            "price": 225674.40
                         },
                         {
                             "from_kg": 10.1,
                             "to_kg": 10.5,
-                            "price": 305032.40
+                            "price": 247167.20
                         },
                         {
                             "from_kg": 10.6,
                             "to_kg": 11,
-                            "price": 318246.80
+                            "price": 247167.20
                         },
                         {
                             "from_kg": 11.1,
                             "to_kg": 11.5,
-                            "price": 331461.20
+                            "price": 268660.00
                         },
                         {
                             "from_kg": 11.6,
                             "to_kg": 12,
-                            "price": 344675.60
+                            "price": 268660.00
                         },
                         {
                             "from_kg": 12.1,
                             "to_kg": 12.5,
-                            "price": 357890.00
+                            "price": 290152.80
                         },
                         {
                             "from_kg": 12.6,
                             "to_kg": 13,
-                            "price": 371104.40
+                            "price": 290152.80
                         },
                         {
                             "from_kg": 13.1,
                             "to_kg": 13.5,
-                            "price": 384869.40
+                            "price": 311645.60
                         },
                         {
                             "from_kg": 13.6,
                             "to_kg": 14,
-                            "price": 398083.80
+                            "price": 311645.60
                         },
                         {
                             "from_kg": 14.1,
                             "to_kg": 14.5,
-                            "price": 411298.20
+                            "price": 333025.28
                         },
                         {
                             "from_kg": 14.6,
                             "to_kg": 15,
-                            "price": 424512.60
+                            "price": 333025.28
                         },
                         {
                             "from_kg": 15.1,
                             "to_kg": 15.5,
-                            "price": 437727.00
+                            "price": 354518.08
                         },
                         {
                             "from_kg": 15.6,
                             "to_kg": 16,
-                            "price": 450941.40
+                            "price": 354518.08
                         },
                         {
                             "from_kg": 16.1,
                             "to_kg": 16.5,
-                            "price": 464155.80
+                            "price": 376010.88
                         },
                         {
                             "from_kg": 16.6,
                             "to_kg": 17,
-                            "price": 477370.20
+                            "price": 376010.88
                         },
                         {
                             "from_kg": 17.1,
                             "to_kg": 17.5,
-                            "price": 490584.60
+                            "price": 397503.68
                         },
                         {
                             "from_kg": 17.6,
                             "to_kg": 18,
-                            "price": 503799.00
+                            "price": 397503.68
                         },
                         {
                             "from_kg": 18.1,
                             "to_kg": 18.5,
-                            "price": 517013.40
+                            "price": 418996.48
                         },
                         {
                             "from_kg": 18.6,
                             "to_kg": 19,
-                            "price": 530227.80
+                            "price": 418996.48
                         },
                         {
                             "from_kg": 19.1,
                             "to_kg": 19.5,
-                            "price": 543442.20
+                            "price": 440376.16
                         },
                         {
                             "from_kg": 19.6,
                             "to_kg": 20,
-                            "price": 556656.60
+                            "price": 440376.16
                         }
                     ]
                 }
@@ -230,187 +230,187 @@
                         {
                             "from_kg": 0.1,
                             "to_kg": 2,
-                            "price": 71027.40
+                            "price": 66627.68
                         },
                         {
                             "from_kg": 2.1,
                             "to_kg": 2.5,
-                            "price": 88096.00
+                            "price": 86763.04
                         },
                         {
                             "from_kg": 2.6,
                             "to_kg": 3,
-                            "price": 103512.80
+                            "price": 102486.72
                         },
                         {
                             "from_kg": 3.1,
                             "to_kg": 3.5,
-                            "price": 118929.60
+                            "price": 106785.28
                         },
                         {
                             "from_kg": 3.6,
                             "to_kg": 4,
-                            "price": 133795.80
+                            "price": 110292.00
                         },
                         {
                             "from_kg": 4.1,
                             "to_kg": 4.5,
-                            "price": 149212.60
+                            "price": 116174.24
                         },
                         {
                             "from_kg": 4.6,
                             "to_kg": 5,
-                            "price": 164629.40
+                            "price": 146264.16
                         },
                         {
                             "from_kg": 5.1,
                             "to_kg": 5.5,
-                            "price": 178945.00
+                            "price": 153843.20
                         },
                         {
                             "from_kg": 5.6,
                             "to_kg": 6,
-                            "price": 193260.60
+                            "price": 153843.20
                         },
                         {
                             "from_kg": 6.1,
                             "to_kg": 6.5,
-                            "price": 207576.20
+                            "price": 169340.64
                         },
                         {
                             "from_kg": 6.6,
                             "to_kg": 7,
-                            "price": 221891.80
+                            "price": 169340.64
                         },
                         {
                             "from_kg": 7.1,
                             "to_kg": 7.5,
-                            "price": 236207.40
+                            "price": 193322.08
                         },
                         {
                             "from_kg": 7.6,
                             "to_kg": 8,
-                            "price": 250523.00
+                            "price": 193322.08
                         },
                         {
                             "from_kg": 8.1,
                             "to_kg": 8.5,
-                            "price": 264838.60
+                            "price": 212891.84
                         },
                         {
                             "from_kg": 8.6,
                             "to_kg": 9,
-                            "price": 279154.20
+                            "price": 212891.84
                         },
                         {
                             "from_kg": 9.1,
                             "to_kg": 9.5,
-                            "price": 293469.80
+                            "price": 236307.68
                         },
                         {
                             "from_kg": 9.6,
                             "to_kg": 10,
-                            "price": 307785.40
+                            "price": 236307.68
                         },
                         {
                             "from_kg": 10.1,
                             "to_kg": 10.5,
-                            "price": 322101.00
+                            "price": 258366.08
                         },
                         {
                             "from_kg": 10.6,
                             "to_kg": 11,
-                            "price": 336416.60
+                            "price": 258366.08
                         },
                         {
                             "from_kg": 11.1,
                             "to_kg": 11.5,
-                            "price": 350732.20
+                            "price": 280424.48
                         },
                         {
                             "from_kg": 11.6,
                             "to_kg": 12,
-                            "price": 365047.80
+                            "price": 280424.48
                         },
                         {
                             "from_kg": 12.1,
                             "to_kg": 12.5,
-                            "price": 379363.40
+                            "price": 302596.00
                         },
                         {
                             "from_kg": 12.6,
                             "to_kg": 13,
-                            "price": 393679.00
+                            "price": 302596.00
                         },
                         {
                             "from_kg": 13.1,
                             "to_kg": 13.5,
-                            "price": 407994.60
+                            "price": 324654.40
                         },
                         {
                             "from_kg": 13.6,
                             "to_kg": 14,
-                            "price": 421759.60
+                            "price": 324654.40
                         },
                         {
                             "from_kg": 14.1,
                             "to_kg": 14.5,
-                            "price": 436075.20
+                            "price": 346712.80
                         },
                         {
                             "from_kg": 14.6,
                             "to_kg": 15,
-                            "price": 450390.80
+                            "price": 346712.80
                         },
                         {
                             "from_kg": 15.1,
                             "to_kg": 15.5,
-                            "price": 464706.40
+                            "price": 368771.20
                         },
                         {
                             "from_kg": 15.6,
                             "to_kg": 16,
-                            "price": 479022.00
+                            "price": 368771.20
                         },
                         {
                             "from_kg": 16.1,
                             "to_kg": 16.5,
-                            "price": 493337.60
+                            "price": 390942.72
                         },
                         {
                             "from_kg": 16.6,
                             "to_kg": 17,
-                            "price": 507653.20
+                            "price": 390942.72
                         },
                         {
                             "from_kg": 17.1,
                             "to_kg": 17.5,
-                            "price": 521968.80
+                            "price": 413001.12
                         },
                         {
                             "from_kg": 17.6,
                             "to_kg": 18,
-                            "price": 536284.40
+                            "price": 413001.12
                         },
                         {
                             "from_kg": 18.1,
                             "to_kg": 18.5,
-                            "price": 550600.00
+                            "price": 435059.52
                         },
                         {
                             "from_kg": 18.6,
                             "to_kg": 19,
-                            "price": 564915.60
+                            "price": 435059.52
                         },
                         {
                             "from_kg": 19.1,
                             "to_kg": 19.5,
-                            "price": 579231.20
+                            "price": 457231.04
                         },
                         {
-                            "from_kg": 19.6,
-                            "to_kg": 20,
-                            "price": 593546.80
+                            "from_kg": "19.6",
+                            "to_kg": "20",
+                            "price": 457231.04
                         }
                     ]
                 }
@@ -429,187 +429,187 @@
                         {
                             "from_kg": 0.1,
                             "to_kg": 2,
-                            "price": 67173.20
+                            "price": 72057.44
                         },
                         {
                             "from_kg": 2.1,
                             "to_kg": 2.5,
-                            "price": 98557.40
+                            "price": 99319.36
                         },
                         {
                             "from_kg": 2.6,
                             "to_kg": 3,
-                            "price": 119480.20
+                            "price": 121490.88
                         },
                         {
                             "from_kg": 3.1,
                             "to_kg": 3.5,
-                            "price": 140403.00
+                            "price": 134499.68
                         },
                         {
                             "from_kg": 3.6,
                             "to_kg": 4,
-                            "price": 160775.20
+                            "price": 145585.44
                         },
                         {
                             "from_kg": 4.1,
                             "to_kg": 4.5,
-                            "price": 181698.00
+                            "price": 158820.48
                         },
                         {
                             "from_kg": 4.6,
                             "to_kg": 5,
-                            "price": 202620.80
+                            "price": 171603.04
                         },
                         {
                             "from_kg": 5.1,
                             "to_kg": 5.5,
-                            "price": 221891.80
+                            "price": 200335.52
                         },
                         {
                             "from_kg": 5.6,
                             "to_kg": 6,
-                            "price": 241162.80
+                            "price": 200335.52
                         },
                         {
                             "from_kg": 6.1,
                             "to_kg": 6.5,
-                            "price": 260433.80
+                            "price": 228276.16
                         },
                         {
                             "from_kg": 6.6,
                             "to_kg": 7,
-                            "price": 279704.80
+                            "price": 228276.16
                         },
                         {
                             "from_kg": 7.1,
                             "to_kg": 7.5,
-                            "price": 298975.80
+                            "price": 255651.20
                         },
                         {
                             "from_kg": 7.6,
                             "to_kg": 8,
-                            "price": 318246.80
+                            "price": 255651.20
                         },
                         {
                             "from_kg": 8.1,
                             "to_kg": 8.5,
-                            "price": 33717.80
+                            "price": 278162.08
                         },
                         {
                             "from_kg": 8.6,
                             "to_kg": 9,
-                            "price": 356788.80
+                            "price": 278162.08
                         },
                         {
                             "from_kg": 9.1,
                             "to_kg": 9.5,
-                            "price": 376059.80
+                            "price": 304405.92
                         },
                         {
                             "from_kg": 9.6,
                             "to_kg": 10,
-                            "price": 395330.80
+                            "price": 304405.92
                         },
                         {
                             "from_kg": 10.1,
                             "to_kg": 10.5,
-                            "price": 414601.80
+                            "price": 328500.48
                         },
                         {
                             "from_kg": 10.6,
                             "to_kg": 11,
-                            "price": 433872.80
+                            "price": 328500.48
                         },
                         {
                             "from_kg": 11.1,
                             "to_kg": 11.5,
-                            "price": 453143.80
+                            "price": 352595.04
                         },
                         {
                             "from_kg": 11.6,
                             "to_kg": 12,
-                            "price": 472414.80
+                            "price": 352595.04
                         },
                         {
                             "from_kg": 12.1,
                             "to_kg": 12.5,
-                            "price": 491685.80
+                            "price": 376689.60
                         },
                         {
                             "from_kg": 12.6,
                             "to_kg": 13,
-                            "price": 510956.80
+                            "price": 376689.60
                         },
                         {
                             "from_kg": 13.1,
                             "to_kg": 13.5,
-                            "price": 530778.40
+                            "price": 400784.16
                         },
                         {
                             "from_kg": 13.6,
                             "to_kg": 14,
-                            "price": 550049.40
+                            "price": 400784.16
                         },
                         {
                             "from_kg": 14.1,
                             "to_kg": 14.5,
-                            "price": 569320.40
+                            "price": 424878.72
                         },
                         {
                             "from_kg": 14.6,
                             "to_kg": 15,
-                            "price": 588591.40
+                            "price": 424878.72
                         },
                         {
                             "from_kg": 15.1,
                             "to_kg": 15.5,
-                            "price": 607862.40
+                            "price": 448973.28
                         },
                         {
                             "from_kg": 15.6,
                             "to_kg": 16,
-                            "price": 627133.40
+                            "price": 448973.28
                         },
                         {
                             "from_kg": 16.1,
                             "to_kg": 16.5,
-                            "price": 646404.40
+                            "price": 473067.84
                         },
                         {
                             "from_kg": 16.6,
                             "to_kg": 17,
-                            "price": 665675.40
+                            "price": 473067.84
                         },
                         {
                             "from_kg": 17.1,
                             "to_kg": 17.5,
-                            "price": 684946.40
+                            "price": 497162.40
                         },
                         {
                             "from_kg": 17.6,
                             "to_kg": 18,
-                            "price": 704217.40
+                            "price": 497162.40
                         },
                         {
                             "from_kg": 18.1,
                             "to_kg": 18.5,
-                            "price": 723488.40
+                            "price": 521256.96
                         },
                         {
                             "from_kg": 18.6,
                             "to_kg": 19,
-                            "price": 742759.40
+                            "price": 521256.96
                         },
                         {
                             "from_kg": 19.1,
                             "to_kg": 19.5,
-                            "price": 762030.40
+                            "price": 545464.64
                         },
                         {
                             "from_kg": 19.6,
                             "to_kg": 20,
-                            "price": 781301.40
+                            "price": 545464.64
                         }
                     ]
                 }
@@ -670,187 +670,187 @@
                         {
                             "from_kg": 0.1,
                             "to_kg": 2,
-                            "price": 69926.20
+                            "price": 83708.80
                         },
                         {
                             "from_kg": 2.1,
                             "to_kg": 2.5,
-                            "price": 107917.60
+                            "price": 110178.88
                         },
                         {
                             "from_kg": 2.6,
                             "to_kg": 3,
-                            "price": 128289.80
+                            "price": 132350.40
                         },
                         {
                             "from_kg": 3.1,
                             "to_kg": 3.5,
-                            "price": 149212.60
+                            "price": 135404.64
                         },
                         {
                             "from_kg": 3.6,
                             "to_kg": 4,
-                            "price": 170135.40
+                            "price": 146490.40
                         },
                         {
                             "from_kg": 4.1,
                             "to_kg": 4.5,
-                            "price": 191058.20
+                            "price": 157576.16
                         },
                         {
                             "from_kg": 4.6,
                             "to_kg": 5,
-                            "price": 211981.00
+                            "price": 168661.92
                         },
                         {
                             "from_kg": 5.1,
                             "to_kg": 5.5,
-                            "price": 231252.00
+                            "price": 172055.52
                         },
                         {
                             "from_kg": 5.6,
                             "to_kg": 6,
-                            "price": 250523.00
+                            "price": 172055.52
                         },
                         {
                             "from_kg": 6.1,
                             "to_kg": 6.5,
-                            "price": 269794.00
+                            "price": 200222.40
                         },
                         {
                             "from_kg": 6.6,
                             "to_kg": 7,
-                            "price": 289065.00
+                            "price": 200222.40
                         },
                         {
                             "from_kg": 7.1,
                             "to_kg": 7.5,
-                            "price": 308336.00
+                            "price": 228389.28
                         },
                         {
                             "from_kg": 7.6,
                             "to_kg": 8,
-                            "price": 327607.00
+                            "price": 228389.28
                         },
                         {
                             "from_kg": 8.1,
                             "to_kg": 8.5,
-                            "price": 346878.00
+                            "price": 252144.48
                         },
                         {
                             "from_kg": 8.6,
                             "to_kg": 9,
-                            "price": 366149.00
+                            "price": 252144.48
                         },
                         {
                             "from_kg": 9.1,
                             "to_kg": 9.5,
-                            "price": 385420.00
+                            "price": 279745.76
                         },
                         {
                             "from_kg": 9.6,
                             "to_kg": 10,
-                            "price": 404691.00
+                            "price": 279745.76
                         },
                         {
                             "from_kg": 10.1,
                             "to_kg": 10.5,
-                            "price": 423962.00
+                            "price": 305650.24
                         },
                         {
                             "from_kg": 10.6,
                             "to_kg": 11,
-                            "price": 443233.00
+                            "price": 305650.24
                         },
                         {
                             "from_kg": 11.1,
                             "to_kg": 11.5,
-                            "price": 462504.00
+                            "price": 331554.72
                         },
                         {
                             "from_kg": 11.6,
                             "to_kg": 12,
-                            "price": 481775.00
+                            "price": 331554.72
                         },
                         {
                             "from_kg": 12.1,
                             "to_kg": 12.5,
-                            "price": 501046.00
+                            "price": 357459.20
                         },
                         {
                             "from_kg": 12.6,
                             "to_kg": 13,
-                            "price": 520317.00
+                            "price": 357459.20
                         },
                         {
                             "from_kg": 13.1,
                             "to_kg": 13.5,
-                            "price": 539588.00
+                            "price": 383363.68
                         },
                         {
                             "from_kg": 13.6,
                             "to_kg": 14,
-                            "price": 558859.00
+                            "price": 383363.68
                         },
                         {
                             "from_kg": 14.1,
                             "to_kg": 14.5,
-                            "price": 578130.00
+                            "price": 409268.16
                         },
                         {
                             "from_kg": 14.6,
                             "to_kg": 15,
-                            "price": 597401.00
+                            "price": 409268.16
                         },
                         {
                             "from_kg": 15.1,
                             "to_kg": 15.5,
-                            "price": 616672.00
+                            "price": 435059.52
                         },
                         {
                             "from_kg": 15.6,
                             "to_kg": 16,
-                            "price": 635943.00
+                            "price": 435059.52
                         },
                         {
                             "from_kg": 16.1,
                             "to_kg": 16.5,
-                            "price": 655214.00
+                            "price": 460964.00
                         },
                         {
                             "from_kg": 16.6,
                             "to_kg": 17,
-                            "price": 674485.00
+                            "price": 460964.00
                         },
                         {
                             "from_kg": 17.1,
                             "to_kg": 17.5,
-                            "price": 693756.00
+                            "price": 486868.48
                         },
                         {
                             "from_kg": 17.6,
                             "to_kg": 18,
-                            "price": 713027.00
+                            "price": 486868.48
                         },
                         {
                             "from_kg": 18.1,
                             "to_kg": 18.5,
-                            "price": 732298.00
+                            "price": 512772.96
                         },
                         {
                             "from_kg": 18.6,
                             "to_kg": 19,
-                            "price": 751569.00
+                            "price": 512772.96
                         },
                         {
                             "from_kg": 19.1,
                             "to_kg": 19.5,
-                            "price": 770840.00
+                            "price": 538677.44
                         },
                         {
                             "from_kg": 19.6,
                             "to_kg": 20,
-                            "price": 790111.00
+                            "price": 538677.44
                         }
                     ]
                 }
@@ -899,187 +899,187 @@
                         {
                             "from_kg": 0.1,
                             "to_kg": 2,
-                            "price": 86994.80
+                            "price": 85971.20
                         },
                         {
                             "from_kg": 2.1,
                             "to_kg": 2.5,
-                            "price": 109569.40
+                            "price": 112441.28
                         },
                         {
                             "from_kg": 2.6,
                             "to_kg": 3,
-                            "price": 130492.20
+                            "price": 134612.80
                         },
                         {
                             "from_kg": 3.1,
                             "to_kg": 3.5,
-                            "price": 151415.00
+                            "price": 139929.44
                         },
                         {
                             "from_kg": 3.6,
                             "to_kg": 4,
-                            "price": 171787.20
+                            "price": 147847.84
                         },
                         {
                             "from_kg": 4.1,
                             "to_kg": 4.5,
-                            "price": 192710.00
+                            "price": 158594.24
                         },
                         {
                             "from_kg": 4.6,
                             "to_kg": 5,
-                            "price": 213632.80
+                            "price": 169340.64
                         },
                         {
                             "from_kg": 5.1,
                             "to_kg": 5.5,
-                            "price": 232903.80
+                            "price": 183367.52
                         },
                         {
                             "from_kg": 5.6,
                             "to_kg": 6,
-                            "price": 252174.80
+                            "price": 183367.52
                         },
                         {
                             "from_kg": 6.1,
                             "to_kg": 6.5,
-                            "price": 271445.80
+                            "price": 213231.20
                         },
                         {
                             "from_kg": 6.6,
                             "to_kg": 7,
-                            "price": 290716.80
+                            "price": 213231.20
                         },
                         {
                             "from_kg": 7.1,
                             "to_kg": 7.5,
-                            "price": 309987.80
+                            "price": 243094.88
                         },
                         {
                             "from_kg": 7.6,
                             "to_kg": 8,
-                            "price": 329258.80
+                            "price": 243094.88
                         },
                         {
                             "from_kg": 8.1,
                             "to_kg": 8.5,
-                            "price": 348529.80
+                            "price": 268433.76
                         },
                         {
                             "from_kg": 8.6,
                             "to_kg": 9,
-                            "price": 367800.80
+                            "price": 268433.76
                         },
                         {
                             "from_kg": 9.1,
                             "to_kg": 9.5,
-                            "price": 387071.80
+                            "price": 297731.84
                         },
                         {
                             "from_kg": 9.6,
                             "to_kg": 10,
-                            "price": 406342.80
+                            "price": 297731.84
                         },
                         {
                             "from_kg": 10.1,
                             "to_kg": 10.5,
-                            "price": 425613.80
+                            "price": 325106.88
                         },
                         {
                             "from_kg": 10.6,
                             "to_kg": 11,
-                            "price": 444884.80
+                            "price": 325106.88
                         },
                         {
                             "from_kg": 11.1,
                             "to_kg": 11.5,
-                            "price": 464155.80
+                            "price": 352481.92
                         },
                         {
                             "from_kg": 11.6,
                             "to_kg": 12,
-                            "price": 483426.80
+                            "price": 352481.92
                         },
                         {
                             "from_kg": 12.1,
                             "to_kg": 12.5,
-                            "price": 502697.80
+                            "price": 379856.96
                         },
                         {
                             "from_kg": 12.6,
                             "to_kg": 13,
-                            "price": 521968.80
+                            "price": 379856.96
                         },
                         {
                             "from_kg": 13.1,
                             "to_kg": 13.5,
-                            "price": 541790.40
+                            "price": 407232.00
                         },
                         {
                             "from_kg": 13.6,
                             "to_kg": 14,
-                            "price": 561061.40
+                            "price": 407232.00
                         },
                         {
                             "from_kg": 14.1,
                             "to_kg": 14.5,
-                            "price": 580332.40
+                            "price": 434607.04
                         },
                         {
                             "from_kg": 14.6,
-                            "to_kg": 15,
-                            "price": 599603.40
+                            "to_kg": "15",
+                            "price": 434607.04
                         },
                         {
-                            "from_kg": 15.1,
-                            "to_kg": 15.5,
-                            "price": 618874.40
+                            "from_kg": "15.1",
+                            "to_kg": "15.5",
+                            "price": 462095.20
                         },
                         {
-                            "from_kg": 15.6,
-                            "to_kg": 16,
-                            "price": 638145.40
+                            "from_kg": "15.6",
+                            "to_kg": "16",
+                            "price": 462095.20
                         },
                         {
                             "from_kg": 16.1,
                             "to_kg": 16.5,
-                            "price": 657416.40
+                            "price": 489470.24
                         },
                         {
                             "from_kg": 16.6,
                             "to_kg": 17,
-                            "price": 676687.40
+                            "price": 489470.24
                         },
                         {
                             "from_kg": 17.1,
                             "to_kg": 17.5,
-                            "price": 695958.40
+                            "price": 516845.28
                         },
                         {
                             "from_kg": 17.6,
                             "to_kg": 18,
-                            "price": 715229.40
+                            "price": 516845.28
                         },
                         {
                             "from_kg": 18.1,
                             "to_kg": 18.5,
-                            "price": 734500.40
+                            "price": 544220.32
                         },
                         {
                             "from_kg": 18.6,
                             "to_kg": 19,
-                            "price": 753771.40
+                            "price": 544220.32
                         },
                         {
                             "from_kg": 19.1,
                             "to_kg": 19.5,
-                            "price": 773042.40
+                            "price": 571595.36
                         },
                         {
                             "from_kg": 19.6,
                             "to_kg": 20,
-                            "price": 792313.40
+                            "price": 571595.36
                         }
                     ]
                 }
@@ -1109,187 +1109,187 @@
                         {
                             "from_kg": 0.1,
                             "to_kg": 2,
-                            "price": 92500.80
+                            "price": 92192.80
                         },
                         {
                             "from_kg": 2.1,
                             "to_kg": 2.5,
-                            "price": 116176.60
+                            "price": 120133.44
                         },
                         {
                             "from_kg": 2.6,
                             "to_kg": 3,
-                            "price": 139852.40
+                            "price": 145811.68
                         },
                         {
                             "from_kg": 3.1,
                             "to_kg": 3.5,
-                            "price": 163528.20
+                            "price": 154182.56
                         },
                         {
                             "from_kg": 3.6,
                             "to_kg": 4,
-                            "price": 187204.00
+                            "price": 161648.48
                         },
                         {
                             "from_kg": 4.1,
                             "to_kg": 4.5,
-                            "price": 210879.80
+                            "price": 165381.44
                         },
                         {
                             "from_kg": 4.6,
                             "to_kg": 5,
-                            "price": 234555.60
+                            "price": 175901.60
                         },
                         {
                             "from_kg": 5.1,
                             "to_kg": 5.5,
-                            "price": 253826.60
+                            "price": 210516.32
                         },
                         {
                             "from_kg": 5.6,
                             "to_kg": 6,
-                            "price": 273097.60
+                            "price": 210516.32
                         },
                         {
                             "from_kg": 6.1,
                             "to_kg": 6.5,
-                            "price": 292368.60
+                            "price": 238456.96
                         },
                         {
                             "from_kg": 6.6,
                             "to_kg": 7,
-                            "price": 311639.60
+                            "price": 238456.96
                         },
                         {
                             "from_kg": 7.1,
                             "to_kg": 7.5,
-                            "price": 330910.60
+                            "price": 272053.60
                         },
                         {
                             "from_kg": 7.6,
                             "to_kg": 8,
-                            "price": 350181.60
+                            "price": 272053.60
                         },
                         {
                             "from_kg": 8.1,
                             "to_kg": 8.5,
-                            "price": 368902.00
+                            "price": 301012.32
                         },
                         {
                             "from_kg": 8.6,
                             "to_kg": 9,
-                            "price": 388723.60
+                            "price": 301012.32
                         },
                         {
                             "from_kg": 9.1,
                             "to_kg": 9.5,
-                            "price": 407994.60
+                            "price": 334043.36
                         },
                         {
                             "from_kg": 9.6,
                             "to_kg": 10,
-                            "price": 427816.20
+                            "price": 334043.36
                         },
                         {
                             "from_kg": 10.1,
                             "to_kg": 10.5,
-                            "price": 447087.20
+                            "price": 365038.24
                         },
                         {
                             "from_kg": 10.6,
                             "to_kg": 11,
-                            "price": 466358.20
+                            "price": 365038.24
                         },
                         {
                             "from_kg": 11.1,
                             "to_kg": 11.5,
-                            "price": 485629.20
+                            "price": 396033.12
                         },
                         {
                             "from_kg": 11.6,
                             "to_kg": 12,
-                            "price": 504900.20
+                            "price": 396033.12
                         },
                         {
                             "from_kg": 12.1,
                             "to_kg": 12.5,
-                            "price": 524171.20
+                            "price": 427141.12
                         },
                         {
                             "from_kg": 12.6,
                             "to_kg": 13,
-                            "price": 543442.20
+                            "price": 427141.12
                         },
                         {
                             "from_kg": 13.1,
                             "to_kg": 13.5,
-                            "price": 562713.20
+                            "price": 458136.00
                         },
                         {
                             "from_kg": 13.6,
                             "to_kg": 14,
-                            "price": 581984.20
+                            "price": 458136.00
                         },
                         {
                             "from_kg": 14.1,
                             "to_kg": 14.5,
-                            "price": 601255.20
+                            "price": 489130.88
                         },
                         {
                             "from_kg": 14.6,
                             "to_kg": 15,
-                            "price": 620526.20
+                            "price": 489130.88
                         },
                         {
                             "from_kg": 15.1,
                             "to_kg": 15.5,
-                            "price": 639797.20
+                            "price": 520125.76
                         },
                         {
                             "from_kg": 15.6,
                             "to_kg": 16,
-                            "price": 659068.20
+                            "price": 520125.76
                         },
                         {
                             "from_kg": 16.1,
                             "to_kg": 16.5,
-                            "price": 678339.20
+                            "price": 551120.64
                         },
                         {
                             "from_kg": 16.6,
                             "to_kg": 17,
-                            "price": 697610.20
+                            "price": 551120.64
                         },
                         {
                             "from_kg": 17.1,
                             "to_kg": 17.5,
-                            "price": 716881.20
+                            "price": 582115.52
                         },
                         {
                             "from_kg": 17.6,
                             "to_kg": 18,
-                            "price": 736152.20
+                            "price": 582115.52
                         },
                         {
                             "from_kg": 18.1,
                             "to_kg": 18.5,
-                            "price": 755423.20
+                            "price": 613110.40
                         },
                         {
                             "from_kg": 18.6,
                             "to_kg": 19,
-                            "price": 774694.20
+                            "price": 613110.40
                         },
                         {
                             "from_kg": 19.1,
                             "to_kg": 19.5,
-                            "price": 793965.20
+                            "price": 644105.28
                         },
                         {
                             "from_kg": 19.6,
                             "to_kg": 20,
-                            "price": 813236.20
+                            "price": 644105.28
                         }
                     ]
                 }
@@ -1339,187 +1339,187 @@
                         {
                             "from_kg": 0.1,
                             "to_kg": 2,
-                            "price": 99658.60
+                            "price": 103504.80
                         },
                         {
                             "from_kg": 2.1,
                             "to_kg": 2.5,
-                            "price": 12334.40
+                            "price": 132011.04
                         },
                         {
                             "from_kg": 2.6,
                             "to_kg": 3,
-                            "price": 14010.20
+                            "price": 158254.88
                         },
                         {
                             "from_kg": 3.1,
                             "to_kg": 3.5,
-                            "price": 17686.00
+                            "price": 163458.40
                         },
                         {
                             "from_kg": 3.6,
                             "to_kg": 4,
-                            "price": 19361.80
+                            "price": 173299.84
                         },
                         {
                             "from_kg": 4.1,
                             "to_kg": 4.5,
-                            "price": 21588.20
+                            "price": 186082.40
                         },
                         {
                             "from_kg": 4.6,
                             "to_kg": 5,
-                            "price": 24264.00
+                            "price": 198751.84
                         },
                         {
                             "from_kg": 5.1,
                             "to_kg": 5.5,
-                            "price": 26535.00
+                            "price": 238230.72
                         },
                         {
                             "from_kg": 5.6,
                             "to_kg": 6,
-                            "price": 28806.00
+                            "price": 238230.72
                         },
                         {
                             "from_kg": 6.1,
                             "to_kg": 6.5,
-                            "price": 30077.00
+                            "price": 254067.52
                         },
                         {
                             "from_kg": 6.6,
                             "to_kg": 7,
-                            "price": 31348.00
+                            "price": 254067.52
                         },
                         {
                             "from_kg": 7.1,
                             "to_kg": 7.5,
-                            "price": 33619.00
+                            "price": 289587.20
                         },
                         {
                             "from_kg": 7.6,
                             "to_kg": 8,
-                            "price": 35890.00
+                            "price": 289587.20
                         },
                         {
                             "from_kg": 8.1,
                             "to_kg": 8.5,
-                            "price": 37161.00
+                            "price": 320582.08
                         },
                         {
                             "from_kg": 8.6,
                             "to_kg": 9,
-                            "price": 39432.00
+                            "price": 320582.08
                         },
                         {
                             "from_kg": 9.1,
                             "to_kg": 9.5,
-                            "price": 41703.00
+                            "price": 355649.28
                         },
                         {
                             "from_kg": 9.6,
                             "to_kg": 10,
-                            "price": 43974.00
+                            "price": 355649.28
                         },
                         {
                             "from_kg": 10.1,
                             "to_kg": 10.5,
-                            "price": 45245.00
+                            "price": 388454.08
                         },
                         {
                             "from_kg": 10.6,
                             "to_kg": 11,
-                            "price": 47516.00
+                            "price": 388454.08
                         },
                         {
                             "from_kg": 11.1,
                             "to_kg": 11.5,
-                            "price": 49787.00
+                            "price": 421372.00
                         },
                         {
                             "from_kg": 11.6,
                             "to_kg": 12,
-                            "price": 51058.00
+                            "price": 421372.00
                         },
                         {
                             "from_kg": 12.1,
                             "to_kg": 12.5,
-                            "price": 53329.00
+                            "price": 454176.80
                         },
                         {
                             "from_kg": 12.6,
                             "to_kg": 13,
-                            "price": 55600.00
+                            "price": 454176.80
                         },
                         {
                             "from_kg": 13.1,
                             "to_kg": 13.5,
-                            "price": 56871.00
+                            "price": 487094.72
                         },
                         {
                             "from_kg": 13.6,
                             "to_kg": 14,
-                            "price": 58142.00
+                            "price": 487094.72
                         },
                         {
                             "from_kg": 14.1,
                             "to_kg": 14.5,
-                            "price": 60413.00
+                            "price": 519899.52
                         },
                         {
                             "from_kg": 14.6,
                             "to_kg": 15,
-                            "price": 62684.00
+                            "price": 519899.52
                         },
                         {
                             "from_kg": 15.1,
                             "to_kg": 15.5,
-                            "price": 64955.00
+                            "price": 552817.44
                         },
                         {
                             "from_kg": 15.6,
                             "to_kg": 16,
-                            "price": 66226.00
+                            "price": 552817.44
                         },
                         {
                             "from_kg": 16.1,
                             "to_kg": 16.5,
-                            "price": 68497.00
+                            "price": 585622.24
                         },
                         {
                             "from_kg": 16.6,
                             "to_kg": 17,
-                            "price": 70768.00
+                            "price": 585622.24
                         },
                         {
                             "from_kg": 17.1,
                             "to_kg": 17.5,
-                            "price": 72039.00
+                            "price": 618540.16
                         },
                         {
                             "from_kg": 17.6,
                             "to_kg": 18,
-                            "price": 74310.00
+                            "price": 618540.16
                         },
                         {
                             "from_kg": 18.1,
                             "to_kg": 18.5,
-                            "price": 76581.00
+                            "price": 651344.96
                         },
                         {
                             "from_kg": 18.6,
                             "to_kg": 19,
-                            "price": 78852.00
+                            "price": 651344.96
                         },
                         {
                             "from_kg": 19.1,
                             "to_kg": 19.5,
-                            "price": 80123.00
+                            "price": 684262.88
                         },
                         {
                             "from_kg": 19.6,
                             "to_kg": 20,
-                            "price": 82394.00
+                            "price": 684262.88
                         }
                     ]
                 }
@@ -1603,187 +1603,187 @@
                         {
                             "from_kg": 0.1,
                             "to_kg": 2,
-                            "price": 102962.20
+                            "price": 107464.00
                         },
                         {
                             "from_kg": 2.1,
                             "to_kg": 2.5,
-                            "price": 133245.20
+                            "price": 143436.16
                         },
                         {
                             "from_kg": 2.6,
                             "to_kg": 3,
-                            "price": 161876.40
+                            "price": 176014.72
                         },
                         {
                             "from_kg": 3.1,
                             "to_kg": 3.5,
-                            "price": 191058.20
+                            "price": 197281.28
                         },
                         {
                             "from_kg": 3.6,
                             "to_kg": 4,
-                            "price": 220240.00
+                            "price": 211421.28
                         },
                         {
                             "from_kg": 4.1,
                             "to_kg": 4.5,
-                            "price": 248871.20
+                            "price": 225448.16
                         },
                         {
                             "from_kg": 4.6,
                             "to_kg": 5,
-                            "price": 278053.00
+                            "price": 239475.04
                         },
                         {
                             "from_kg": 5.1,
                             "to_kg": 5.5,
-                            "price": 307234.80
+                            "price": 281103.20
                         },
                         {
                             "from_kg": 5.6,
                             "to_kg": 6,
-                            "price": 335866.00
+                            "price": 281103.20
                         },
                         {
                             "from_kg": 6.1,
                             "to_kg": 6.5,
-                            "price": 365047.80
+                            "price": 327256.16
                         },
                         {
                             "from_kg": 6.6,
                             "to_kg": 7,
-                            "price": 393679.00
+                            "price": 327256.16
                         },
                         {
                             "from_kg": 7.1,
                             "to_kg": 7.5,
-                            "price": 422860.80
+                            "price": 345694.72
                         },
                         {
                             "from_kg": 7.6,
                             "to_kg": 8,
-                            "price": 452042.60
+                            "price": 345694.72
                         },
                         {
                             "from_kg": 8.1,
                             "to_kg": 8.5,
-                            "price": 480673.80
+                            "price": 383363.68
                         },
                         {
                             "from_kg": 8.6,
                             "to_kg": 9,
-                            "price": 509855.60
+                            "price": 383363.68
                         },
                         {
                             "from_kg": 9.1,
                             "to_kg": 9.5,
-                            "price": 539037.40
+                            "price": 424991.84
                         },
                         {
                             "from_kg": 9.6,
                             "to_kg": 10,
-                            "price": 567668.60
+                            "price": 424991.84
                         },
                         {
                             "from_kg": 10.1,
                             "to_kg": 10.5,
-                            "price": 596850.40
+                            "price": 463905.12
                         },
                         {
                             "from_kg": 10.6,
                             "to_kg": 11,
-                            "price": 626032.20
+                            "price": 463905.12
                         },
                         {
                             "from_kg": 11.1,
                             "to_kg": 11.5,
-                            "price": 654663.40
+                            "price": 502818.40
                         },
                         {
                             "from_kg": 11.6,
                             "to_kg": 12,
-                            "price": 683845.20
+                            "price": 502818.40
                         },
                         {
                             "from_kg": 12.1,
                             "to_kg": 12.5,
-                            "price": 713027.00
+                            "price": 541844.80
                         },
                         {
                             "from_kg": 12.6,
                             "to_kg": 13,
-                            "price": 741658.20
+                            "price": 541844.80
                         },
                         {
                             "from_kg": 13.1,
                             "to_kg": 13.5,
-                            "price": 770840.00
+                            "price": 580758.08
                         },
                         {
                             "from_kg": 13.6,
                             "to_kg": 14,
-                            "price": 799471.20
+                            "price": 580758.08
                         },
                         {
                             "from_kg": 14.1,
                             "to_kg": 14.5,
-                            "price": 828653.00
+                            "price": 619784.48
                         },
                         {
                             "from_kg": 14.6,
                             "to_kg": 15,
-                            "price": 857834.80
+                            "price": 619784.48
                         },
                         {
                             "from_kg": 15.1,
                             "to_kg": 15.5,
-                            "price": 886466.00
+                            "price": 658697.76
                         },
                         {
                             "from_kg": 15.6,
                             "to_kg": 16,
-                            "price": 915647.80
+                            "price": 658697.76
                         },
                         {
                             "from_kg": 16.1,
                             "to_kg": 16.5,
-                            "price": 942627.20
+                            "price": 697724.16
                         },
                         {
                             "from_kg": 16.6,
                             "to_kg": 17,
-                            "price": 973460.80
+                            "price": 697724.16
                         },
                         {
                             "from_kg": 17.1,
                             "to_kg": 17.5,
-                            "price": 1002642.60
+                            "price": 736637.44
                         },
                         {
                             "from_kg": 17.6,
                             "to_kg": 18,
-                            "price": 1031824.40
+                            "price": 736637.44
                         },
                         {
                             "from_kg": 18.1,
                             "to_kg": 18.5,
-                            "price": 1060455.60
+                            "price": 775663.84
                         },
                         {
                             "from_kg": 18.6,
                             "to_kg": 19,
-                            "price": 1089637.40
+                            "price": 775663.84
                         },
                         {
                             "from_kg": 19.1,
                             "to_kg": 19.5,
-                            "price": 1118268.60
+                            "price": 814577.12
                         },
                         {
                             "from_kg": 19.6,
                             "to_kg": 20,
-                            "price": 1147450.40
+                            "price": 814577.12
                         }
                     ]
                 }

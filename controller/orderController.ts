@@ -46,7 +46,7 @@ export const makeOrder = AsyncHandler(
             await agent?.orders.push(new Types.ObjectId(order?._id!));
             await agent?.save();
 
-            return res.status(HTTPCODES.OK).json({
+            return res.status(HTTPCODES.CREATED).json({
               message: "Shipment Ordered",
               data: order,
             });
@@ -85,6 +85,101 @@ export const makeOrder = AsyncHandler(
           httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
         })
       );
+    }
+  }
+);
+
+export const viewOrder = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const shipments: any = await orderModels.find();
+      return res.status(HTTPCODES.OK).json({
+        No_Shipments: `${shipments.length}`,
+        message: "All Shipments",
+        data: shipments,
+      });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message, error });
+      return next(
+        new MainAppError({
+          message: "An error occurred while viewing shipments",
+          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+        })
+      );
+    }
+  }
+);
+
+export const deleteOrder = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userID, shipmentID } = req.params;
+      const user: any = await UserModel.findById(userID);
+      const deletedOrder = await orderModels.findByIdAndDelete(shipmentID);
+
+      if (!deletedOrder) {
+        return res
+          .status(HTTPCODES.BAD_REQUEST)
+          .json({ message: "Order not found" });
+      }
+
+      user?.orders.pull(new Types.ObjectId(deletedOrder._id));
+      await user.save();
+
+      return res.status(HTTPCODES.OK).json({
+        message: "Order deleted successfully",
+      });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message, error });
+      return next(
+        new MainAppError({
+          message: "An error occurred while viewing shipments",
+          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+        })
+      );
+    }
+  }
+);
+
+export const deleteOrderE = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userID, agentID, shipmentID } = req.params; // Assuming orderID is correct
+
+      const user: any = await UserModel.findById(userID);
+      const agent: any = await agentModel.findById(agentID);
+      const deletedOrder: any = await orderModels
+        .findById(shipmentID)
+        .populate("user", "_id"); // Populate user for authorization
+
+      if (!deletedOrder) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      // Check if requesting user is the order owner or the assigned agent
+      if (
+        deletedOrder?.user._id.toString() !== userID &&
+        deletedOrder?.agent._id.toString() !== agentID
+      ) {
+        return res
+          .status(401)
+          .json({ message: "Unauthorized to delete this order" });
+      }
+
+      user?.orders.pull(new Types.ObjectId(deletedOrder._id));
+      await user.save();
+
+      agent?.orders?.pull(new Types.ObjectId(deletedOrder._id));
+      await agent?.save();
+
+      return res.status(HTTPCODES.OK).json({
+        message: "Order deleted successfully",
+      });
+    } catch (error: any) {
+      console.error(error); // Log the error for debugging
+      res
+        .status(HTTPCODES.INTERNAL_SERVER_ERROR)
+        .json({ message: "An error occurred while deleting the order" });
     }
   }
 );
