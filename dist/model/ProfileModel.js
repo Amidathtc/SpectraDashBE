@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const profileModel = new mongoose_1.Schema({
+const profileSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: [true, "Your password is required"],
@@ -26,4 +26,5 @@ const profileModel = new mongoose_1.Schema({
     // },
 }, { timestamps: true });
 // export default model<IUserProfileData>("profiles", profileModel);
-exports.default = (0, mongoose_1.model)("userprofiles", profileModel);
+const profileModel = (0, mongoose_1.model)("userprofiles", profileSchema);
+exports.default = profileModel;

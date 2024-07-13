@@ -454,6 +454,220 @@
                     ]
                 }
             ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "7",
+                    "countries": [
+                        "Armenia",
+                        "Australia",
+                        "Azerbaijan",
+                        "Bangladesh",
+                        "Bhutan",
+                        "Cambodia",
+                        "China",
+                        "Georgia",
+                        "Hong Kong SAR China",
+                        "Indonesia",
+                        "Japan",
+                        "Kazakhstan",
+                        "Korea Rep.",
+                        "Korea D.P.R.",
+                        "Kyrgyzstan",
+                        "Laos",
+                        "Macau SAR China",
+                        "Malaysia",
+                        "Maldives",
+                        "Mongolia",
+                        "Myanmar",
+                        "Nepal",
+                        "Pakistan",
+                        "Palau",
+                        "Philippines",
+                        "Singapore",
+                        "Sri Lanka",
+                        "Taiwan",
+                        "Tajikistan",
+                        "Thailand",
+                        "Timor-Leste",
+                        "Turkmenistan",
+                        "Uzbekistan",
+                        "Vietnam"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": 0.5,
+                            "to_kg": 2,
+                            "price": 105128.0292
+                        },
+                        {
+                            "from_kg": 2.1,
+                            "to_kg": 3,
+                            "price": 169041.7307
+                        },
+                        {
+                            "from_kg": 3.1,
+                            "to_kg": 4,
+                            "price": 232995.0698
+                        },
+                        {
+                            "from_kg": 4.1,
+                            "to_kg": 5,
+                            "price": 294580.559
+                        },
+                        {
+                            "from_kg": 5.1,
+                            "to_kg": 6,
+                            "price": 356166.0482
+                        },
+                        {
+                            "from_kg": 6.1,
+                            "to_kg": 7,
+                            "price": 418935.4683
+                        },
+                        {
+                            "from_kg": 7.1,
+                            "to_kg": 8,
+                            "price": 482888.8074
+                        },
+                        {
+                            "from_kg": 8.1,
+                            "to_kg": 9,
+                            "price": 546842.1346
+                        },
+                        {
+                            "from_kg": 9.1,
+                            "to_kg": 10,
+                            "price": 619082.8949
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "delivery_zones": [
+                {
+                    "zone_name": "8",
+                    "countries": [
+                        "American Samoa",
+                        "Anguilla",
+                        "Antigua",
+                        "Aruba",
+                        "Bahamas",
+                        "Barbados",
+                        "Belize",
+                        "Bermuda",
+                        "Bolivia",
+                        "Bonaire",
+                        "Brazil",
+                        "Cayman Islands",
+                        "Chile",
+                        "Colombia",
+                        "Cook Islands",
+                        "Costa Rica",
+                        "Cuba",
+                        "Curacao",
+                        "Dominica",
+                        "Dominican Republic",
+                        "Ecuador",
+                        "El Salvador",
+                        "Falkland Islands",
+                        "Fiji",
+                        "French Guiana",
+                        "Grenada",
+                        "Guadeloupe",
+                        "Guam",
+                        "Guatemala",
+                        "Guyana (British)",
+                        "Haiti",
+                        "Honduras",
+                        "Jamaica",
+                        "Mariana Islands",
+                        "Martinique",
+                        "Micronesia",
+                        "Montserrat",
+                        "Nauru",
+                        "Nevis",
+                        "New Caledonia",
+                        "New Zealand",
+                        "Nicaragua",
+                        "Niue",
+                        "Panama",
+                        "Papua New Guinea",
+                        "Paraguay",
+                        "Peru",
+                        "Puerto Rico",
+                        "Saint Helena",
+                        "Samoa",
+                        "Solomon Islands",
+                        "St. Barthelemy",
+                        "St. Eustatius",
+                        "St. Kitts",
+                        "St. Lucia",
+                        "St. Maarten",
+                        "St. Vincent",
+                        "Suriname",
+                        "Tahiti",
+                        "Tonga",
+                        "Trinidad & Tobago",
+                        "Turks & Caicos",
+                        "Tuvalu",
+                        "Uruguay",
+                        "Vanuatu",
+                        "Venezuela",
+                        "Virgin Islands (British)",
+                        "Virgin Islands (US)"
+                    ],
+                    "kg_prices": [
+                        {
+                            "from_kg": 0.5,
+                            "to_kg": 2,
+                            "price": 105128.0292
+                        },
+                        {
+                            "from_kg": 2.1,
+                            "to_kg": 3,
+                            "price": 169041.7307
+                        },
+                        {
+                            "from_kg": 3.1,
+                            "to_kg": 4,
+                            "price": 232995.0698
+                        },
+                        {
+                            "from_kg": 4.1,
+                            "to_kg": 5,
+                            "price": 294580.559
+                        },
+                        {
+                            "from_kg": 5.1,
+                            "to_kg": 6,
+                            "price": 356166.0482
+                        },
+                        {
+                            "from_kg": 6.1,
+                            "to_kg": 7,
+                            "price": 418935.4683
+                        },
+                        {
+                            "from_kg": 7.1,
+                            "to_kg": 8,
+                            "price": 482888.8074
+                        },
+                        {
+                            "from_kg": 8.1,
+                            "to_kg": 9,
+                            "price": 546842.1346
+                        },
+                        {
+                            "from_kg": 9.1,
+                            "to_kg": 10,
+                            "price": 619082.8949
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

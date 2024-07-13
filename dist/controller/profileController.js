@@ -91,6 +91,9 @@ exports.viewUserProfile = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => _
         }
     }
     catch (error) {
+        res
+            .status(MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR)
+            .json({ message: error.message, error });
         return next(new MainAppError_1.MainAppError({
             message: "An error occurred while looking for user Profile ",
             httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,

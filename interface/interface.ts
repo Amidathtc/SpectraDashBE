@@ -132,7 +132,7 @@ export interface Iclient {
   ShipmentHistory: {}[];
 }
 
-export interface IProfile {
+export interface IUserProfile {
   profileAvatar: string;
   password: string;
   userID: string;
@@ -140,7 +140,7 @@ export interface IProfile {
   lastName: string;
 }
 
-export interface IUserProfileData extends IProfile, Document {}
+export interface IUserProfileData extends IUserProfile, Document {}
 
 const MongoDBStore = MongoDB(session);
 export const sessionStore: any = new MongoDBStore({
