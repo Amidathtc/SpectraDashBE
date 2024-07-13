@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { IUserProfileData } from "../interface/interface";
 
-const profileModel = new Schema<IUserProfileData>(
+const profileSchema = new Schema<IUserProfileData>(
   {
     password: {
       type: String,
@@ -30,4 +30,6 @@ const profileModel = new Schema<IUserProfileData>(
 );
 
 // export default model<IUserProfileData>("profiles", profileModel);
-export default model<IUserProfileData>("userprofiles", profileModel);
+const profileModel = model<IUserProfileData>("userprofiles", profileSchema);
+
+export default profileModel;

@@ -88,6 +88,9 @@ export const viewUserProfile = AsyncHandler(
         );
       }
     } catch (error: any) {
+      res
+        .status(HTTPCODES.INTERNAL_SERVER_ERROR)
+        .json({ message: error.message, error });
       return next(
         new MainAppError({
           message: "An error occurred while looking for user Profile ",
