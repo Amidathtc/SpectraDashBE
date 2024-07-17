@@ -18,26 +18,26 @@ const googleapis_1 = require("googleapis");
 const path_1 = __importDefault(require("path"));
 const ejs_1 = __importDefault(require("ejs"));
 const envV_1 = require("../config/envV");
-const GOOGLE_ID = envV_1.EnvironmentVariables.G_ID;
-const GOOGLE_SECRET = envV_1.EnvironmentVariables.G_SECRET;
-const GOOGLE_REFRESH_TOKEN = envV_1.EnvironmentVariables.G_REFRESH;
-const GOOGLE_URL = envV_1.EnvironmentVariables.G_URL;
-const oAuth = new googleapis_1.google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_URL);
-oAuth.setCredentials({ access_token: GOOGLE_REFRESH_TOKEN });
+const CLIENT_ID = envV_1.EnvironmentVariables.CLIENT_ID;
+const CLIENT_SECRET = envV_1.EnvironmentVariables.CLIENT_SECRET;
+const REDIRECT_URI = envV_1.EnvironmentVariables.REDIRECT_URI;
+const REFRESH_TOKEN = envV_1.EnvironmentVariables.REFRESH_TOKEN;
+const oAuth2Client = new googleapis_1.google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 const URL = `https://spectradashbe-1.onrender.com/api`;
 const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    // , tokenID: any
     try {
-        const accessToken = (yield oAuth.getAccessToken()).token;
+        // const accessToken: any = (await oAuth2Client.getAccessToken()).token;
+        const accessToken = yield oAuth2Client.getAccessToken();
         const transport = nodemailer_1.default.createTransport({
             service: "gmail",
             auth: {
                 type: "OAuth2",
                 user: "uchennaaustine8@gmail.com",
-                clientId: GOOGLE_ID,
-                clientSecret: GOOGLE_SECRET,
-                refreshToken: GOOGLE_REFRESH_TOKEN,
-                accessToken,
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken,
             },
         });
         const passedData = {
@@ -48,35 +48,37 @@ const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
         const readData = yield ejs_1.default.renderFile(locateFile, passedData);
         const mailer = {
             // from: `verify email ${user.email}`,
-            from: `sceptredash@gmail.com`,
+            from: `Sceptre-Dash📧<sceptredash@gmail.com>`,
             to: user === null || user === void 0 ? void 0 : user.email,
             subject: "Email Verification",
             html: readData,
         };
-        yield transport
+        const result = yield transport
             .sendMail(mailer)
             .then(() => {
             console.log("A Mail Has Being Sent .....");
         })
-            .catch((err) => console.log(err));
+            .catch((error) => console.log(`errorStack:${error}errorMessage:${error.message}`));
+        return result;
     }
     catch (error) {
-        console.log(error.message);
+        console.log(`errorStack:${error}`);
+        console.log(`errorMessage:${error.message}`);
     }
 });
 exports.sendMail = sendMail;
 const resetMail = (user, token) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const accessToken = (yield oAuth.getAccessToken()).token;
+        const accessToken = (yield oAuth2Client.getAccessToken()).token;
         const transport = nodemailer_1.default.createTransport({
             service: "gmail",
             auth: {
                 type: "OAuth2",
-                user: "udidagodswill7@gmail.com",
-                clientId: GOOGLE_ID,
-                clientSecret: GOOGLE_SECRET,
-                refreshToken: GOOGLE_REFRESH_TOKEN,
-                accessToken,
+                user: "uchennaaustine8@gmail.com",
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken,
             },
         });
         const passedData = {

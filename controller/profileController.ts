@@ -1,99 +1,37 @@
 import { NextFunction, Request, Response } from "express";
-// import { streamUpload } from "../Utils/streamUpload";
 import UserModel from "../model/userModel";
 import ProfileModel from "../model/ProfileModel";
-
 import { HTTPCODES, MainAppError } from "../Utils/MainAppError";
 import { AsyncHandler } from "../MiddleWare/AsyncHandler";
 import cloudinary from "../config/cloudinary";
 import { Types } from "mongoose";
-
-// export const createProfile = AsyncHandler(
-//   async (req: Request, res: Response, next: NextFunction) => {
-
-//     //order is going out soon
-//     try {
-//       const { userID } = req.params;
-
-//       const { name, address, phoneNumber } = req.body;
-//       const { secure_url, public_id }: any = await streamUpload(req);
-//       console.log("img",secure_url)
-//       console.log("img",public_id)
-
-//       const user: any = await UserModel.findById(userID);
-
-//       if (user?.verified) {
-//         const profiled = await ProfileModel.create({
-//           name,
-//           address,
-//           phoneNumber,
-//           userID,
-//           avatar: secure_url,
-//           avatarID: public_id,
-//         });
-//         user?.profile.push(new mongoose.Types.ObjectId(user?._id!));
-//         user?.save();
-//         return res.status(HTTPCODES.OK).json({
-//           message: "profile created",
-//           data: profiled,
-//         });
-//       } else {
-//         return next(
-//           new MainAppError({
-//             message: "Account has not been verified yet.",
-//             httpcode: HTTPCODES.BAD_REQUEST,
-//           })
-//         );
-//       }
-//     } catch (error: any) {
-//       return res.status(HTTPCODES.BAD_REQUEST).json({
-//         errorMessage: `${error.message}`,
-//         erroStack: error,
-//         erroStacks: error.stack
-//       });
-//       // return next(
-//       //   new MainAppError({
-//       //     message: "An error occurred in while creating Profile ",
-//       //     httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
-//       //   })
-//       // );
-//     }
-//   }
-// );
 
 export const viewUserProfile = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userID } = req.params;
 
-      // Define the populate path and optional options
-      const populateOptions = {
-        path: "profile", // Path to the related model (assuming 'profile')
-        select: "-password", // Exclude password field from the populated data (optional)
-      };
+      // Find the matching profile based on userID using the index
+      const userProfile = await ProfileModel.findOne({ user: userID });
 
-      const user = await UserModel.findById(userID).populate(populateOptions);
-
-      if (user) {
-        return res.status(HTTPCODES.OK).json({
-          message: "User found",
-          data: user,
-        });
-      } else {
+      if (!userProfile) {
         return next(
           new MainAppError({
-            message: "user not found.",
-            httpcode: HTTPCODES.BAD_REQUEST,
+            message: "User profile not found",
+            httpcode: HTTPCODES.NOT_FOUND,
           })
         );
       }
+
+      return res.status(HTTPCODES.OK).json({
+        message: "User profile",
+        data: userProfile,
+      });
     } catch (error: any) {
-      res
-        .status(HTTPCODES.INTERNAL_SERVER_ERROR)
-        .json({ message: error.message, error });
+      console.error(error);
       return next(
         new MainAppError({
-          message: "An error occurred while looking for user Profile ",
+          message: "An error occurred while looking for user profile",
           httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
         })
       );
@@ -106,13 +44,15 @@ export const ViewAllProfiles = AsyncHandler(
     try {
       const profiled = await ProfileModel.find();
       return res.status(HTTPCODES.OK).json({
-        message: "User found",
+        message: "All User Profiles",
         data: profiled,
       });
     } catch (error: any) {
+      console.log(error);
+      console.log(error.message);
       return next(
         new MainAppError({
-          message: "users not found.",
+          message: "All User Profiles not found.",
           httpcode: HTTPCODES.BAD_REQUEST,
         })
       );

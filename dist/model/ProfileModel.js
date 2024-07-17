@@ -2,10 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const profileSchema = new mongoose_1.Schema({
-    password: {
-        type: String,
-        required: [true, "Your password is required"],
-    },
     firstName: {
         type: String,
         required: [true, "Your First Name is required"],
@@ -17,14 +13,16 @@ const profileSchema = new mongoose_1.Schema({
     profileAvatar: {
         type: String,
     },
-    userID: {
-        type: String,
-    },
-    // user: {
-    //   type: Types.ObjectId,
-    //   ref: "users",
+    // userID: {
+    //   type: String,
     // },
+    user: {
+        type: mongoose_1.Types.ObjectId,
+        ref: "users",
+    },
 }, { timestamps: true });
+// Create a compound index on 'user'  field
+profileSchema.index({ user: 1 });
 // export default model<IUserProfileData>("profiles", profileModel);
 const profileModel = (0, mongoose_1.model)("userprofiles", profileSchema);
 exports.default = profileModel;

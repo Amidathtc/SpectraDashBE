@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserSchema = void 0;
 const mongoose_1 = require("mongoose");
 // interface AllUsers extends Iuser, Document {}
-const UserSchema = new mongoose_1.Schema({
+exports.UserSchema = new mongoose_1.Schema({
     email: {
         type: String,
         unique: true,
@@ -36,9 +37,9 @@ const UserSchema = new mongoose_1.Schema({
     profile: [
         {
             type: mongoose_1.Types.ObjectId,
-            ref: "profiles",
+            ref: "userprofiles",
         },
     ],
 }, { timestamps: true });
-const UserModel = (0, mongoose_1.model)("users", UserSchema);
+const UserModel = (0, mongoose_1.model)("users", exports.UserSchema);
 exports.default = UserModel;
