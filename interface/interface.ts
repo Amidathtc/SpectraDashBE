@@ -134,10 +134,9 @@ export interface Iclient {
 
 export interface IUserProfile {
   profileAvatar: string;
-  password: string;
-  userID: string;
   firstName: string;
   lastName: string;
+  user: {};
 }
 
 export interface IUserProfileData extends IUserProfile, Document {}

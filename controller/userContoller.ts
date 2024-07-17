@@ -1,7 +1,7 @@
-import { NextFunction, Response, Request } from "express";
+import express, { NextFunction, Response, Request } from "express";
 import { AsyncHandler } from "../MiddleWare/AsyncHandler";
 import { HTTPCODES, MainAppError } from "../Utils/MainAppError";
-import UserModels from "../model/userModel";
+import UserModels, { UserSchema } from "../model/userModel";
 import { validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -10,9 +10,26 @@ import { EnvironmentVariables } from "../config/envV";
 import { sessionStore } from "../interface/interface";
 import session from "express-session";
 import { config } from "dotenv";
-import { Types } from "mongoose";
+import mongoose, { Types, startSession } from "mongoose";
 import ProfileModel from "../model/ProfileModel";
 config();
+
+const app = express();
+// Configure session middleware globally
+app.use(
+  session({
+    secret: EnvironmentVariables.Session_Secret,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      // Configure maxAge (in milliseconds) for session expiration (optional)
+      maxAge: 1000 * 60 * 60 * 24, // One day
+      sameSite: "lax",
+      secure: false,
+    },
+  })
+);
 
 export const viewAllUsers = AsyncHandler(
   async (req: Request, res: Response) => {
@@ -39,17 +56,15 @@ export const viewAllUsers = AsyncHandler(
 export const createUser = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { firstName, lastName, email, password } = req.body;
+      const { firstName, lastName, email, password } = req.body; // Validate input
 
-      // Validate input
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res
           .status(HTTPCODES.BAD_REQUEST)
           .json({ errors: errors.array() });
-      }
+      } // Check if admin already exists
 
-      // Check if admin already exists
       const existingUser = await UserModels.findOne({ email });
       if (existingUser) {
         return next(
@@ -59,46 +74,43 @@ export const createUser = AsyncHandler(
           })
         );
       }
+      let tfirstName = firstName.trim();
+      let tlastName = lastName.trim();
+      let temail = email.trim();
+      let tpassword = password.trim();
 
-      const salt = await bcrypt.genSalt(10);
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, salt);
-      // const value = crypto.randomBytes(10).toString("hex");
-      // const token = jwt.sign(value, "justRand" )
-      const initialAvatar = firstName.charAt() + lastName.charAt();
+      const salt = await bcrypt.genSalt(10); // Hash the password
+      const hashedPassword = await bcrypt.hash(tpassword, salt);
+      const initialAvatar = firstName.charAt() + lastName.charAt(); // Create new user avatar initials
 
-      // Create new user
-      const User: any = await UserModels.create({
-        firstName,
-        lastName,
-        email,
+      const user: any = await UserModels.create({
+        firstName: tfirstName,
+        lastName: tlastName,
+        email: temail,
         password: hashedPassword,
         avatar: initialAvatar,
       });
-      const userProfile: any = await ProfileModel.create({
-        firstName: User?.firstName,
-        lastName: User?.lastName,
-        password: User?.password,
-        profileAvatar: User?.avatar,
-        userID: User?._id,
+      const profile: any = await ProfileModel.create({
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        profileAvatar: user?.avatar,
+        user: user?._id,
       });
 
-      await User.profile.push(new Types.ObjectId(User?._id));
-      await User.save();
-      await userProfile.save();
-      // const tokenID = jwt.sign({id: User.id}, "justRand")
-      await sendMail(User);
+      await user.profile.push(new Types.ObjectId(user?._id));
+      await user?.save();
+      await profile?.save();
+
+      await sendMail(user);
 
       return res.status(HTTPCODES.OK).json({
-        message: `${User?.firstName} ~ your account has being created successfully`,
-        data: User,
-        profileData: userProfile,
+        message: `${user?.firstName} ~ your account has being created successfully`,
+        data: user,
+        edata: profile,
       });
     } catch (error: any) {
-      return res.status(HTTPCODES.OK).json({
-        errorMessage: `${error.message}`,
-        errorStack: error,
-      });
+      console.log(error);
+      console.log(error.message);
       return next(
         new MainAppError({
           message: "An error occurred in while creating user",
@@ -153,22 +165,6 @@ export const loginUser = AsyncHandler(
         }
       }
 
-      // Configure express-session middleware
-      req.app.use(
-        session({
-          /* Configure session options here */
-          secret: EnvironmentVariables.Session_Secret,
-          resave: false,
-          saveUninitialized: true,
-          store: sessionStore,
-          cookie: {
-            // maxAge: 1000 * 60 * 24 * 60,
-            sameSite: "lax",
-            secure: false,
-          },
-        })
-      );
-
       req.session.userId = user._id; // Store only user ID in session
 
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
@@ -180,8 +176,82 @@ export const loginUser = AsyncHandler(
         data: { token }, // Return only the JWT token
       });
     } catch (error: any) {
+      console.error("Error during login:", error); // Log the actual error
+      return res
+        .status(HTTPCODES.INTERNAL_SERVER_ERROR)
+        .json({ message: "An error occurred" });
+    }
+  }
+);
+
+export const lginUser = AsyncHandler(
+  async (req: any, res: Response, next: NextFunction) => {
+    try {
+      // Validate input data
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(
+          new MainAppError({
+            message: "Invalid input data",
+            httpcode: HTTPCODES.BAD_REQUEST,
+          })
+        );
+      }
+
+      const { email, password } = req.body;
+
+      // Find user with email and include password field for comparison
+      const user = await UserModels.findOne({ email }).select("+password");
+
+      if (!user) {
+        return next(
+          new MainAppError({
+            message: "User not found",
+            httpcode: HTTPCODES.BAD_REQUEST,
+          })
+        );
+      }
+
+      // Compare password hashes securely using bcrypt
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        if (!user.verified) {
+          return next(
+            new MainAppError({
+              message: "Account not verified",
+              httpcode: HTTPCODES.UNAUTHORIZED,
+            })
+          );
+        } else {
+          return next(
+            new MainAppError({
+              message: "Invalid credentials",
+              httpcode: HTTPCODES.UNAUTHORIZED,
+            })
+          );
+        }
+      }
+
+      // Configure session (replace with your actual session store configuration)
+      const session = req.app.locals.session; // Assuming session middleware is configured elsewhere
+
+      if (!session) {
+        throw new Error("Session middleware not configured!"); // Handle missing session middleware
+      }
+
+      req.session.userId = user._id; // Store only user ID in session for security
+
+      // Generate JWT token with appropriate expiration time
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
+        expiresIn: "1d",
+      });
+
+      return res.status(HTTPCODES.OK).json({
+        message: "Login successful",
+        data: { token }, // Return only the JWT token
+      });
+    } catch (error: any) {
       console.error(error); // Log the actual error
-      console.error(error.message); // Log the actual error
       return res
         .status(HTTPCODES.INTERNAL_SERVER_ERROR)
         .json({ message: "An error occurred" });
@@ -227,11 +297,60 @@ export const getUser = AsyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-export const deleteUser = AsyncHandler(async (req: Request, res: Response) => {
+// User Schema (assuming 'UserSchema' is already defined)
+UserSchema.pre("deleteOne", { document: true }, async function (next) {
+  const user = this; // refers to the user document being deleted
+  try {
+    await ProfileModel.findByIdAndDelete(user._id); // Delete associated profile
+    next();
+  } catch (error: any) {
+    console.error("Error deleting associated profile:", error);
+    next(error); // Pass the error to the main error handler
+  }
+});
+
+export const deleteUser = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userID } = req.params;
+      console.log("Deleting user with ID:", userID);
+
+      // Delete user (cascading delete will handle profile)
+      const user = await UserModels.findByIdAndDelete(userID);
+
+      if (!user) {
+        return next(
+          new MainAppError({
+            message: "User not found",
+            httpcode: HTTPCODES.NOT_FOUND,
+          })
+        );
+      }
+
+      return res.status(HTTPCODES.OK).json({
+        message: `${user.firstName} account has been deleted`,
+      });
+    } catch (error: any) {
+      console.error(error);
+      return next(
+        new MainAppError({
+          message: "An error occurred while deleting user",
+          httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+        })
+      );
+    }
+  }
+);
+
+export const deleteAUser = AsyncHandler(async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
-    const user = await UserModels.findByIdAndDelete(userID);
+    const user: any = await UserModels.findByIdAndDelete(userID);
+    //     const userProfile: any = await ProfileModel.findByIdAndDelete();
 
+    //     await user.profile.pull(new Types.ObjectId(userID));
+    //     await User.save();
+    //     await userProfile.save();
     return res.status(HTTPCODES.OK).json({
       message: `${user?.firstName} account has being deleted`,
     });

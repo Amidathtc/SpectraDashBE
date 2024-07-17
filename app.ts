@@ -47,7 +47,7 @@ export const MainAppConfig = (app: Application) => {
         saveUninitialized: true,
         store: sessionStore,
         cookie: {
-          // maxAge: 1000 * 60 * 24 * 60,
+          maxAge: 1000 * 60 * 60 * 24,
           sameSite: "lax",
           secure: false,
         },

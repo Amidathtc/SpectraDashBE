@@ -1,12 +1,8 @@
-import { model, Schema } from "mongoose";
+import { Types, model, Schema } from "mongoose";
 import { IUserProfileData } from "../interface/interface";
 
 const profileSchema = new Schema<IUserProfileData>(
   {
-    password: {
-      type: String,
-      required: [true, "Your password is required"],
-    },
     firstName: {
       type: String,
       required: [true, "Your First Name is required"],
@@ -18,16 +14,18 @@ const profileSchema = new Schema<IUserProfileData>(
     profileAvatar: {
       type: String,
     },
-    userID: {
-      type: String,
-    },
-    // user: {
-    //   type: Types.ObjectId,
-    //   ref: "users",
+    // userID: {
+    //   type: String,
     // },
+    user: {
+      type: Types.ObjectId,
+      ref: "users",
+    },
   },
   { timestamps: true }
 );
+// Create a compound index on 'user'  field
+profileSchema.index({ user: 1 });
 
 // export default model<IUserProfileData>("profiles", profileModel);
 const profileModel = model<IUserProfileData>("userprofiles", profileSchema);

@@ -13,89 +13,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserProfile = exports.deleteOne = exports.updateProfileAvatar = exports.updateProfile = exports.ViewAllProfiles = exports.viewUserProfile = void 0;
-// import { streamUpload } from "../Utils/streamUpload";
 const userModel_1 = __importDefault(require("../model/userModel"));
 const ProfileModel_1 = __importDefault(require("../model/ProfileModel"));
 const MainAppError_1 = require("../Utils/MainAppError");
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
 const cloudinary_1 = __importDefault(require("../config/cloudinary"));
 const mongoose_1 = require("mongoose");
-// export const createProfile = AsyncHandler(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     //order is going out soon
-//     try {
-//       const { userID } = req.params;
-//       const { name, address, phoneNumber } = req.body;
-//       const { secure_url, public_id }: any = await streamUpload(req);
-//       console.log("img",secure_url)
-//       console.log("img",public_id)
-//       const user: any = await UserModel.findById(userID);
-//       if (user?.verified) {
-//         const profiled = await ProfileModel.create({
-//           name,
-//           address,
-//           phoneNumber,
-//           userID,
-//           avatar: secure_url,
-//           avatarID: public_id,
-//         });
-//         user?.profile.push(new mongoose.Types.ObjectId(user?._id!));
-//         user?.save();
-//         return res.status(HTTPCODES.OK).json({
-//           message: "profile created",
-//           data: profiled,
-//         });
-//       } else {
-//         return next(
-//           new MainAppError({
-//             message: "Account has not been verified yet.",
-//             httpcode: HTTPCODES.BAD_REQUEST,
-//           })
-//         );
-//       }
-//     } catch (error: any) {
-//       return res.status(HTTPCODES.BAD_REQUEST).json({
-//         errorMessage: `${error.message}`,
-//         erroStack: error,
-//         erroStacks: error.stack
-//       });
-//       // return next(
-//       //   new MainAppError({
-//       //     message: "An error occurred in while creating Profile ",
-//       //     httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
-//       //   })
-//       // );
-//     }
-//   }
-// );
 exports.viewUserProfile = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
-        // Define the populate path and optional options
-        const populateOptions = {
-            path: "profile", // Path to the related model (assuming 'profile')
-            select: "-password", // Exclude password field from the populated data (optional)
-        };
-        const user = yield userModel_1.default.findById(userID).populate(populateOptions);
-        if (user) {
-            return res.status(MainAppError_1.HTTPCODES.OK).json({
-                message: "User found",
-                data: user,
-            });
-        }
-        else {
+        // Find the matching profile based on userID using the index
+        const userProfile = yield ProfileModel_1.default.findOne({ user: userID });
+        if (!userProfile) {
             return next(new MainAppError_1.MainAppError({
-                message: "user not found.",
-                httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
+                message: "User profile not found",
+                httpcode: MainAppError_1.HTTPCODES.NOT_FOUND,
             }));
         }
+        return res.status(MainAppError_1.HTTPCODES.OK).json({
+            message: "User profile",
+            data: userProfile,
+        });
     }
     catch (error) {
-        res
-            .status(MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR)
-            .json({ message: error.message, error });
+        console.error(error);
         return next(new MainAppError_1.MainAppError({
-            message: "An error occurred while looking for user Profile ",
+            message: "An error occurred while looking for user profile",
             httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,
         }));
     }
@@ -104,13 +47,15 @@ exports.ViewAllProfiles = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => _
     try {
         const profiled = yield ProfileModel_1.default.find();
         return res.status(MainAppError_1.HTTPCODES.OK).json({
-            message: "User found",
+            message: "All User Profiles",
             data: profiled,
         });
     }
     catch (error) {
+        console.log(error);
+        console.log(error.message);
         return next(new MainAppError_1.MainAppError({
-            message: "users not found.",
+            message: "All User Profiles not found.",
             httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
         }));
     }

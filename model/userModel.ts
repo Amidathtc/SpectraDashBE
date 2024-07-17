@@ -5,7 +5,7 @@ interface IUserData extends Iuser, Document {}
 
 // interface AllUsers extends Iuser, Document {}
 
-const UserSchema = new Schema<IUserData>(
+export const UserSchema = new Schema<IUserData>(
   {
     email: {
       type: String,
@@ -40,7 +40,7 @@ const UserSchema = new Schema<IUserData>(
     profile: [
       {
         type: Types.ObjectId,
-        ref: "profiles",
+        ref: "userprofiles",
       },
     ],
   },
