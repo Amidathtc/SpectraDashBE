@@ -1,45 +1,41 @@
-<!-- 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpectraDash Verification</title>
+  <title>Sceptredash Verification</title>
   <style>
+    /* Base styles */
     body {
-      display: flex;
-      font-family: sans-serif; /* Specify a clean, modern font */
-      justify-content: center; /* Center the content horizontally */
-      align-items: center; /* Center the content vertically */
-      min-height: 100vh; /* Set a minimum viewport height for better layout */
-      background-color: #f5f5f5; /* Light gray background */
-      margin: 0; /* Remove default body margin */
-      padding: 20px; /* Add some padding for better spacing */
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
     }
 
     .container {
-      background-color: #fff; /* White background for the content area */
-      border-radius: 5px; /* Rounded corners for a softer look */
-      padding: 30px; /* Add padding for content within the container */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-      max-width: 400px; /* Set a maximum width for responsiveness */
-      text-align: center; /* Center the text content */
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 30px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
     h1 {
-      color: #1976d2; /* SpectraDash blue */
+      color: #1976d2;
       font-size: 24px;
       margin-bottom: 15px;
     }
 
     span {
-      color: #333; /* Dark gray for regular text */
+      color: #333;
       font-size: 16px;
-      line-height: 1.5; /* Adjust line spacing for readability */
+      line-height: 1.5;
     }
 
     .email {
-      color: #1976d2; /* SpectraDash blue for email address */
+      color: #1976d2;
       font-weight: bold;
     }
 
@@ -47,122 +43,47 @@
       display: inline-block;
       padding: 12px 20px;
       border-radius: 5px;
-      background-color: #e74c3c; /* SpectraDash red */
-      color: #fff; /* White text */
-      text-decoration: none; /* Remove underline */
+      background-color: #e74c3c;
+      color: #fff;
+      text-decoration: none;
       font-size: 16px;
       font-weight: bold;
-      cursor: pointer; /* Indicate clickable button */
-      transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      margin-top: 10px; /* Added margin-top to move the button down */
     }
 
     a:hover {
-      background-color: #c0392b; /* Darken red on hover */
+      background-color: #c0392b;
+    }
+
+    /* Responsive styles (optional) */
+    @media (max-width: 768px) {
+      .container {
+        max-width: 90%;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      span {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <h1>SpectraDash <span style="color: #ccc;">Platform</span></h1>
-    <span>
-      You entered <span class="email">
-        <!-- <%- email %> -->
-      </span> as the email address<br />
-      for your account.
-    </span>
-    <br />
-    <span>Please verify by clicking on the button below:</span>
-    <!-- <a href="<%= url %>">Verify</a> -->
-  </div>
-</body>
-</html> -->
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpectraDash Verification</title>
-  <style>
-    /* Global styles */
-    body {
-      display: flex;
-      font-family: sans-serif; /* Specify a clean, modern font */
-      justify-content: center; /* Center the content horizontally */
-      align-items: center; /* Center the content vertically */
-      min-height: 100vh; /* Set a minimum viewport height for better layout */
-      background-color: #f5f5f5; /* Light gray background */
-      margin: 0; /* Remove default body margin */
-      padding: 20px; /* Add some padding for better spacing */
-    }
-
-    /* Responsive container styles */
-    .container {
-      background-color: #fff; /* White background for the content area */
-      border-radius: 5px; /* Rounded corners for a softer look */
-      padding: 30px; /* Add padding for content within the container */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-      max-width: 90%; /* Adjust for flexible width */
-      text-align: center; /* Center the text content */
-    }
-
-    /* Logo and platform text styles (unchanged) */
-    h1 {
-      color: #1976d2; /* SpectraDash blue */
-      font-size: 24px;
-      margin-bottom: 15px;
-      display: flex; /* Allow for inline styling */
-      align-items: center; /* Align logo and text vertically */
-    }
-
-    .platform-text {
-      color: #ccc; /* Light gray for 'Platform' text */
-      margin-left: 10px; /* Add spacing between logo and text */
-    }
-
-    /* Regular text styles (unchanged) */
-    span {
-      color: #333; /* Dark gray for regular text */
-      font-size: 16px;
-      line-height: 1.5; /* Adjust line spacing for readability */
-    }
-
-    /* Email address styles (unchanged) */
-    .email {
-      color: #1976d2; /* SpectraDash blue for email address */
-      font-weight: bold;
-    }
-
-    /* Button styles (unchanged) */
-    a {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 5px;
-      background-color: #e74c3c; /* SpectraDash red */
-      color: #fff; /* White text */
-      text-decoration: none; /* Remove underline */
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer; /* Indicate clickable button */
-      transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
-    }
-
-    a:hover {
-      background-color: #c0392b; /* Darken red on hover */
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1><img src="https://www.spectrapremium.com/en" alt="SpectraDash Logo" width="30" height="30">  <span class="platform-text">Platform</span></h1>
+    <h1>Sceptredash <span style="color: #ccc;">Platform</span></h1>
     <span>
       You entered <span class="email"><%- email %></span> as the email address<br />
       for your account.
     </span>
     <br />
     <span>Please verify by clicking on the button below:</span>
+    <br />
     <a href="<%= url %>">Verify</a>
   </div>
 </body>
+
 </html>
