@@ -1,0 +1,127 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+.body{
+  display: flex; 
+  font-size: 18px; 
+  flex-direction: column
+}
+    </style>
+  </head>
+  <body class="body">
+    <span style="font-weight: 700; font-size: 30px; color: dodgerblue">
+      SpectraDash<span style="color: grey">Platform</span>
+    </span>
+    <span
+      >You entered
+      <span style="color: dodgerblue; font-weight: 700"><%- email %></span> as
+      the email address <br /><br />
+      for your account.</span
+    ><br />
+    <span>Please verify by clicking on the button below</span>
+    <a
+      href="<%= url %>"
+      style="
+        height: 50px;
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        border-radius: 5px;
+        background-color: dodgerblue;
+        margin-top: 10px;
+        text-decoration: none;
+        color: white;
+      "
+      >verify</a
+    >
+  </body>
+</html> -->
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpectraDash Verification</title>
+  <style>
+    body {
+      display: flex;
+      font-family: sans-serif; /* Specify a clean, modern font */
+      justify-content: center; /* Center the content horizontally */
+      align-items: center; /* Center the content vertically */
+      min-height: 100vh; /* Set a minimum viewport height for better layout */
+      background-color: #f5f5f5; /* Light gray background */
+      margin: 0; /* Remove default body margin */
+      padding: 20px; /* Add some padding for better spacing */
+    }
+
+    .container {
+      background-color: #fff; /* White background for the content area */
+      border-radius: 5px; /* Rounded corners for a softer look */
+      padding: 30px; /* Add padding for content within the container */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      max-width: 400px; /* Set a maximum width for responsiveness */
+      text-align: center; /* Center the text content */
+    }
+
+    h1 {
+      color: #1976d2; /* SpectraDash blue */
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    span {
+      color: #333; /* Dark gray for regular text */
+      font-size: 16px;
+      line-height: 1.5; /* Adjust line spacing for readability */
+    }
+
+    .email {
+      color: #1976d2; /* SpectraDash blue for email address */
+      font-weight: bold;
+    }
+
+    a {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 5px;
+      background-color: #e74c3c; /* SpectraDash red */
+      color: #fff; /* White text */
+      text-decoration: none; /* Remove underline */
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer; /* Indicate clickable button */
+      transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+    }
+
+    a:hover {
+      background-color: #c0392b; /* Darken red on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SpectraDash <span style="color: #ccc;">Platform</span></h1>
+    <span>
+      You entered <span class="email"><%- email %></span> as the email address<br />
+      for your account.
+    </span>
+    <br />
+    <span>Please verify by clicking on the button below:</span>
+    <a href="<%= url %>">Verify</a>
+  </div>
+</body>
+</html>
