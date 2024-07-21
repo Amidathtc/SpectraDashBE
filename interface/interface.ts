@@ -38,12 +38,10 @@ export interface iOrder {
       country: string;
       firstName: string;
       lastName: string;
-      street: string;
-      unit_aptNo: string;
+      address: string;
       city: string;
       state: string;
-      postalCode: number;
-      phoneNo: number;
+      phoneNumber: string;
       email: string;
     };
   };
@@ -61,16 +59,15 @@ export interface iOrder {
       email: string;
     };
   };
-  shipmentDetails: {
+  shipmentDetails: [
     type: {
       typeOfItem: string;
-      Color: string;
-      brand: string;
-      itemForm: string;
+      color: string;
+      detailsOfItem: string;
       quantity: number;
-      itemValue: string;
-    };
-  };
+      itemValue: number;
+    }
+  ];
   shipmentMetrics: {
     type: {
       weight_kg: number;

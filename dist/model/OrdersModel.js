@@ -33,14 +33,15 @@ const ordersSchema = new mongoose_1.Schema({
         phoneNo: { type: Number, required: true },
         email: { type: String, required: true },
     },
-    shipmentDetails: {
-        typeOfItem: { type: String, required: true },
-        color: { type: String },
-        brand: { type: String },
-        itemForm: { type: String },
-        quantity: { type: Number, required: true },
-        itemValue: { type: String, required: true },
-    },
+    shipmentDetails: [
+        {
+            typeOfItem: { type: String, required: true },
+            color: { type: String },
+            detailsOfItem: { type: String },
+            quantity: { type: Number, required: true },
+            itemValue: { type: Number, required: true },
+        },
+    ],
     shipmentMetrics: {
         weight_kg: { type: Number, required: true },
         length_cm: { type: Number, required: true },
