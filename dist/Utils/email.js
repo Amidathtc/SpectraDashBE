@@ -24,7 +24,7 @@ const REDIRECT_URI = envV_1.EnvironmentVariables.REDIRECT_URI;
 const REFRESH_TOKEN = envV_1.EnvironmentVariables.REFRESH_TOKEN;
 const oAuth2Client = new googleapis_1.google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-const URL = `https://spectradashbe-1.onrender.com/api`;
+const URL = `https://sceptredash.vercel.app`;
 const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const accessToken: any = (await oAuth2Client.getAccessToken()).token;

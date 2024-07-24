@@ -43,6 +43,12 @@ export const UserSchema = new Schema<IUserData>(
         ref: "userprofiles",
       },
     ],
+    paymentHistory: [
+      {
+        type: Types.ObjectId,
+        ref: "payments", // Reference to the payments collection
+      },
+    ],
   },
   { timestamps: true }
 );

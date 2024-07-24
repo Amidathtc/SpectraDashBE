@@ -18,6 +18,7 @@ const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const profileRouter_1 = __importDefault(require("./routes/profileRouter"));
 const ordersRouter_1 = __importDefault(require("./routes/ordersRouter"));
 const agentRouter_1 = __importDefault(require("./routes/agentRouter"));
+const paymentRouter_1 = __importDefault(require("./routes/paymentRouter"));
 const MainAppConfig = (app) => {
     const limiter = (0, express_rate_limit_1.default)({
         windowMs: 5 * 60 * 1000,
@@ -60,6 +61,7 @@ const MainAppConfig = (app) => {
         .use("/api", profileRouter_1.default) //Routes
         .use("/api", ordersRouter_1.default) //Orders Routes
         .use("/api", agentRouter_1.default) //agents Routes
+        .use("/api/payments", paymentRouter_1.default) //payment Routes
         .set("view engine", "ejs")
         .get("/ejs", (req, res) => {
         res.render("verifyMail");

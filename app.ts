@@ -13,6 +13,7 @@ import userRouter from "./routes/userRouter";
 import ProfileRouter from "./routes/profileRouter";
 import ordersRouter from "./routes/ordersRouter";
 import agentsRouter from "./routes/agentRouter";
+import paymentRoutes from "./routes/paymentRouter";
 
 export const MainAppConfig = (app: Application) => {
   const limiter = rateLimit({
@@ -64,6 +65,7 @@ export const MainAppConfig = (app: Application) => {
     .use("/api", ProfileRouter) //Routes
     .use("/api", ordersRouter) //Orders Routes
     .use("/api", agentsRouter) //agents Routes
+    .use("/api/payments", paymentRoutes) //payment Routes
     .set("view engine", "ejs")
     .get("/ejs", (req: Request, res: Response) => {
       res.render("verifyMail");
