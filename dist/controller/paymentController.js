@@ -12,22 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyPaymentForOrder = exports.payForOrder = void 0;
+exports.getAllPayments = exports.verifyPaymentForOrder = exports.payForOrder = void 0;
 const OrdersModel_1 = __importDefault(require("../model/OrdersModel"));
 const PaymentModel_1 = __importDefault(require("../model/PaymentModel"));
 const paystackService_1 = __importDefault(require("../Utils/service/paystackService"));
+const userModel_1 = __importDefault(require("../model/userModel"));
 const payForOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { orderId } = req.params;
     const order = yield OrdersModel_1.default.findById(orderId);
-    const { email } = order.sender;
-    const amount = order.orderPricing * 100;
     if (!order) {
         return res.status(404).json({ message: "Order not found" });
     }
+    const { email } = order.sender;
+    const amount = order.orderPricing * 100;
     try {
-        const paymentResponse = yield paystackService_1.default.initializePayment(
-        // order.orderPricing * 100,
-        amount, email);
+        const paymentResponse = yield paystackService_1.default.initializePayment(amount, email);
         // Save payment details to the database
         const payment = new PaymentModel_1.default({
             orderId: order._id,
@@ -35,6 +34,10 @@ const payForOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             reference: paymentResponse.data.reference,
         });
         yield payment.save();
+        // Update user's payment history
+        yield userModel_1.default.updateOne({ _id: order.user }, // Assuming order has a userId field
+        { $push: { paymentHistory: payment._id } } // Add payment ID to user's payment history
+        );
         res.status(200).json({
             message: "Payment was successful",
             data: paymentResponse.data,
@@ -69,3 +72,13 @@ const verifyPaymentForOrder = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.verifyPaymentForOrder = verifyPaymentForOrder;
+const getAllPayments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const payments = yield PaymentModel_1.default.find().populate("orderId");
+        res.status(200).json({ message: "All Payments", data: payments });
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+exports.getAllPayments = getAllPayments;

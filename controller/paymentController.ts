@@ -1,54 +1,85 @@
-// let paymentForm = document.getElementById('paymentForm');
-// paymentForm.addEventListener("submit", payWithPaystack, false);
+import { Response, Request } from "express";
+import orderModels from "../model/OrdersModel";
+import PaymentModel from "../model/PaymentModel";
+import paystackService from "../Utils/service/paystackService";
+import UserModel from "../model/userModel";
 
-// function payWithPaystack(e: any) {
-//   e.preventDefault();
+export const payForOrder = async (req: any, res: Response) => {
+  const { orderId } = req.params;
 
-//   let handler = PaystackPop.setup({
-//     key: 'pk_test_xxxxxxxxxx', // Replace with your public key
-//     email: document.getElementById("email-address").value,
-//     amount: document.getElementById("amount").value * 100,
-//     ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-//     // label: "Optional string that replaces customer email"
-//     onClose: function(){
-//       alert('Window closed.');
-//     },
-//     callback: function(response){
-//       let message = 'Payment complete! Reference: ' + response.reference;
-//       alert(message);
-//     }
-//   });
+  const order: any = await orderModels.findById(orderId);
+  if (!order) {
+    return res.status(404).json({ message: "Order not found" });
+  }
 
-//   handler.openIframe();
-// }
+  const { email } = order.sender;
+  const amount = order.orderPricing * 100;
 
+  try {
+    const paymentResponse = await paystackService.initializePayment(
+      amount,
+      email
+    );
 
+    // Save payment details to the database
+    const payment = new PaymentModel({
+      orderId: order._id,
+      amount,
+      reference: paymentResponse.data.reference,
+    });
+    await payment.save();
 
+    // Update user's payment history
+    await UserModel.updateOne(
+      { _id: order.user }, // Assuming order has a userId field
+      { $push: { paymentHistory: payment._id } } // Add payment ID to user's payment history
+    );
 
-// const paymentForm = document.getElementById('paymentForm') as HTMLFormElement;
+    res.status(200).json({
+      message: "Payment was successful",
+      data: paymentResponse.data,
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-// paymentForm.addEventListener("submit", payWithPaystack, false);
+export const verifyPaymentForOrder = async (req: any, res: Response) => {
+  const { reference } = req.params;
 
-// function payWithPaystack(e: Event) {
-//   e.preventDefault();
+  try {
+    const verificationResponse = await paystackService.verifyPayment(reference);
 
-//   const email = document.getElementById("email-address").value;
-//   const amount = parseInt(document.getElementById("amount").value, 10) * 100;
+    if (verificationResponse.data.status) {
+      // Update payment status in the database
+      await PaymentModel.updateOne(
+        { reference },
+        { status: verificationResponse.data.status }
+      );
 
-//   const handler = PaystackPop.setup({
-//     key: 'pk_test_xxxxxxxxxx', // Replace with your public key
-//     email,
-//     amount,
-//     ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Replace with a real reference
-//     onClose: () => {
-//       alert('Window closed.');
-//     },
-//     callback: (response: any) => {
-//       const message = 'Payment complete! Reference: ' + response.reference;
-//       alert(message);
-//     }
-//   });
+      // Optionally, update order status here
+      await orderModels.updateOne(
+        { _id: verificationResponse.data.metadata.orderId },
+        { status: "paid" } // Update order status as needed
+      );
 
-//   handler.openIframe();
-// }
+      res.status(200).json({
+        message: "Payment was verified",
+        data: verificationResponse.data,
+      });
+    } else {
+      res.status(400).json({ message: "Payment verification failed." });
+    }
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
+export const getAllPayments = async (req: Request, res: Response) => {
+  try {
+    const payments = await PaymentModel.find().populate("orderId");
+    res.status(200).json({ message: "All Payments", data: payments });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};

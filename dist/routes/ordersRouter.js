@@ -5,6 +5,8 @@ const orderController_1 = require("../controller/orderController");
 const router = (0, express_1.Router)();
 router.route("/:userID/:agentID/make-order").post(orderController_1.makeOrder);
 router.route("/all-shipments").get(orderController_1.viewOrder);
+router.route("/orders").get(orderController_1.getAllOrders);
+router.route("/orders/:id").get(orderController_1.getOrder);
 router.route("/:userID/:agentID/:shipmentID/delete-order").delete(orderController_1.deleteOrderE);
 router.route("/:userID/:shipmentID/delete-orders").delete(orderController_1.deleteOrder);
 exports.default = router;

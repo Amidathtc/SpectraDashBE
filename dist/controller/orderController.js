@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteOrderE = exports.deleteOrder = exports.viewOrder = exports.makeOrder = void 0;
+exports.deleteOrderE = exports.deleteOrder = exports.getOrder = exports.getAllOrders = exports.viewOrder = exports.makeOrder = void 0;
 const mongoose_1 = require("mongoose");
 const MainAppError_1 = require("../Utils/MainAppError");
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
@@ -102,6 +102,41 @@ exports.viewOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
         }));
     }
 }));
+const getAllOrders = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const orders = yield OrdersModel_1.default.find().populate("user").populate("agent");
+        return res.status(MainAppError_1.HTTPCODES.OK).json({
+            No_Shipments: `${orders.length}`,
+            message: "All Shipments",
+            data: orders,
+        });
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message, error });
+        return next(new MainAppError_1.MainAppError({
+            message: "An error occurred while viewing shipments",
+            httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,
+        }));
+    }
+});
+exports.getAllOrders = getAllOrders;
+const getOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const order = yield OrdersModel_1.default
+            .findById(id)
+            .populate("user")
+            .populate("agent");
+        if (!order) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+        res.status(200).json({ message: "Requested Order", data: order });
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+exports.getOrder = getOrder;
 exports.deleteOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID, shipmentID } = req.params;

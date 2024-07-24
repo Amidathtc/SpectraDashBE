@@ -28,8 +28,8 @@ const MainAppConfig = (app) => {
         message: "Please come back in 5mins time!!!",
     });
     app
-        .use(express_1.default.json())
         // .use(limiter)
+        .use(express_1.default.json())
         .use((0, cors_1.default)({ origin: "*", methods: ["GET", "PATCH", "POST", "DELETE"] }))
         .use((0, morgan_1.default)("dev"))
         .use((0, cookie_parser_1.default)())

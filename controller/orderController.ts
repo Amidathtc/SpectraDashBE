@@ -110,6 +110,45 @@ export const viewOrder = AsyncHandler(
   }
 );
 
+export const getAllOrders = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const orders = await orderModels.find().populate("user").populate("agent");
+    return res.status(HTTPCODES.OK).json({
+      No_Shipments: `${orders.length}`,
+      message: "All Shipments",
+      data: orders,
+    });
+  } catch (error: any) {
+    res.status(400).json({ message: error.message, error });
+    return next(
+      new MainAppError({
+        message: "An error occurred while viewing shipments",
+        httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+      })
+    );
+  }
+};
+
+export const getOrder = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const order = await orderModels
+      .findById(id)
+      .populate("user")
+      .populate("agent");
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    res.status(200).json({ message: "Requested Order", data: order });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const deleteOrder = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
