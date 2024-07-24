@@ -31,6 +31,11 @@ export interface IAgent {
   orders: Array<{}>; // Placeholder for orders (structure not provided)
   role: string;
   deliveryDays: string;
+} 
+
+export interface IPayment{
+  email: string;
+  amount: number
 }
 
 export interface iOrder {
