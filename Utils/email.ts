@@ -16,7 +16,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-const URL: string = `https://spectradashbe-1.onrender.com/api`;
+const URL: string = `https://sceptredash.vercel.app`;
 
 export const sendMail = async (user: any) => {
   try {

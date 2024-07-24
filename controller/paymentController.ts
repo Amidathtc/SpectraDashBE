@@ -25,3 +25,30 @@
 
 
 
+// const paymentForm = document.getElementById('paymentForm') as HTMLFormElement;
+
+// paymentForm.addEventListener("submit", payWithPaystack, false);
+
+// function payWithPaystack(e: Event) {
+//   e.preventDefault();
+
+//   const email = document.getElementById("email-address").value;
+//   const amount = parseInt(document.getElementById("amount").value, 10) * 100;
+
+//   const handler = PaystackPop.setup({
+//     key: 'pk_test_xxxxxxxxxx', // Replace with your public key
+//     email,
+//     amount,
+//     ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Replace with a real reference
+//     onClose: () => {
+//       alert('Window closed.');
+//     },
+//     callback: (response: any) => {
+//       const message = 'Payment complete! Reference: ' + response.reference;
+//       alert(message);
+//     }
+//   });
+
+//   handler.openIframe();
+// }
+

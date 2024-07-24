@@ -18,6 +18,7 @@ const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const profileRouter_1 = __importDefault(require("./routes/profileRouter"));
 const ordersRouter_1 = __importDefault(require("./routes/ordersRouter"));
 const agentRouter_1 = __importDefault(require("./routes/agentRouter"));
+const paymentRouter_1 = __importDefault(require("./routes/paymentRouter"));
 const MainAppConfig = (app) => {
     const limiter = (0, express_rate_limit_1.default)({
         windowMs: 5 * 60 * 1000,
@@ -29,7 +30,7 @@ const MainAppConfig = (app) => {
     app
         .use(express_1.default.json())
         // .use(limiter)
-        .use((0, cors_1.default)({ origin: "*", methods: ["GET, PATCH, POST, DELETE"] }))
+        .use((0, cors_1.default)({ origin: "*", methods: ["GET", "PATCH", "POST", "DELETE"] }))
         .use((0, morgan_1.default)("dev"))
         .use((0, cookie_parser_1.default)())
         .use((req, res, next) => {
@@ -60,6 +61,7 @@ const MainAppConfig = (app) => {
         .use("/api", profileRouter_1.default) //Routes
         .use("/api", ordersRouter_1.default) //Orders Routes
         .use("/api", agentRouter_1.default) //agents Routes
+        .use("/api/payments", paymentRouter_1.default) //payment Routes
         .set("view engine", "ejs")
         .get("/ejs", (req, res) => {
         res.render("verifyMail");

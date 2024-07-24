@@ -40,6 +40,12 @@ exports.UserSchema = new mongoose_1.Schema({
             ref: "userprofiles",
         },
     ],
+    paymentHistory: [
+        {
+            type: mongoose_1.Types.ObjectId,
+            ref: "payments", // Reference to the payments collection
+        },
+    ],
 }, { timestamps: true });
 const UserModel = (0, mongoose_1.model)("users", exports.UserSchema);
 exports.default = UserModel;

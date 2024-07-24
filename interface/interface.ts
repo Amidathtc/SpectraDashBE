@@ -12,6 +12,7 @@ export interface Iuser {
   verified: boolean;
   profile: Array<{}>;
   orders: Array<{}>;
+  paymentHistory: Array<{}>;
 }
 
 interface IDeliveryZone {
@@ -55,12 +56,10 @@ export interface iOrder {
       country: string;
       firstName: string;
       lastName: string;
-      street: string;
-      unit_aptNo: string;
+      address: string;
       city: string;
       state: string;
-      postalCode: number;
-      phoneNo: number;
+      phoneNumber: string;
       email: string;
     };
   };
@@ -83,6 +82,7 @@ export interface iOrder {
   };
   user: {};
   agent: {};
+  payment: {};
   status: string;
   orderPricing: number;
 }

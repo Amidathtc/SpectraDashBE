@@ -10,7 +10,7 @@ import { EnvironmentVariables } from "../config/envV";
 import { sessionStore } from "../interface/interface";
 import session from "express-session";
 import { config } from "dotenv";
-import mongoose, { Types, startSession } from "mongoose";
+import { Types } from "mongoose";
 import ProfileModel from "../model/ProfileModel";
 config();
 
