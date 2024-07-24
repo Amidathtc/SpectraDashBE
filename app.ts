@@ -25,8 +25,8 @@ export const MainAppConfig = (app: Application) => {
   });
 
   app
-    .use(express.json())
     // .use(limiter)
+    .use(express.json())
     .use(cors({ origin: "*", methods: ["GET", "PATCH", "POST", "DELETE"] }))
     .use(morgan("dev"))
     .use(cookieParser())
