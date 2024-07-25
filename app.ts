@@ -20,7 +20,7 @@ export const MainAppConfig = (app: Application) => {
     limit: 5,
     standardHeaders: "draft-7",
     legacyHeaders: false,
-    message: "Please come back in 5mins time!!!",
+    message: "Please come back in 5 mins time!!!",
   });
 
   app
@@ -28,24 +28,13 @@ export const MainAppConfig = (app: Application) => {
     .use(express.json())
     .use(
       cors({
-        // ["https://sceptradash.vercel.app", "localhost:5173"]
-        origin: "*",
+        origin: "*", // Adjust this to your frontend URL in production
         methods: ["GET", "PATCH", "POST", "DELETE"],
+        credentials: true, // Allow credentials
       })
     )
     .use(morgan("dev"))
     .use(cookieParser())
-
-    .use((req: Request, res: Response, next: NextFunction) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Credentials", "true");
-      res.header(
-        "Access-Control-Allow-Methods",
-        "GET, PATCH, PUT, POST, DELETE"
-      );
-      res.header("Access-Control-Allow-Headers", "Content-Type");
-      next();
-    })
     .use(
       session({
         secret: EnvironmentVariables.Session_Secret,
@@ -59,30 +48,27 @@ export const MainAppConfig = (app: Application) => {
         },
       })
     )
-
-    // landing route
     .get("/", (req: Request, res: Response) => {
       res.status(HTTPCODES.OK).json({
         message: "AD Ready 🚀🚀",
       });
     })
-    .use("/api", userRouter) //Routes
-    .use("/api", ProfileRouter) //Routes
-    .use("/api", ordersRouter) //Orders Routes
-    .use("/api", agentsRouter) //agents Routes
-    .use("/api/payments", paymentRoutes) //payment Routes
+    .use("/api", userRouter)
+    .use("/api", ProfileRouter)
+    .use("/api", ordersRouter)
+    .use("/api", agentsRouter)
+    .use("/api/payments", paymentRoutes)
     .set("view engine", "ejs")
     .get("/ejs", (req: Request, res: Response) => {
       res.render("verifyMail");
     })
     .all("*", (req: Request, res: Response, next: NextFunction) => {
-      //   Configuring Routes for the application:
       return next(
         new MainAppError({
           message: `Are You Lost? ${req.originalUrl} Not found`,
           httpcode: HTTPCODES.NOT_FOUND,
         })
       );
-    }) // 404 Routes
-    .use(errorHandler); // error handler
+    })
+    .use(errorHandler);
 };
