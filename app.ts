@@ -32,7 +32,7 @@ export const MainAppConfig = (app: Application) => {
     .use(cookieParser())
 
     .use((req: Request, res: Response, next: NextFunction) => {
-      res.header("Access-Control-Allow-Origin", ["https://sceptradash.vercel.app","localhost:5173"]);
+      res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Credentials", "true");
       res.header(
         "Access-Control-Allow-Methods",
