@@ -7,7 +7,6 @@ import { errorHandler } from "./MiddleWare/Error/ErrorHandler";
 import { HTTPCODES, MainAppError } from "./Utils/MainAppError";
 import { EnvironmentVariables } from "./config/envV";
 import rateLimit from "express-rate-limit";
-import MongoDB from "connect-mongodb-session";
 import { sessionStore } from "./interface/interface";
 import userRouter from "./routes/userRouter";
 import ProfileRouter from "./routes/profileRouter";
@@ -27,7 +26,13 @@ export const MainAppConfig = (app: Application) => {
   app
     // .use(limiter)
     .use(express.json())
-    .use(cors({ origin: ["https://sceptradash.vercel.app","localhost:5173"], methods: ["GET", "PATCH", "POST", "DELETE"] }))
+    .use(
+      cors({
+        // ["https://sceptradash.vercel.app", "localhost:5173"]
+        origin: "*",
+        methods: ["GET", "PATCH", "POST", "DELETE"],
+      })
+    )
     .use(morgan("dev"))
     .use(cookieParser())
 

@@ -30,11 +30,15 @@ const MainAppConfig = (app) => {
     app
         // .use(limiter)
         .use(express_1.default.json())
-        .use((0, cors_1.default)({ origin: "*", methods: ["GET", "PATCH", "POST", "DELETE"] }))
+        .use((0, cors_1.default)({
+        // ["https://sceptradash.vercel.app", "localhost:5173"]
+        origin: "*",
+        methods: ["GET", "PATCH", "POST", "DELETE"],
+    }))
         .use((0, morgan_1.default)("dev"))
         .use((0, cookie_parser_1.default)())
         .use((req, res, next) => {
-        res.header("Access-Control-Allow-Origin", ["https://sceptradash.vercel.app", "localhost:5173"]);
+        res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Credentials", "true");
         res.header("Access-Control-Allow-Methods", "GET, PATCH, PUT, POST, DELETE");
         res.header("Access-Control-Allow-Headers", "Content-Type");
