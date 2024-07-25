@@ -25,25 +25,18 @@ const MainAppConfig = (app) => {
         limit: 5,
         standardHeaders: "draft-7",
         legacyHeaders: false,
-        message: "Please come back in 5mins time!!!",
+        message: "Please come back in 5 mins time!!!",
     });
     app
         // .use(limiter)
         .use(express_1.default.json())
         .use((0, cors_1.default)({
-        // ["https://sceptradash.vercel.app", "localhost:5173"]
-        origin: "*",
+        origin: "*", // Adjust this to your frontend URL in production
         methods: ["GET", "PATCH", "POST", "DELETE"],
+        credentials: true, // Allow credentials
     }))
         .use((0, morgan_1.default)("dev"))
         .use((0, cookie_parser_1.default)())
-        .use((req, res, next) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Credentials", "true");
-        res.header("Access-Control-Allow-Methods", "GET, PATCH, PUT, POST, DELETE");
-        res.header("Access-Control-Allow-Headers", "Content-Type");
-        next();
-    })
         .use((0, express_session_1.default)({
         secret: envV_1.EnvironmentVariables.Session_Secret,
         resave: false,
@@ -55,28 +48,26 @@ const MainAppConfig = (app) => {
             secure: false,
         },
     }))
-        // landing route
         .get("/", (req, res) => {
         res.status(MainAppError_1.HTTPCODES.OK).json({
             message: "AD Ready 🚀🚀",
         });
     })
-        .use("/api", userRouter_1.default) //Routes
-        .use("/api", profileRouter_1.default) //Routes
-        .use("/api", ordersRouter_1.default) //Orders Routes
-        .use("/api", agentRouter_1.default) //agents Routes
-        .use("/api/payments", paymentRouter_1.default) //payment Routes
+        .use("/api", userRouter_1.default)
+        .use("/api", profileRouter_1.default)
+        .use("/api", ordersRouter_1.default)
+        .use("/api", agentRouter_1.default)
+        .use("/api/payments", paymentRouter_1.default)
         .set("view engine", "ejs")
         .get("/ejs", (req, res) => {
         res.render("verifyMail");
     })
         .all("*", (req, res, next) => {
-        //   Configuring Routes for the application:
         return next(new MainAppError_1.MainAppError({
             message: `Are You Lost? ${req.originalUrl} Not found`,
             httpcode: MainAppError_1.HTTPCODES.NOT_FOUND,
         }));
-    }) // 404 Routes
-        .use(ErrorHandler_1.errorHandler); // error handler
+    })
+        .use(ErrorHandler_1.errorHandler);
 };
 exports.MainAppConfig = MainAppConfig;
