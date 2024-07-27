@@ -66,12 +66,12 @@ const ordersSchema = new Schema<iOrderData>(
       required: true,
     },
     payment: {
-      reference: { type: String, required: true }, // Paystack payment reference
+      reference: { type: String }, // Paystack payment reference
       status: {
         type: String,
         enum: ["successful", "pending", "failed"],
         default: "pending",
-      }, // Payment status
+      },
     },
   },
   { timestamps: true }

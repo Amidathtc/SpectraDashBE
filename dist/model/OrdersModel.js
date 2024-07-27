@@ -55,7 +55,7 @@ const ordersSchema = new mongoose_1.Schema({
         required: true,
     },
     payment: {
-        reference: { type: String, required: true }, // Paystack payment reference
+        reference: { type: String }, // Paystack payment reference
         status: {
             type: String,
             enum: ["successful", "pending", "failed"],
