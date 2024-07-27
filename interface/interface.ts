@@ -77,7 +77,6 @@ export interface iOrder {
       weight_kg: number;
       length_cm: number;
       width_cm: number;
-      height_cm: number;
     };
   };
   user: {};
