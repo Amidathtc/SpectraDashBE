@@ -30,11 +30,15 @@ const MainAppConfig = (app) => {
     app
         // .use(limiter)
         .use(express_1.default.json())
+
         .use((0, cors_1.default)({
         origin: "*", // Adjust this to your frontend URL in production
         methods: ["GET", "PATCH", "POST", "DELETE"],
         credentials: true, // Allow credentials
     }))
+
+        .use((0, cors_1.default)({ origin: "*", methods: ["GET", "PATCH", "POST", "DELETE"] }))
+
         .use((0, morgan_1.default)("dev"))
         .use((0, cookie_parser_1.default)())
         .use((0, express_session_1.default)({
