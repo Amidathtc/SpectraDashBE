@@ -71,7 +71,7 @@ const ordersSchema = new Schema<iOrderData>(
         type: String,
         enum: ["successful", "pending", "failed"],
         default: "pending",
-      }, // Payment status
+      },
     },
   },
   { timestamps: true }
