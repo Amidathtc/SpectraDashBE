@@ -50,7 +50,6 @@ const ordersSchema = new Schema<iOrderData>(
       weight_kg: { type: Number, required: true },
       length_cm: { type: Number, required: true },
       width_cm: { type: Number, required: true },
-      height_cm: { type: Number, required: true },
     },
 
     user: { type: Types.ObjectId, required: true, ref: "users" }, // User reference
