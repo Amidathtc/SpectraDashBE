@@ -43,16 +43,17 @@ exports.makeOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
                         receiver,
                         shipmentDetails,
                         shipmentMetrics,
-                        user,
-                        agent,
                         orderPricing,
+                        userID,
+                        agentID,
                     });
-                    yield (user === null || user === void 0 ? void 0 : user.orders.push(new mongoose_1.Types.ObjectId(order === null || order === void 0 ? void 0 : order._id)));
+                    user === null || user === void 0 ? void 0 : user.orders.push(new mongoose_1.Types.ObjectId(order === null || order === void 0 ? void 0 : order._id));
                     yield (user === null || user === void 0 ? void 0 : user.save());
-                    yield (agent === null || agent === void 0 ? void 0 : agent.orders.push(new mongoose_1.Types.ObjectId(order === null || order === void 0 ? void 0 : order._id)));
+                    agent === null || agent === void 0 ? void 0 : agent.orders.push(new mongoose_1.Types.ObjectId(order === null || order === void 0 ? void 0 : order._id));
                     yield (agent === null || agent === void 0 ? void 0 : agent.save());
                     return res.status(MainAppError_1.HTTPCODES.CREATED).json({
                         message: "Shipment Ordered",
+                        status: "success",
                         data: order,
                     });
                 }

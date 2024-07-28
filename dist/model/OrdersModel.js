@@ -43,8 +43,8 @@ const ordersSchema = new mongoose_1.Schema({
         length_cm: { type: Number, required: true },
         width_cm: { type: Number, required: true },
     },
-    user: { type: mongoose_1.Types.ObjectId, required: true, ref: "users" }, // User reference
-    agent: { type: mongoose_1.Types.ObjectId, required: true, ref: "agents" }, // Agents reference
+    userID: { type: mongoose_1.Types.ObjectId, required: true, ref: "users" }, // User reference
+    agentID: { type: mongoose_1.Types.ObjectId, required: true, ref: "agents" }, // Agents reference
     status: {
         type: String,
         enum: orderStatus, // Limit status to available options
@@ -60,7 +60,7 @@ const ordersSchema = new mongoose_1.Schema({
             type: String,
             enum: ["successful", "pending", "failed"],
             default: "pending",
-        }, // Payment status
+        },
     },
 }, { timestamps: true });
 const orderModels = (0, mongoose_1.model)("orders", ordersSchema);

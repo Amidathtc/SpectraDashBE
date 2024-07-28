@@ -31,11 +31,11 @@ export interface IAgent {
   orders: Array<{}>; // Placeholder for orders (structure not provided)
   role: string;
   deliveryDays: string;
-} 
+}
 
-export interface IPayment{
+export interface IPayment {
   email: string;
-  amount: number
+  amount: number;
 }
 
 export interface iOrder {
@@ -79,8 +79,8 @@ export interface iOrder {
       width_cm: number;
     };
   };
-  user: {};
-  agent: {};
+  userID: {};
+  agentID: {};
   payment: {};
   status: string;
   orderPricing: number;
