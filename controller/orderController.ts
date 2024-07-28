@@ -17,14 +17,14 @@ export const makeOrder = AsyncHandler(
       const agent = await agentModel.findById(agentID).populate("agentZones"); // Populate agentZones
 
       if (user && agent && agent?.agentZones.length > 0) {
-        const matchingZone = agent?.agentZones.find((zone) => {
+        const matchingZone = agent?.agentZones.find((zone: any) => {
           const { countries } = zone;
           return countries.includes(receiver?.country); // Check if receiver country is in the zone
         });
 
         if (matchingZone) {
           const { kg_prices } = matchingZone;
-          const matchingPrice = kg_prices.find((price) => {
+          const matchingPrice = kg_prices.find((price: any) => {
             return weight_kg >= price?.from_kg && weight_kg <= price?.to_kg; // Check if weight falls within range
           });
 
@@ -36,18 +36,19 @@ export const makeOrder = AsyncHandler(
               receiver,
               shipmentDetails,
               shipmentMetrics,
-              user,
-              agent,
               orderPricing,
+              userID,
+              agentID,
             });
 
-            await user?.orders.push(new Types.ObjectId(order?._id!));
+            user?.orders.push(new Types.ObjectId(order?._id!));
             await user?.save();
-            await agent?.orders.push(new Types.ObjectId(order?._id!));
+            agent?.orders.push(new Types.ObjectId(order?._id!));
             await agent?.save();
 
             return res.status(HTTPCODES.CREATED).json({
               message: "Shipment Ordered",
+              status: "success",
               data: order,
             });
           } else {

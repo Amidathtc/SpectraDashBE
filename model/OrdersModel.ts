@@ -52,19 +52,21 @@ const ordersSchema = new Schema<iOrderData>(
       width_cm: { type: Number, required: true },
     },
 
-    user: { type: Types.ObjectId, required: true, ref: "users" }, // User reference
+    userID: { type: Types.ObjectId, required: true, ref: "users" }, // User reference
 
-    agent: { type: Types.ObjectId, required: true, ref: "agents" }, // Agents reference
+    agentID: { type: Types.ObjectId, required: true, ref: "agents" }, // Agents reference
 
     status: {
       type: String,
       enum: orderStatus, // Limit status to available options
       default: "pending",
     },
+
     orderPricing: {
       type: Number,
       required: true,
     },
+
     payment: {
       reference: { type: String }, // Paystack payment reference
       status: {
