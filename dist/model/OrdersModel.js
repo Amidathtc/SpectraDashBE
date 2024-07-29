@@ -42,10 +42,9 @@ const ordersSchema = new mongoose_1.Schema({
         weight_kg: { type: Number, required: true },
         length_cm: { type: Number, required: true },
         width_cm: { type: Number, required: true },
-        height_cm: { type: Number, required: true },
     },
-    user: { type: mongoose_1.Types.ObjectId, required: true, ref: "users" }, // User reference
-    agent: { type: mongoose_1.Types.ObjectId, required: true, ref: "agents" }, // Agents reference
+    userID: { type: mongoose_1.Types.ObjectId, required: true, ref: "users" }, // User reference
+    agentID: { type: mongoose_1.Types.ObjectId, required: true, ref: "agents" }, // Agents reference
     status: {
         type: String,
         enum: orderStatus, // Limit status to available options
@@ -56,12 +55,12 @@ const ordersSchema = new mongoose_1.Schema({
         required: true,
     },
     payment: {
-        reference: { type: String, required: true }, // Paystack payment reference
+        reference: { type: String }, // Paystack payment reference
         status: {
             type: String,
             enum: ["successful", "pending", "failed"],
             default: "pending",
-        }, // Payment status
+        },
     },
 }, { timestamps: true });
 const orderModels = (0, mongoose_1.model)("orders", ordersSchema);

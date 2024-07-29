@@ -50,29 +50,30 @@ const ordersSchema = new Schema<iOrderData>(
       weight_kg: { type: Number, required: true },
       length_cm: { type: Number, required: true },
       width_cm: { type: Number, required: true },
-      height_cm: { type: Number, required: true },
     },
 
-    user: { type: Types.ObjectId, required: true, ref: "users" }, // User reference
+    userID: { type: Types.ObjectId, required: true, ref: "users" }, // User reference
 
-    agent: { type: Types.ObjectId, required: true, ref: "agents" }, // Agents reference
+    agentID: { type: Types.ObjectId, required: true, ref: "agents" }, // Agents reference
 
     status: {
       type: String,
       enum: orderStatus, // Limit status to available options
       default: "pending",
     },
+
     orderPricing: {
       type: Number,
       required: true,
     },
+
     payment: {
-      reference: { type: String, required: true }, // Paystack payment reference
+      reference: { type: String }, // Paystack payment reference
       status: {
         type: String,
         enum: ["successful", "pending", "failed"],
         default: "pending",
-      }, // Payment status
+      },
     },
   },
   { timestamps: true }
