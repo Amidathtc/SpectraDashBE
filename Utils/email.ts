@@ -33,6 +33,8 @@ export const sendMail = async (user: any) => {
         refreshToken: REFRESH_TOKEN,
         accessToken: accessToken,
       },
+      logger: true, // Log to console
+      debug: true,
     });
 
     const passedData = {

@@ -39,6 +39,8 @@ const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
                 refreshToken: REFRESH_TOKEN,
                 accessToken: accessToken,
             },
+            logger: true, // Log to console
+            debug: true,
         });
         const passedData = {
             email: user === null || user === void 0 ? void 0 : user.email,
