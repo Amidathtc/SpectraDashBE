@@ -31,7 +31,7 @@ const MainAppConfig = (app) => {
         // .use(limiter)
         .use(express_1.default.json())
         .use((0, cors_1.default)({
-        origin: "http://localhost:5173", // Adjust this to your frontend URL in production
+        origin: "*", // Adjust this to your frontend URL in production
         methods: ["GET", "PATCH", "POST", "DELETE"],
         credentials: true, // Allow credentials
     }))
