@@ -19,69 +19,143 @@ const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
 const userModel_1 = __importDefault(require("../model/userModel"));
 const OrdersModel_1 = __importDefault(require("../model/OrdersModel"));
 const AgentModel_1 = __importDefault(require("../model/AgentModel"));
+// export const makeOrder = AsyncHandler(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       const { userID, agentID } = req.params;
+//       const { sender, receiver, shipmentDetails, shipmentMetrics } = req.body;
+//       const { weight_kg } = shipmentMetrics; // Assuming weight is a property in shipmentMetrics
+//       const user = await UserModel.findById(userID);
+//       const agent = await agentModel.findById(agentID).populate("agentZones"); // Populate agentZones
+//       if (user && agent && agent?.agentZones.length > 0) {
+//         const matchingZone = agent?.agentZones.find((zone: any) => {
+//           const { countries } = zone;
+//           return countries.includes(receiver?.country); // Check if receiver country is in the zone
+//         });
+//         if (matchingZone) {
+//           const { kg_prices } = matchingZone;
+//           const matchingPrice = kg_prices.find((price: any) => {
+//             return weight_kg >= price?.from_kg && weight_kg <= price?.to_kg; // Check if weight falls within range
+//           });
+//           if (matchingPrice) {
+//             const orderPricing = matchingPrice?.price; // Set orderPricing based on matching price
+//             const order = await orderModels.create({
+//               sender,
+//               receiver,
+//               shipmentDetails,
+//               shipmentMetrics,
+//               userID,
+//               agentID,
+//               orderPricing,
+//             });
+//             user?.orders.push(new Types.ObjectId(order?._id!));
+//             await user?.save();
+//             agent?.orders.push(new Types.ObjectId(order?._id!));
+//             await agent?.save();
+//             return res.status(HTTPCODES.CREATED).json({
+//               message: "Shipment Ordered",
+//               status: "success",
+//               data: order,
+//             });
+//           } else {
+//             return next(
+//               new MainAppError({
+//                 message:
+//                   "Shipment weight does not fall within any zone's price range",
+//                 httpcode: HTTPCODES.BAD_REQUEST,
+//               })
+//             );
+//           }
+//         } else {
+//           return next(
+//             new MainAppError({
+//               message:
+//                 "Receiver country not covered by any of the agent's zones",
+//               httpcode: HTTPCODES.BAD_REQUEST,
+//             })
+//           );
+//         }
+//       } else {
+//         return next(
+//           new MainAppError({
+//             message:
+//               "Account has not been verified yet or Agent has no zones defined.",
+//             httpcode: HTTPCODES.BAD_REQUEST,
+//           })
+//         );
+//       }
+//     } catch (error: any) {
+//       res.status(400).json({ message: error.message, error });
+//       return next(
+//         new MainAppError({
+//           message: "An error occurred while booking shipment ",
+//           httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
+//         })
+//       );
+//     }
+//   }
+// );
 exports.makeOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID, agentID } = req.params;
         const { sender, receiver, shipmentDetails, shipmentMetrics } = req.body;
-        const { weight_kg } = shipmentMetrics; // Assuming weight is a property in shipmentMetrics
+        const { weight_kg } = shipmentMetrics;
+        // Log incoming data for debugging
+        console.log("Incoming data:", { userID, agentID, sender, receiver, shipmentDetails, shipmentMetrics });
         const user = yield userModel_1.default.findById(userID);
-        const agent = yield AgentModel_1.default.findById(agentID).populate("agentZones"); // Populate agentZones
-        if (user && agent && (agent === null || agent === void 0 ? void 0 : agent.agentZones.length) > 0) {
-            const matchingZone = agent === null || agent === void 0 ? void 0 : agent.agentZones.find((zone) => {
-                const { countries } = zone;
-                return countries.includes(receiver === null || receiver === void 0 ? void 0 : receiver.country); // Check if receiver country is in the zone
-            });
-            if (matchingZone) {
-                const { kg_prices } = matchingZone;
-                const matchingPrice = kg_prices.find((price) => {
-                    return weight_kg >= (price === null || price === void 0 ? void 0 : price.from_kg) && weight_kg <= (price === null || price === void 0 ? void 0 : price.to_kg); // Check if weight falls within range
-                });
-                if (matchingPrice) {
-                    const orderPricing = matchingPrice === null || matchingPrice === void 0 ? void 0 : matchingPrice.price; // Set orderPricing based on matching price
-                    const order = yield OrdersModel_1.default.create({
-                        sender,
-                        receiver,
-                        shipmentDetails,
-                        shipmentMetrics,
-                        orderPricing,
-                        userID,
-                        agentID,
-                    });
-                    user === null || user === void 0 ? void 0 : user.orders.push(new mongoose_1.Types.ObjectId(order === null || order === void 0 ? void 0 : order._id));
-                    yield (user === null || user === void 0 ? void 0 : user.save());
-                    agent === null || agent === void 0 ? void 0 : agent.orders.push(new mongoose_1.Types.ObjectId(order === null || order === void 0 ? void 0 : order._id));
-                    yield (agent === null || agent === void 0 ? void 0 : agent.save());
-                    return res.status(MainAppError_1.HTTPCODES.CREATED).json({
-                        message: "Shipment Ordered",
-                        status: "success",
-                        data: order,
-                    });
-                }
-                else {
-                    return next(new MainAppError_1.MainAppError({
-                        message: "Shipment weight does not fall within any zone's price range",
-                        httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
-                    }));
-                }
-            }
-            else {
-                return next(new MainAppError_1.MainAppError({
-                    message: "Receiver country not covered by any of the agent's zones",
-                    httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
-                }));
-            }
-        }
-        else {
+        const agent = yield AgentModel_1.default.findById(agentID).populate("agentZones");
+        // Check if user and agent exist and have zones
+        if (!user || !agent || agent.agentZones.length === 0) {
             return next(new MainAppError_1.MainAppError({
                 message: "Account has not been verified yet or Agent has no zones defined.",
                 httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
             }));
         }
+        const matchingZone = agent.agentZones.find((zone) => {
+            return zone.countries.includes(receiver.country);
+        });
+        if (!matchingZone) {
+            return next(new MainAppError_1.MainAppError({
+                message: "Receiver country not covered by any of the agent's zones",
+                httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
+            }));
+        }
+        const matchingPrice = matchingZone.kg_prices.find((price) => {
+            return weight_kg >= price.from_kg && weight_kg <= price.to_kg;
+        });
+        if (!matchingPrice) {
+            return next(new MainAppError_1.MainAppError({
+                message: "Shipment weight does not fall within any zone's price range",
+                httpcode: MainAppError_1.HTTPCODES.BAD_REQUEST,
+            }));
+        }
+        const orderPricing = matchingPrice.price;
+        const order = yield OrdersModel_1.default.create({
+            sender,
+            receiver,
+            shipmentDetails,
+            shipmentMetrics,
+            userID,
+            agentID,
+            orderPricing,
+        });
+        user.orders.push(new mongoose_1.Types.ObjectId(order._id));
+        yield user.save();
+        agent.orders.push(new mongoose_1.Types.ObjectId(order._id));
+        yield agent.save();
+        return res.status(MainAppError_1.HTTPCODES.CREATED).json({
+            message: "Shipment Ordered",
+            status: "success",
+            data: order,
+        });
     }
     catch (error) {
-        res.status(400).json({ message: error.message, error });
+        console.error("Error during order processing:", error); // Log the error for debugging
+        if (!res.headersSent) {
+            return res.status(400).json({ message: error.message, error });
+        }
         return next(new MainAppError_1.MainAppError({
-            message: "An error occurred while booking shipment ",
+            message: "An error occurred while booking shipment",
             httpcode: MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR,
         }));
     }

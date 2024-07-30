@@ -9,7 +9,6 @@ const express_session_1 = __importDefault(require("express-session"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
-const ErrorHandler_1 = require("./MiddleWare/Error/ErrorHandler");
 const MainAppError_1 = require("./Utils/MainAppError");
 const envV_1 = require("./config/envV");
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
@@ -28,10 +27,11 @@ const MainAppConfig = (app) => {
         message: "Please come back in 5 mins time!!!",
     });
     app
+        // Uncomment this line if you want to enable rate limiting
         // .use(limiter)
         .use(express_1.default.json())
         .use((0, cors_1.default)({
-        origin: "*", // Adjust this to your frontend URL in production
+        origin: "http://localhost:5173", // Adjust this to your frontend URL in production
         methods: ["GET", "PATCH", "POST", "DELETE"],
         credentials: true, // Allow credentials
     }))
@@ -68,6 +68,14 @@ const MainAppConfig = (app) => {
             httpcode: MainAppError_1.HTTPCODES.NOT_FOUND,
         }));
     })
-        .use(ErrorHandler_1.errorHandler);
+        // Error handling middleware
+        .use((err, req, res, next) => {
+        if (res.headersSent) {
+            return next(err);
+        }
+        res.status(err.httpcode || 500).json({
+            message: err.message || "Internal Server Error",
+        });
+    });
 };
 exports.MainAppConfig = MainAppConfig;

@@ -1,9 +1,9 @@
+
 import express, { Application, Response, Request, NextFunction } from "express";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
-import { errorHandler } from "./MiddleWare/Error/ErrorHandler";
 import { HTTPCODES, MainAppError } from "./Utils/MainAppError";
 import { EnvironmentVariables } from "./config/envV";
 import rateLimit from "express-rate-limit";
@@ -24,11 +24,12 @@ export const MainAppConfig = (app: Application) => {
   });
 
   app
+    // Uncomment this line if you want to enable rate limiting
     // .use(limiter)
     .use(express.json())
     .use(
       cors({
-        origin: "*", // Adjust this to your frontend URL in production
+        origin: "http://localhost:5173", // Adjust this to your frontend URL in production
         methods: ["GET", "PATCH", "POST", "DELETE"],
         credentials: true, // Allow credentials
       })
@@ -70,5 +71,13 @@ export const MainAppConfig = (app: Application) => {
         })
       );
     })
-    .use(errorHandler);
+    // Error handling middleware
+    .use((err: MainAppError, req: Request, res: Response, next: NextFunction) => {
+      if (res.headersSent) {
+        return next(err);
+      }
+      res.status(err.httpcode || 500).json({
+        message: err.message || "Internal Server Error",
+      });
+    });
 };

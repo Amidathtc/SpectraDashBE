@@ -32,10 +32,17 @@ const server = app.listen(port || process.env.PORT, () => {
     port
   );
 });
-
-process.once("unhandledRejection", (reason: any) => {
-  console.log("Server is Shutting down due to unhandledRejection", reason);
+process.on('unhandledRejection', (reason:any, promise:any) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Application specific logging, throwing an error, or other logic here
   server.close(() => {
     process.exit(1);
   });
 });
+
+// process.once("unhandledRejection", (reason: any) => {
+//   console.log("Server is Shutting down due to unhandledRejection", reason);
+//   server.close(() => {
+//     process.exit(1);
+//   });
+// });
