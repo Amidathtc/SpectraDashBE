@@ -310,3 +310,28 @@ export const deleteOrderE = AsyncHandler(
     }
   }
 );
+
+// Get all orders for a specific user
+// ', 
+  export const getUserOrders = AsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  const { userID } = req.params;
+
+  // Find all orders associated with the userID
+  const orders = await orderModels.find({ userID });
+
+  if (!orders || orders.length === 0) {
+    return next(new MainAppError({
+      message: 'No orders found for this user.',
+      httpcode: 404,
+    }));
+  }
+
+  return res.status(200).json({
+    status: 'success',
+    results: orders.length,
+    data: {
+      orders,
+    },
+  });
+});
+

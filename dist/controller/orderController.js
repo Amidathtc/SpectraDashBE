@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteOrderE = exports.deleteOrder = exports.getOrder = exports.getAllOrders = exports.viewOrder = exports.makeOrder = void 0;
+exports.getUserOrders = exports.deleteOrderE = exports.deleteOrder = exports.getOrder = exports.getAllOrders = exports.viewOrder = exports.makeOrder = void 0;
 const mongoose_1 = require("mongoose");
 const MainAppError_1 = require("../Utils/MainAppError");
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
@@ -269,4 +269,24 @@ exports.deleteOrderE = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __aw
             .status(MainAppError_1.HTTPCODES.INTERNAL_SERVER_ERROR)
             .json({ message: "An error occurred while deleting the order" });
     }
+}));
+// Get all orders for a specific user
+// ', 
+exports.getUserOrders = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userID } = req.params;
+    // Find all orders associated with the userID
+    const orders = yield OrdersModel_1.default.find({ userID });
+    if (!orders || orders.length === 0) {
+        return next(new MainAppError_1.MainAppError({
+            message: 'No orders found for this user.',
+            httpcode: 404,
+        }));
+    }
+    return res.status(200).json({
+        status: 'success',
+        results: orders.length,
+        data: {
+            orders,
+        },
+    });
 }));
