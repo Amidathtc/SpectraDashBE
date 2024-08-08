@@ -98,7 +98,14 @@ export const makeOrder = AsyncHandler(
       const { weight_kg } = shipmentMetrics;
 
       // Log incoming data for debugging
-      console.log("Incoming data:", { userID, agentID, sender, receiver, shipmentDetails, shipmentMetrics });
+      console.log("Incoming data:", {
+        userID,
+        agentID,
+        sender,
+        receiver,
+        shipmentDetails,
+        shipmentMetrics,
+      });
 
       const user = await UserModel.findById(userID);
       const agent = await agentModel.findById(agentID).populate("agentZones");
@@ -107,7 +114,8 @@ export const makeOrder = AsyncHandler(
       if (!user || !agent || agent.agentZones.length === 0) {
         return next(
           new MainAppError({
-            message: "Account has not been verified yet or Agent has no zones defined.",
+            message:
+              "Account has not been verified yet or Agent has no zones defined.",
             httpcode: HTTPCODES.BAD_REQUEST,
           })
         );
@@ -133,7 +141,8 @@ export const makeOrder = AsyncHandler(
       if (!matchingPrice) {
         return next(
           new MainAppError({
-            message: "Shipment weight does not fall within any zone's price range",
+            message:
+              "Shipment weight does not fall within any zone's price range",
             httpcode: HTTPCODES.BAD_REQUEST,
           })
         );
@@ -176,7 +185,6 @@ export const makeOrder = AsyncHandler(
   }
 );
 
-
 export const viewOrder = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -218,22 +226,6 @@ export const getAllOrders = async (
         httpcode: HTTPCODES.INTERNAL_SERVER_ERROR,
       })
     );
-  }
-};
-
-export const getOrder = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  try {
-    const order = await orderModels
-      .findById(id)
-      .populate("user")
-      .populate("agent");
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-    res.status(200).json({ message: "Requested Order", data: order });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
   }
 };
 
@@ -311,27 +303,71 @@ export const deleteOrderE = AsyncHandler(
   }
 );
 
-// Get all orders for a specific user
-// ', 
-  export const getUserOrders = AsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const { userID } = req.params;
-
-  // Find all orders associated with the userID
-  const orders = await orderModels.find({ userID });
-
-  if (!orders || orders.length === 0) {
-    return next(new MainAppError({
-      message: 'No orders found for this user.',
-      httpcode: 404,
-    }));
+export const getOrder = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const order = await orderModels
+      .findById(id)
+      .populate("user")
+      .populate("agent");
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    res.status(200).json({ message: "Requested Order", data: order });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
   }
+};
 
-  return res.status(200).json({
-    status: 'success',
-    results: orders.length,
-    data: {
-      orders,
-    },
-  });
-});
+export const getUserOrders = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userID } = req.params;
 
+    // Find all orders associated with the userID
+    const orders = await orderModels.find({ userID });
+
+    if (!orders || orders.length === 0) {
+      return next(
+        new MainAppError({
+          message: "No orders found for this user.",
+          httpcode: 404,
+        })
+      );
+    }
+
+    return res.status(200).json({
+      status: "success",
+      results: orders.length,
+      data: {
+        orders,
+      },
+    });
+  }
+);
+
+export const getUserCurrentOrder = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userID } = req.params;
+
+    // Find the most recent order associated with the userID
+    const currentOrder = await orderModels
+      .findOne({ userID })
+      .sort({ createdAt: -1 });
+
+    if (!currentOrder) {
+      return next(
+        new MainAppError({
+          message: "No current order found for this user.",
+          httpcode: 404,
+        })
+      );
+    }
+
+    return res.status(200).json({
+      status: "success",
+      data: {
+        order: currentOrder,
+      },
+    });
+  }
+);
