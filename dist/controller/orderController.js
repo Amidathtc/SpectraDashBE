@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserOrders = exports.deleteOrderE = exports.deleteOrder = exports.getOrder = exports.getAllOrders = exports.viewOrder = exports.makeOrder = void 0;
+exports.getUserCurrentOrder = exports.getUserOrders = exports.getOrder = exports.deleteOrderE = exports.deleteOrder = exports.getAllOrders = exports.viewOrder = exports.makeOrder = void 0;
 const mongoose_1 = require("mongoose");
 const MainAppError_1 = require("../Utils/MainAppError");
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
@@ -101,7 +101,14 @@ exports.makeOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __await
         const { sender, receiver, shipmentDetails, shipmentMetrics } = req.body;
         const { weight_kg } = shipmentMetrics;
         // Log incoming data for debugging
-        console.log("Incoming data:", { userID, agentID, sender, receiver, shipmentDetails, shipmentMetrics });
+        console.log("Incoming data:", {
+            userID,
+            agentID,
+            sender,
+            receiver,
+            shipmentDetails,
+            shipmentMetrics,
+        });
         const user = yield userModel_1.default.findById(userID);
         const agent = yield AgentModel_1.default.findById(agentID).populate("agentZones");
         // Check if user and agent exist and have zones
@@ -195,23 +202,6 @@ const getAllOrders = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.getAllOrders = getAllOrders;
-const getOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    try {
-        const order = yield OrdersModel_1.default
-            .findById(id)
-            .populate("user")
-            .populate("agent");
-        if (!order) {
-            return res.status(404).json({ message: "Order not found" });
-        }
-        res.status(200).json({ message: "Requested Order", data: order });
-    }
-    catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-exports.getOrder = getOrder;
 exports.deleteOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID, shipmentID } = req.params;
@@ -270,23 +260,57 @@ exports.deleteOrderE = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __aw
             .json({ message: "An error occurred while deleting the order" });
     }
 }));
-// Get all orders for a specific user
-// ', 
+const getOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const order = yield OrdersModel_1.default
+            .findById(id)
+            .populate("user")
+            .populate("agent");
+        if (!order) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+        res.status(200).json({ message: "Requested Order", data: order });
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+exports.getOrder = getOrder;
 exports.getUserOrders = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { userID } = req.params;
     // Find all orders associated with the userID
     const orders = yield OrdersModel_1.default.find({ userID });
     if (!orders || orders.length === 0) {
         return next(new MainAppError_1.MainAppError({
-            message: 'No orders found for this user.',
+            message: "No orders found for this user.",
             httpcode: 404,
         }));
     }
     return res.status(200).json({
-        status: 'success',
+        status: "success",
         results: orders.length,
         data: {
             orders,
+        },
+    });
+}));
+exports.getUserCurrentOrder = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userID } = req.params;
+    // Find the most recent order associated with the userID
+    const currentOrder = yield OrdersModel_1.default
+        .findOne({ userID })
+        .sort({ createdAt: -1 });
+    if (!currentOrder) {
+        return next(new MainAppError_1.MainAppError({
+            message: "No current order found for this user.",
+            httpcode: 404,
+        }));
+    }
+    return res.status(200).json({
+        status: "success",
+        data: {
+            order: currentOrder,
         },
     });
 }));
