@@ -3,7 +3,7 @@ import {
   deleteOrder,
   deleteOrderE,
   getAllOrders,
-  getOrder,
+  getOrderInfo,
   getUserOrders,
   makeOrder,
   viewOrder,
@@ -13,11 +13,11 @@ import {
 const router: Router = Router();
 
 router.route("/:userID/:agentID/make-order").post(makeOrder);
-router.route("/all-shipments").get(viewOrder);
+router.route("/all-orders").get(viewOrder);
 router.route("/orders").get(getAllOrders);
-router.route("/orders/:id").get(getOrder);
-router.route("/order/:userID").get(getUserCurrentOrder);
-router.route("/:userID/orders").get(getUserOrders);
+router.route("/order-info/:orderID").get(getOrderInfo);
+router.route("/user-orders/:userID").get(getUserOrders);
+router.route("/user-current-order/:userID").get(getUserCurrentOrder);
 router.route("/:userID/:agentID/:shipmentID/delete-order").delete(deleteOrderE);
 router.route("/:userID/:shipmentID/delete-orders").delete(deleteOrder);
 

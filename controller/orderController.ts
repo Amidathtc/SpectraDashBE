@@ -303,11 +303,11 @@ export const deleteOrderE = AsyncHandler(
   }
 );
 
-export const getOrder = async (req: Request, res: Response) => {
-  const { id } = req.params;
+export const getOrderInfo = async (req: Request, res: Response) => {
+  const { orderID } = req.params;
   try {
     const order = await orderModels
-      .findById(id)
+      .findById(orderID)
       .populate("user")
       .populate("agent");
     if (!order) {
