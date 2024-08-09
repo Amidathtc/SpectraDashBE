@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserCurrentOrder = exports.getUserOrders = exports.getOrder = exports.deleteOrderE = exports.deleteOrder = exports.getAllOrders = exports.viewOrder = exports.makeOrder = void 0;
+exports.getUserCurrentOrder = exports.getUserOrders = exports.getOrderInfo = exports.deleteOrderE = exports.deleteOrder = exports.getAllOrders = exports.viewOrder = exports.makeOrder = void 0;
 const mongoose_1 = require("mongoose");
 const MainAppError_1 = require("../Utils/MainAppError");
 const AsyncHandler_1 = require("../MiddleWare/AsyncHandler");
@@ -260,11 +260,11 @@ exports.deleteOrderE = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __aw
             .json({ message: "An error occurred while deleting the order" });
     }
 }));
-const getOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+const getOrderInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { orderID } = req.params;
     try {
         const order = yield OrdersModel_1.default
-            .findById(id)
+            .findById(orderID)
             .populate("user")
             .populate("agent");
         if (!order) {
@@ -276,7 +276,7 @@ const getOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ error: error.message });
     }
 });
-exports.getOrder = getOrder;
+exports.getOrderInfo = getOrderInfo;
 exports.getUserOrders = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { userID } = req.params;
     // Find all orders associated with the userID
