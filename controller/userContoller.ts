@@ -63,7 +63,7 @@ export const createUser = AsyncHandler(
         return res
           .status(HTTPCODES.BAD_REQUEST)
           .json({ errors: errors.array() });
-      } // Check if admin already exists
+      }
 
       const existingUser = await UserModels.findOne({ email });
       if (existingUser) {
