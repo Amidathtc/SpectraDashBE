@@ -7,8 +7,8 @@ import {
 
 const router: Router = Router();
 
-router.route("/initialize").post(payForOrder);
-router.route("/payments").get(getAllPayments);
+router.route("/initialize/:orderId").post(payForOrder);
 router.route("/verify/:reference").get(verifyPaymentForOrder);
+router.route("/payments").get(getAllPayments);
 
 export default router;
