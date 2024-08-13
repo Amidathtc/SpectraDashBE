@@ -92,7 +92,7 @@ exports.createUser = (0, AsyncHandler_1.AsyncHandler)((req, res, next) => __awai
             return res
                 .status(MainAppError_1.HTTPCODES.BAD_REQUEST)
                 .json({ errors: errors.array() });
-        } // Check if admin already exists
+        }
         const existingUser = yield userModel_1.default.findOne({ email });
         if (existingUser) {
             return next(new MainAppError_1.MainAppError({
