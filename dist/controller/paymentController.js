@@ -82,3 +82,5 @@ const getAllPayments = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getAllPayments = getAllPayments;
+// share moq 
+// contribute purchasing power

@@ -83,3 +83,5 @@ export const getAllPayments = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
+// share moq 
+// contribute purchasing power
