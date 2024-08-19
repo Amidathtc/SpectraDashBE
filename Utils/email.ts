@@ -16,7 +16,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-const URL: string = `https://sceptredash.vercel.app`;
+const URL: string = `http://sceptredash.com`;
 
 export const sendMail = async (user: any) => {
   try {
@@ -47,7 +47,7 @@ export const sendMail = async (user: any) => {
 
     const mailer: any = {
       // from: `verify email ${user.email}`,
-      from: `Sceptre-Dash📧<sceptredash@gmail.com>`,
+      from: `Sceptredash📧<sceptredash@gmail.com>`,
       to: user?.email,
       subject: "Email Verification",
       html: readData,

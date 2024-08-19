@@ -20,7 +20,9 @@ const paystackService = {
         },
       }
     );
+    console.log(response)
     return response.data;
+
   },
 
   verifyPayment: async (reference: string) => {

@@ -13,11 +13,13 @@ export const payForOrder = async (req: any, res: Response) => {
   }
 
   const { email } = order.sender;
-  const amount = order.orderPricing * 100;
+  const amount = order.orderPricing ;
 
+  console.log(email)
+  console.log(amount)
   try {
     const paymentResponse = await paystackService.initializePayment(
-      amount,
+      amount * 100,
       email
     );
 
@@ -35,12 +37,12 @@ export const payForOrder = async (req: any, res: Response) => {
       { $push: { paymentHistory: payment._id } } // Add payment ID to user's payment history
     );
 
-    res.status(200).json({
+    res.status(201).json({
       message: "Payment was successful",
       data: paymentResponse.data,
     });
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message, stack: error });
   }
 };
 
