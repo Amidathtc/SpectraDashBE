@@ -24,7 +24,7 @@ const REDIRECT_URI = envV_1.EnvironmentVariables.REDIRECT_URI;
 const REFRESH_TOKEN = envV_1.EnvironmentVariables.REFRESH_TOKEN;
 const oAuth2Client = new googleapis_1.google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-const URL = `https://sceptredash.vercel.app`;
+const URL = `http://sceptredash.com`;
 const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const accessToken: any = (await oAuth2Client.getAccessToken()).token;
@@ -50,7 +50,7 @@ const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
         const readData = yield ejs_1.default.renderFile(locateFile, passedData);
         const mailer = {
             // from: `verify email ${user.email}`,
-            from: `Sceptre-Dash📧<sceptredash@gmail.com>`,
+            from: `Sceptredash📧<sceptredash@gmail.com>`,
             to: user === null || user === void 0 ? void 0 : user.email,
             subject: "Email Verification",
             html: readData,

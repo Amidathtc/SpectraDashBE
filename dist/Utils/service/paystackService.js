@@ -28,6 +28,7 @@ const paystackService = {
                 "Content-Type": "application/json",
             },
         });
+        console.log(response);
         return response.data;
     }),
     verifyPayment: (reference) => __awaiter(void 0, void 0, void 0, function* () {

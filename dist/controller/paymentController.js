@@ -24,9 +24,11 @@ const payForOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         return res.status(404).json({ message: "Order not found" });
     }
     const { email } = order.sender;
-    const amount = order.orderPricing * 100;
+    const amount = order.orderPricing;
+    console.log(email);
+    console.log(amount);
     try {
-        const paymentResponse = yield paystackService_1.default.initializePayment(amount, email);
+        const paymentResponse = yield paystackService_1.default.initializePayment(amount * 100, email);
         // Save payment details to the database
         const payment = new PaymentModel_1.default({
             orderId: order._id,
@@ -38,13 +40,13 @@ const payForOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         yield userModel_1.default.updateOne({ _id: order.user }, // Assuming order has a userId field
         { $push: { paymentHistory: payment._id } } // Add payment ID to user's payment history
         );
-        res.status(200).json({
+        res.status(201).json({
             message: "Payment was successful",
             data: paymentResponse.data,
         });
     }
     catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ message: error.message, stack: error });
     }
 });
 exports.payForOrder = payForOrder;
