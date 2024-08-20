@@ -1,13 +1,81 @@
-import nodemailer from "nodemailer";
-import { google } from "googleapis";
-import path from "path";
-import ejs from "ejs";
-import { EnvironmentVariables } from "../config/envV";
+// import nodemailer, { Transporter } from 'nodemailer';
+// import ejs from 'ejs';
+// import path from 'path';
+// import fs from 'fs';
+// import { EnvironmentVariables } from '../config/envV';
+// import { google } from 'googleapis'; // Still needed for OAuth2 functionality
 
-const CLIENT_ID: string = EnvironmentVariables.CLIENT_ID!;
-const CLIENT_SECRET: string = EnvironmentVariables.CLIENT_SECRET!;
-const REDIRECT_URI: string = EnvironmentVariables.REDIRECT_URI!;
-const REFRESH_TOKEN: string = EnvironmentVariables.REFRESH_TOKEN!;
+// // Set up OAuth2 client for Zoho
+// const CLIENT_ID = EnvironmentVariables.CLIENT_ID!;
+// const CLIENT_SECRET = EnvironmentVariables.CLIENT_SECRET!;
+// const REDIRECT_URI = EnvironmentVariables.REDIRECT_URI!;
+// const REFRESH_TOKEN = EnvironmentVariables.REFRESH_TOKEN!;
+
+// const oAuth2Client = new google.auth.OAuth2(
+//   CLIENT_ID,
+//   CLIENT_SECRET,
+//   REDIRECT_URI
+// );
+// oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+
+// const URL = `https://sceptredash.com`;
+
+// export const sendMail = async (user: any) => {
+//   try {
+//     const accessToken = await oAuth2Client.getAccessToken();
+
+//     const transporter:Transporter = nodemailer.createTransport({
+//       host: 'smtp.zoho.com',
+//       port: 465,
+//       secure: true,
+//       auth: {
+//         type: 'OAuth2',
+//         user: 'info@sceptredash.com', // Your Zoho email address
+//         clientId: CLIENT_ID,
+//         clientSecret: CLIENT_SECRET,
+//         refreshToken: REFRESH_TOKEN,
+//         accessToken: accessToken.token, // Access token from OAuth2
+//       },
+//       logger: true, // Log to console
+//   debug: true, // Show debug output
+//     });
+
+//     const passedData = {
+//       email: user?.email,
+//       url: `${URL}/verify/${user?._id}`,
+//     };
+
+//     const templatePath = path.join(__dirname, '../views/verifyMail.ejs');
+//     const templateString = fs.readFileSync(templatePath, 'utf-8');
+//     const html = ejs.render(templateString, passedData);
+
+//     const mailOptions = {
+//       from: `Sceptredash📧<info@sceptredash.com>`,
+//       to: user?.email,
+//       subject: 'Email Verification',
+//       html,
+//     };
+
+//     await transporter.sendMail(mailOptions);
+//     console.log('A Mail Has Been Sent .....');
+//   } catch (error: any) {
+//     console.error(`errorStack: ${error}`);
+//     console.error(`errorMessage: ${error.message}`);
+//   }
+// };
+import nodemailer from 'nodemailer';
+import ejs from 'ejs';
+import path from 'path';
+import fs from 'fs/promises'; // Using fs.promises for async operations
+import { EnvironmentVariables } from '../config/envV'; // Assuming envV provides env variables
+import { google } from 'googleapis'; // Still needed for OAuth2 functionality
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
+
+// Consider using a library like 'dotenv' for secure environment variable management
+const CLIENT_ID = EnvironmentVariables.CLIENT_ID;
+const CLIENT_SECRET = EnvironmentVariables.CLIENT_SECRET;
+const REDIRECT_URI = EnvironmentVariables.REDIRECT_URI;
+const REFRESH_TOKEN = EnvironmentVariables.REFRESH_TOKEN;
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -16,92 +84,140 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-const URL: string = `http://sceptredash.com`;
+const URL = `https://sceptredash.com`;
 
 export const sendMail = async (user: any) => {
   try {
-    // const accessToken: any = (await oAuth2Client.getAccessToken()).token;
-    const accessToken: any = await oAuth2Client.getAccessToken();
+    const accessTokenResponse = await oAuth2Client.getAccessToken();
+    const accessToken = accessTokenResponse.token; // Get the token
 
-    const transport = nodemailer.createTransport({
-      service: "gmail",
+    // Check if the access token is valid
+    if (!accessToken) {
+      throw new Error('Access token is not available.');
+    }
+
+    // Define the transport options
+    const transportOptions: SMTPTransport.Options = {
+      host: 'smtp.zoho.com',
+      port: 465,
+      secure: true, // Use SSL
       auth: {
-        type: "OAuth2",
-        user: "uchennaaustine8@gmail.com",
+        type: 'OAuth2',
+        user: 'info@sceptredash.com', // Your Zoho email address
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
-        accessToken: accessToken,
+        accessToken: accessToken, // Access token from OAuth2
       },
       logger: true, // Log to console
-      debug: true,
-    });
+      debug: true, // Show debug output
+    };
+
+    const transporter = nodemailer.createTransport(transportOptions);
 
     const passedData = {
       email: user?.email,
       url: `${URL}/verify/${user?._id}`,
     };
 
-    const locateFile = path.join(__dirname, "../views/verifyMail.ejs");
-    const readData = await ejs.renderFile(locateFile, passedData);
+    const templatePath = path.join(__dirname, '../views/verifyMail.ejs');
+    const templateString = await fs.readFile(templatePath, 'utf-8'); // Async reading
+    const html = ejs.render(templateString, passedData);
 
-    const mailer: any = {
-      // from: `verify email ${user.email}`,
-      from: `Sceptredash📧<sceptredash@gmail.com>`,
+    const mailOptions = {
+      from: `Sceptredash<${EnvironmentVariables.ZOHO_EMAIL}>`,
       to: user?.email,
-      subject: "Email Verification",
-      html: readData,
+      subject: 'Email Verification',
+      html,
     };
 
-    const result: any = await transport
-      .sendMail(mailer)
-      .then(() => {
-        console.log("A Mail Has Being Sent .....");
-      })
-      .catch((error: any) =>
-        console.log(`errorStack:${error}errorMessage:${error.message}`)
-      );
-    return result;
+    await transporter.sendMail(mailOptions);
+    console.log('A Mail Has Been Sent .....');
   } catch (error: any) {
-    console.log(`errorStack:${error}`);
-    console.log(`errorMessage:${error.message}`);
+    console.error('Error sending email:', error.message); // More specific message
+    console.error('Error sending email:', error); // More specific message
+    // Consider additional error handling (e.g., logging, returning error status)
   }
 };
 
-export const resetMail = async (user: any, token: any) => {
-  try {
-    const accessToken: any = (await oAuth2Client.getAccessToken()).token;
-    const transport = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: "uchennaaustine8@gmail.com",
-        clientId: CLIENT_ID,
-        clientSecret: CLIENT_SECRET,
-        refreshToken: REFRESH_TOKEN,
-        accessToken: accessToken,
-      },
-    });
+// export const resetMail = async (user: any, token: any) => {
+//   try {
+//     const accessToken = await oAuth2Client.getAccessToken();
 
-    const passedData = {
-      email: user.email,
-      url: `${URL}/${token}/reset-user-password`,
-    };
+//     const transporter = nodemailer.createTransport({
+//       host: 'smtp.zoho.com',
+//       port: 465,
+//       secure: true,
+//       auth: {
+//         type: 'OAuth2',
+//         user: EnvironmentVariables.ZOHO_EMAIL, // Assuming ZOHO_EMAIL is set
+//         clientId: CLIENT_ID,
+//         clientSecret: CLIENT_SECRET,
+//         refreshToken: REFRESH_TOKEN,
+//         accessToken: accessToken.token,
+//       },
+//     });
 
-    const locateFile = path.join(__dirname, "../views/resetNote.ejs");
-    const readData = await ejs.renderFile(locateFile, passedData);
+//     const passedData = {
+//       email: user.email,
+//       url: `${URL}/${token}/reset-user-password`,
+//     };
 
-    const mailer = {
-      from: `verifier <udidagodswill7@gmail.com>`,
-      to: user.email,
-      subject: "Reset Password Mail",
-      html: readData,
-    };
+//     const templatePath = path.join(__dirname, '../views/resetNote.ejs');
+//     const templateString = await fs.readFile(templatePath, 'utf-8'); // Async reading
+//     const html = ejs.render(templateString, passedData);
 
-    await transport.sendMail(mailer!).then(() => {
-      console.log("Mail sent successfully");
-    });
-  } catch (error: any) {
-    console.log(error.message);
-  }
-};
+//     const mailOptions = {
+//       from: `Sceptredash<${EnvironmentVariables.ZOHO_EMAIL}>`, // Using env variable
+//       to: user.email,
+//       subject: 'Reset Password Mail',
+//       html,
+//     };
+
+//     await transporter.sendMail(mailOptions);
+//     console.log('Mail sent successfully');
+//   } catch (error: any) {
+//     console.error('Error sending email:', error.message);
+//     // Consider additional error handling (e.g., logging specific errors, returning error status)
+//   }
+// };
+// export const resetMail = async (user: any, token: any) => {
+//   try {
+//     const accessToken = await oAuth2Client.getAccessToken();
+
+//     const transporter = nodemailer.createTransport({
+//       host: 'smtp.zoho.com',
+//       port: 465,
+//       secure: true,
+//       auth: {
+//         type: 'OAuth2',
+//         user: 'your-zoho-email@zoho.com',
+//         clientId: CLIENT_ID,
+//         clientSecret: CLIENT_SECRET,
+//         refreshToken: REFRESH_TOKEN,
+//         accessToken: accessToken.token,
+//       },
+//     });
+
+//     const passedData = {
+//       email: user.email,
+//       url: `${URL}/${token}/reset-user-password`,
+//     };
+
+//     const templatePath = path.join(__dirname, '../views/resetNote.ejs');
+//     const templateString = fs.readFileSync(templatePath, 'utf-8');
+//     const html = ejs.render(templateString, passedData);
+
+//     const mailOptions = {
+//       from: `Sceptredash📧<your-zoho-email@zoho.com>`,
+//       to: user.email,
+//       subject: 'Reset Password Mail',
+//       html,
+//     };
+
+//     await transporter.sendMail(mailOptions);
+//     console.log('Mail sent successfully');
+//   } catch (error: any) {
+//     console.error(error.message);
+//   }
+// };

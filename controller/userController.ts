@@ -5,13 +5,14 @@ import UserModels, { UserSchema } from "../model/userModel";
 import { validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { sendMail } from "../Utils/email";
 import { EnvironmentVariables } from "../config/envV";
 import { sessionStore } from "../interface/interface";
 import session from "express-session";
 import { config } from "dotenv";
 import { Types } from "mongoose";
 import ProfileModel from "../model/ProfileModel";
+// import { sendMail } from "../Utils/email1";
+import { sendMail } from "../Utils/email";
 config();
 
 const app = express();
@@ -101,12 +102,13 @@ export const createUser = AsyncHandler(
       await user?.save();
       await profile?.save();
 
+      // await sendMail(user);
       await sendMail(user);
 
       return res.status(HTTPCODES.OK).json({
+        status:"success",
         message: `${user?.firstName} ~ your account has being created successfully`,
         data: user,
-        edata: profile,
       });
     } catch (error: any) {
       console.log(error);

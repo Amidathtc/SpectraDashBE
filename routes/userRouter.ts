@@ -10,7 +10,7 @@ import {
   deleteUser,
   lginUser,
   deleteAUser,
-} from "../controller/userContoller";
+} from "../controller/userController";
 
 const userRouter = Router();
 

@@ -9,6 +9,7 @@ dotenv_1.default.config();
 exports.EnvironmentVariables = {
     DB_LIVEURl: process.env.MONGODB_URL_LIVE,
     DB_LOCALURL: process.env.MONGODB_URl,
+    ZOHO_EMAIL: process.env.ZOHO_EMAIL,
     Session_Secret: process.env.SESSION_SECRET,
     PORT: parseInt(process.env.PORT),
     JWT_SECRET: process.env.JWT_SECRET,
