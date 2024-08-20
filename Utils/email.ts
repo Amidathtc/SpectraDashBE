@@ -11,6 +11,7 @@ const CLIENT_ID = EnvironmentVariables.CLIENT_ID;
 const CLIENT_SECRET = EnvironmentVariables.CLIENT_SECRET;
 const REDIRECT_URI = EnvironmentVariables.REDIRECT_URI;
 const REFRESH_TOKEN = EnvironmentVariables.REFRESH_TOKEN;
+const ZOHO_EMAIL =  EnvironmentVariables.ZOHO_EMAIL
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -38,7 +39,7 @@ export const sendMail = async (user: any) => {
       secure: true, // Use SSL
       auth: {
         type: 'OAuth2',
-        user: 'info@sceptredash.com', // Your Zoho email address
+        user:  ZOHO_EMAIL, // Your Zoho email address
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
@@ -92,7 +93,7 @@ export const resetMail = async (user: any, token: any) => {
       secure: true,
       auth: {
         type: 'OAuth2',
-        user: 'your-zoho-email@zoho.com',
+        user:  ZOHO_EMAIL,
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
@@ -110,7 +111,7 @@ export const resetMail = async (user: any, token: any) => {
     const html = ejs.render(templateString, passedData);
 
     const mailOptions = {
-      from: `Sceptredash📧<your-zoho-email@zoho.com>`,
+      from: `Sceptredash📧< ZOHO_EMAIL>`,
       to: user.email,
       subject: 'Reset Password Mail',
       html,

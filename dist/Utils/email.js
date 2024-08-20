@@ -24,6 +24,7 @@ const CLIENT_ID = envV_1.EnvironmentVariables.CLIENT_ID;
 const CLIENT_SECRET = envV_1.EnvironmentVariables.CLIENT_SECRET;
 const REDIRECT_URI = envV_1.EnvironmentVariables.REDIRECT_URI;
 const REFRESH_TOKEN = envV_1.EnvironmentVariables.REFRESH_TOKEN;
+const ZOHO_EMAIL = envV_1.EnvironmentVariables.ZOHO_EMAIL;
 const oAuth2Client = new googleapis_1.google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 const URL = `https://sceptredash.com`;
@@ -42,7 +43,7 @@ const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
             secure: true, // Use SSL
             auth: {
                 type: 'OAuth2',
-                user: 'info@sceptredash.com', // Your Zoho email address
+                user: ZOHO_EMAIL, // Your Zoho email address
                 clientId: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
                 refreshToken: REFRESH_TOKEN,
@@ -89,7 +90,7 @@ const resetMail = (user, token) => __awaiter(void 0, void 0, void 0, function* (
             secure: true,
             auth: {
                 type: 'OAuth2',
-                user: 'your-zoho-email@zoho.com',
+                user: ZOHO_EMAIL,
                 clientId: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
                 refreshToken: REFRESH_TOKEN,
@@ -104,7 +105,7 @@ const resetMail = (user, token) => __awaiter(void 0, void 0, void 0, function* (
         const templateString = yield promises_1.default.readFile(templatePath, 'utf-8');
         const html = ejs_1.default.render(templateString, passedData);
         const mailOptions = {
-            from: `Sceptredash📧<your-zoho-email@zoho.com>`,
+            from: `Sceptredash📧< ZOHO_EMAIL>`,
             to: user.email,
             subject: 'Reset Password Mail',
             html,
