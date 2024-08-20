@@ -1,10 +1,4 @@
 "use strict";
-// import nodemailer, { Transporter } from 'nodemailer';
-// import ejs from 'ejs';
-// import path from 'path';
-// import fs from 'fs';
-// import { EnvironmentVariables } from '../config/envV';
-// import { google } from 'googleapis'; // Still needed for OAuth2 functionality
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -18,57 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendMail = void 0;
-// // Set up OAuth2 client for Zoho
-// const CLIENT_ID = EnvironmentVariables.CLIENT_ID!;
-// const CLIENT_SECRET = EnvironmentVariables.CLIENT_SECRET!;
-// const REDIRECT_URI = EnvironmentVariables.REDIRECT_URI!;
-// const REFRESH_TOKEN = EnvironmentVariables.REFRESH_TOKEN!;
-// const oAuth2Client = new google.auth.OAuth2(
-//   CLIENT_ID,
-//   CLIENT_SECRET,
-//   REDIRECT_URI
-// );
-// oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-// const URL = `https://sceptredash.com`;
-// export const sendMail = async (user: any) => {
-//   try {
-//     const accessToken = await oAuth2Client.getAccessToken();
-//     const transporter:Transporter = nodemailer.createTransport({
-//       host: 'smtp.zoho.com',
-//       port: 465,
-//       secure: true,
-//       auth: {
-//         type: 'OAuth2',
-//         user: 'info@sceptredash.com', // Your Zoho email address
-//         clientId: CLIENT_ID,
-//         clientSecret: CLIENT_SECRET,
-//         refreshToken: REFRESH_TOKEN,
-//         accessToken: accessToken.token, // Access token from OAuth2
-//       },
-//       logger: true, // Log to console
-//   debug: true, // Show debug output
-//     });
-//     const passedData = {
-//       email: user?.email,
-//       url: `${URL}/verify/${user?._id}`,
-//     };
-//     const templatePath = path.join(__dirname, '../views/verifyMail.ejs');
-//     const templateString = fs.readFileSync(templatePath, 'utf-8');
-//     const html = ejs.render(templateString, passedData);
-//     const mailOptions = {
-//       from: `Sceptredash📧<info@sceptredash.com>`,
-//       to: user?.email,
-//       subject: 'Email Verification',
-//       html,
-//     };
-//     await transporter.sendMail(mailOptions);
-//     console.log('A Mail Has Been Sent .....');
-//   } catch (error: any) {
-//     console.error(`errorStack: ${error}`);
-//     console.error(`errorMessage: ${error.message}`);
-//   }
-// };
+exports.resetMail = exports.sendMail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const ejs_1 = __importDefault(require("ejs"));
 const path_1 = __importDefault(require("path"));
@@ -131,74 +75,45 @@ const sendMail = (user) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.sendMail = sendMail;
-// export const resetMail = async (user: any, token: any) => {
-//   try {
-//     const accessToken = await oAuth2Client.getAccessToken();
-//     const transporter = nodemailer.createTransport({
-//       host: 'smtp.zoho.com',
-//       port: 465,
-//       secure: true,
-//       auth: {
-//         type: 'OAuth2',
-//         user: EnvironmentVariables.ZOHO_EMAIL, // Assuming ZOHO_EMAIL is set
-//         clientId: CLIENT_ID,
-//         clientSecret: CLIENT_SECRET,
-//         refreshToken: REFRESH_TOKEN,
-//         accessToken: accessToken.token,
-//       },
-//     });
-//     const passedData = {
-//       email: user.email,
-//       url: `${URL}/${token}/reset-user-password`,
-//     };
-//     const templatePath = path.join(__dirname, '../views/resetNote.ejs');
-//     const templateString = await fs.readFile(templatePath, 'utf-8'); // Async reading
-//     const html = ejs.render(templateString, passedData);
-//     const mailOptions = {
-//       from: `Sceptredash<${EnvironmentVariables.ZOHO_EMAIL}>`, // Using env variable
-//       to: user.email,
-//       subject: 'Reset Password Mail',
-//       html,
-//     };
-//     await transporter.sendMail(mailOptions);
-//     console.log('Mail sent successfully');
-//   } catch (error: any) {
-//     console.error('Error sending email:', error.message);
-//     // Consider additional error handling (e.g., logging specific errors, returning error status)
-//   }
-// };
-// export const resetMail = async (user: any, token: any) => {
-//   try {
-//     const accessToken = await oAuth2Client.getAccessToken();
-//     const transporter = nodemailer.createTransport({
-//       host: 'smtp.zoho.com',
-//       port: 465,
-//       secure: true,
-//       auth: {
-//         type: 'OAuth2',
-//         user: 'your-zoho-email@zoho.com',
-//         clientId: CLIENT_ID,
-//         clientSecret: CLIENT_SECRET,
-//         refreshToken: REFRESH_TOKEN,
-//         accessToken: accessToken.token,
-//       },
-//     });
-//     const passedData = {
-//       email: user.email,
-//       url: `${URL}/${token}/reset-user-password`,
-//     };
-//     const templatePath = path.join(__dirname, '../views/resetNote.ejs');
-//     const templateString = fs.readFileSync(templatePath, 'utf-8');
-//     const html = ejs.render(templateString, passedData);
-//     const mailOptions = {
-//       from: `Sceptredash📧<your-zoho-email@zoho.com>`,
-//       to: user.email,
-//       subject: 'Reset Password Mail',
-//       html,
-//     };
-//     await transporter.sendMail(mailOptions);
-//     console.log('Mail sent successfully');
-//   } catch (error: any) {
-//     console.error(error.message);
-//   }
-// };
+const resetMail = (user, token) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const accessTokenResponse = yield oAuth2Client.getAccessToken();
+        const accessToken = accessTokenResponse.token; // Get the token
+        // Check if the access token is valid
+        if (!accessToken) {
+            throw new Error('Access token is not available.');
+        }
+        const transporter = nodemailer_1.default.createTransport({
+            host: 'smtp.zoho.com',
+            port: 465,
+            secure: true,
+            auth: {
+                type: 'OAuth2',
+                user: 'your-zoho-email@zoho.com',
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken,
+            },
+        });
+        const passedData = {
+            email: user.email,
+            url: `${URL}/${token}/reset-user-password`,
+        };
+        const templatePath = path_1.default.join(__dirname, '../views/resetPassword.ejs');
+        const templateString = yield promises_1.default.readFile(templatePath, 'utf-8');
+        const html = ejs_1.default.render(templateString, passedData);
+        const mailOptions = {
+            from: `Sceptredash📧<your-zoho-email@zoho.com>`,
+            to: user.email,
+            subject: 'Reset Password Mail',
+            html,
+        };
+        yield transporter.sendMail(mailOptions);
+        console.log('Mail sent successfully');
+    }
+    catch (error) {
+        console.error(error.message);
+    }
+});
+exports.resetMail = resetMail;
